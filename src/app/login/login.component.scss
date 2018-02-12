@@ -1,0 +1,19 @@
+@import '../../../node_modules/primeng/resources/primeng.css';
+@import '../../../node_modules/primeng/resources/themes/omega/theme.css';
+
+.main_content {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 40px;
+    //display: 'flex'
+}
+
+hr {
+    height:0px;
+    visibility: hidden;
+}
+
+.btn_accordion {
+    font-size: 20px;
+    float: right;
+}
