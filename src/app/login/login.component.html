@@ -1,9 +1,6 @@
 
 <div class='main_content'>
-
-    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-    <input type="text" pInputText placeholder="Username" style="display:flex"> 
-
-    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-    <input type="text" pInputText placeholder="Password" style="display:flex">  
+    <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
+    <input style="display: block" id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
+    <!--<span id="text">{{text}}</span>-->
 </div>
