@@ -7,10 +7,15 @@ import { DataService } from './data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 export const FIREBASE_CONFIG = {
@@ -27,14 +32,17 @@ export const FIREBASE_CONFIG = {
     AppComponent,
     HomeComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

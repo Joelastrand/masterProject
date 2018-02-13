@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';    
-import {InputTextModule} from 'primeng/inputtext';            
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
