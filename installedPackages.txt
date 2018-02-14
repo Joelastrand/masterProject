@@ -1,0 +1,3 @@
+npm install primeng --save
+npm install @angular/animations --save
+npm install angularfire2 firebase --save
