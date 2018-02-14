@@ -1,3 +1,9 @@
-<p>
-  signup works!
-</p>
+<body>
+  <div id="login_div" class="main-div">
+      <h3>Register a new account</h3>
+      <input type="email" placeholder="Email..." id="email_field" [(ngModel)] = "user.email"/>
+      <input type="password" placeholder="Password..." id="password_field" [(ngModel)] = "user.password" />
+      <button (click)="register(user)">Register</button>
+  </div>
+
+</body>
