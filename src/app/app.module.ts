@@ -44,13 +44,11 @@ export const FIREBASE_CONFIG = {
     FormsModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-<<<<<<< HEAD
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+
     // PrimeNG components
     ButtonModule,
-=======
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
->>>>>>> f4f693b6678d931c54664e6fd6b982aea80bb743
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
