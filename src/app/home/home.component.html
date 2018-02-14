@@ -1,23 +1,10 @@
-<div class="container color-dark">
-  <div class="col">
-    <p>Add a bucke</p>
-  </div>
-  <div class="col">
-      <p>your bucker list ({{ itemCount }})</p>
-  </div>
+<div class="container color-dark " style="text-align:center; margin-bottom:10%;">
+  <p>Welcome user!</p>
 </div>
-<div class="container color-light" [@goals]="goals.length">
-  
-  <div class="col">
-    <p class="sm">Use form below to add bucket goal ndasgnadgnap do withlife</p>
-    <form>
-      <input type="text" class="txt" name="item" placeholder="lifeGoal" [(ngModel)] ="goalText">
-      <input type="submit" class="btn" [value]="btnText" (click)="addItem()">
-    </form>
-    </div>
-  <div class="col">
-    <p class="life-container" *ngFor="let goal of goals; let i = index" (click)="removeItem(i)">
-      {{ goal }}
-    </p>
-  </div>
+
+
+<div class="btn-group" style="margin-top:50px">
+  <button style="background-color:#67971A" pButton type="button" label="Daily challenge" (click)="goToDailyChallenge()" class="ui-button-warning btn-button"></button>
+  <button pButton type="button" label="Challenge a friend" (click)="goToChallengeAFriend()" class="ui-button-warning btn-button"></button>
+  <button pButton type="button" label="Statistics" (click)="goToStatistics()" class="ui-button-warning btn-button"></button>
 </div>

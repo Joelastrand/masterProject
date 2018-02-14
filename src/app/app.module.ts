@@ -12,6 +12,9 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 
+// PrimeNG components
+import { ButtonModule } from 'primeng/button';
+
 
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDpbX5w7IVK3r7-nRfyzdPiowJc-M3J5cY",
@@ -34,7 +37,9 @@ export const FIREBASE_CONFIG = {
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    // PrimeNG components
+    ButtonModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
