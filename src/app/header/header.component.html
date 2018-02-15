@@ -1,5 +1,57 @@
-<p class="header-style">
-  header works!
-</p>
+<h1 class="header-style">
+  Happen
+  <mat-icon style="float:right;" (click)="goToStartPage()">home</mat-icon>
 
-<button mat-button>My Button</button>
+  <button class="material-icons md-48" style="float:left;" mat-icon-button [matMenuTriggerFor]="menu">
+    <i class="material-icons">menu</i> 
+    <!--<mat-icon>more_vert</mat-icon> -->
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <i class="material-icons">search</i>
+        <span>Search</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">settings</i>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">chat</i>
+        <span>Chat</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">forum</i>
+        <span>Forum</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">format_list_numbered</i>
+        <span>Leaderboard</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">timeline</i>
+        <span>Statistics</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">group</i>
+        <span>Friends</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">directions_run</i>
+        <span>Events</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">directions_walk</i>
+        <span>Walking challenge</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">grade</i>
+        <span>Challenges</span>
+      </button>
+      <button mat-menu-item>
+        <i class="material-icons">help</i>
+        <span>Help</span>
+      </button>
+    </mat-menu>
+  </h1>
+
+

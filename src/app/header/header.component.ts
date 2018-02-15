@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(private router: Router,) { }
 
   ngOnInit() {
   }
 
+  goToStartPage() {
+    this.router.navigateByUrl('/signup');
+  }
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,7 +23,6 @@ import { HeaderComponent } from './header/header.component';
 
 // Material components
 import { MaterialModule } from './material.module';
-
 
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDpbX5w7IVK3r7-nRfyzdPiowJc-M3J5cY",
