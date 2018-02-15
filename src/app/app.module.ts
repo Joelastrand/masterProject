@@ -19,6 +19,10 @@ import { SignupComponent } from './signup/signup.component';
 
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
+import { HeaderComponent } from './header/header.component';
+
+// Material components
+import { MaterialModule } from './material.module';
 
 
 export const FIREBASE_CONFIG = {
@@ -36,7 +40,8 @@ export const FIREBASE_CONFIG = {
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,9 @@ export const FIREBASE_CONFIG = {
 
     // PrimeNG components
     ButtonModule,
+
+    // Material components
+    MaterialModule, 
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -1,3 +1,8 @@
 npm install primeng --save
 npm install @angular/animations --save
 npm install angularfire2 firebase --save
+npm install
+npm install --save @angular/material @angular/cdk 
+
+npm install --save hammerjs // For Angular Material ( gesture support, as some components require this for full-feature support.)
+Tutorial for Angular 5 Material app https://coursetro.com/posts/code/113/How-to-Build-an-Angular-5-Material-App
