@@ -4,11 +4,17 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { StartComponent } from './start/start.component';
+
 
 const routes: Routes = [
 
   {
     path: '',
+    component: StartComponent
+  },
+  {
+    path: 'login',
     component: LoginComponent
   },
   {

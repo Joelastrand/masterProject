@@ -12,14 +12,19 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Pages
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { StartComponent } from './start/start.component';
+
 
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './header/header.component';
+import { GalleriaModule } from 'primeng/galleria';
+
 
 // Material components
 import { MaterialModule } from './material.module';
@@ -40,7 +45,8 @@ export const FIREBASE_CONFIG = {
     AboutComponent,
     LoginComponent,
     SignupComponent,
-    HeaderComponent
+    HeaderComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,7 @@ export const FIREBASE_CONFIG = {
 
     // PrimeNG components
     ButtonModule,
+    GalleriaModule,
 
     // Material components
     MaterialModule, 

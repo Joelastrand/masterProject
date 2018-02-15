@@ -16,6 +16,6 @@ export class HeaderComponent implements OnInit {
   }
 
   goToStartPage() {
-    this.router.navigateByUrl('/signup');
+    this.router.navigateByUrl('');
   }
 }
