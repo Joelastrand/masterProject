@@ -1,2 +1,13 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
+.ui-panel-images {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.ui-widget-content {
+  width: 90%;
+}

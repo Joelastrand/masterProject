@@ -21,12 +21,12 @@ export class StartComponent implements OnInit {
     this.images.push({ source: 'assets/showcase/images/startpage/victory.jpg', alt: 'Do you feel that? It is the tast of sweet victory.', title: 'Conquer your office now' });
 
   }
-
+  /*
   goToCreateAccount() {
     this.router.navigateByUrl('/signup');    
   }
   goToLogIn() {
     this.router.navigateByUrl('/login');
-  }
+  } */
 
 }

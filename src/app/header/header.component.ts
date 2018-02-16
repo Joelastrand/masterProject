@@ -15,7 +15,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  
   goToStartPage() {
     this.router.navigateByUrl('');
+  }
+
+  goToCreateAccount() {
+    this.router.navigateByUrl('/signup');
+  }
+  goToLogIn() {
+    this.router.navigateByUrl('/login');
   }
 }

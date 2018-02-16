@@ -7,11 +7,15 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
+
 body {
   background: #EFEFEF;
-  padding: 3em;
+  //padding: 3em;
   font-family: 'Raleway', 'Arial';
   color: #fff;
+
+  margin: 0;
+  padding: 0;
 }
 ul {
     list-style-type:none;
@@ -43,3 +47,4 @@ a {
 .ui-widget-content {
   width:90%;
 }
+  
