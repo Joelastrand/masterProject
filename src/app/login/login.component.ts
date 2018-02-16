@@ -17,7 +17,7 @@ import { User } from "../models/user";
 
 export class LoginComponent implements OnInit {
 
-
+  errorMessage = "";
   user = {} as User;
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
 
@@ -36,8 +36,15 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/home');
       }
     } catch(e) {
-      console.error(e);
-    }
+      if(e.message.indexOf(':') > -1) {
+        document.getElementById("errorMsg").style.color="red";
+        this.errorMessage = e.message.split(":",2)[1];
+        //console.error(e.message.split(":",2)[1]);
+      } else {
+        //console.error(e);
+        document.getElementById("errorMsg").style.color="red";
+        this.errorMessage = e.message;
+      }
   }
-
+  }
 }

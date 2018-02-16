@@ -3,6 +3,7 @@
         <h3>Log in to your account</h3>
         <input type="email" placeholder="Email..." id="email_field" [(ngModel)] = "user.email"/>
         <input type="password" placeholder="Password..." id="password_field" [(ngModel)] = "user.password"/>
+        <p id="errorMsg" style="text-align: center; color:red; font-size:14px; padding:0; margin-bottom:2%">{{errorMessage}}</p>
         <button (click)="login(user)">Log in</button>
     </div>
     <div class="secondary-div">

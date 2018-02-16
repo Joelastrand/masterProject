@@ -2,8 +2,12 @@
   <div id="login_div" class="main-div">
       <h3>Register a new account</h3>
       <input type="email" placeholder="Email..." id="email_field" [(ngModel)] = "user.email"/>
-      <input type="password" placeholder="Password..." id="password_field" [(ngModel)] = "user.password" />
+      <input style="margin-bottom: 2%" type="password" placeholder="Password..." id="password_field" [(ngModel)] = "user.password" />
+      <p id="errorMsg" style="text-align: center; color:red; font-size:14px; padding:0; margin-bottom:2%">{{errorMessage}}</p>
       <button (click)="register(user)">Register</button>
+
+      <p-growl [value]="msgs"></p-growl>
+      <p-confirmDialog></p-confirmDialog>
   </div>
 
 </body>
