@@ -23,9 +23,8 @@ import { HeaderComponent } from './header/header.component';
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
-import { MessagesModule, GrowlModule } from 'primeng/primeng';
+import {DialogModule} from 'primeng/dialog';
+
 
 // Material components
 import { MaterialModule } from './material.module';
@@ -62,9 +61,8 @@ export const FIREBASE_CONFIG = {
     // PrimeNG components
     ButtonModule,
     GalleriaModule,
-    ConfirmDialogModule,
-    GrowlModule,
-    MessagesModule,
+    DialogModule,
+
     //ConfirmationService,
 
     // Material components

@@ -1,58 +1,69 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from "../models/user";
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
-import {GrowlModule,Message} from 'primeng/primeng';
+import { Router } from '@angular/router';
+
+import {DialogModule} from 'primeng/dialog';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
-  providers: [ConfirmationService]
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  retypedPassword = "";
   user = {} as User;
   errorMessage = "";
-  //msgs = this.errorMessage;
-  msgs: Message[] = [];
-  constructor(private afAuth: AngularFireAuth, private confirmationService: ConfirmationService) { }
+
+  constructor(private afAuth: AngularFireAuth, private router: Router,) { }
 
   ngOnInit() {
   }
 
-  confirm1() {
-    this.confirmationService.confirm({
-        message: this.errorMessage,
-        header: 'Confirmation',
-        //icon: 'fa fa-question-circle',
-        accept: () => {
-            //this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
-        }
-    });
+  display: boolean = false;
+
+  showDialog() {
+    this.display = true;
+  }
+
+  goToHome() {
+    this.display = false;
+    this.router.navigateByUrl('/home');    
+  }
+
+  translateErrorMessage(msg) {
+    switch(msg) {
+      case " First argument \"email\" must be a valid string.":
+        this.errorMessage = "Please enter your email-address in the format yourname@example.com";
+      break;
+      case "The email address is badly formatted.":
+        this.errorMessage = "Please enter your email-address in the format yourname@example.com";
+      break;
+      default:
+        this.errorMessage = "The passwords need to match and be a minimum of 6 characters";
+  }
 }
+
 
   async register(user: User) {
     try{
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-      console.log("hejconfirm");
-      this.confirm1();
-      console.log("hejconfirmasda");
-      //document.getElementById("errorMsg").style.color="green";
-      this.errorMessage = "Successfully created account with email " + result.email;
+      if(user.password != this.retypedPassword || user.password.length < 6 || this.retypedPassword.length < 6) {
+        user.password = "";
+        this.retypedPassword = "";
+      }
+        const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+        document.getElementById("errorMsg").style.color="green";
+        this.errorMessage = "Successfully created account with email " + result.email;
+        this.showDialog();
     } catch (e){
       if(e.message.indexOf(':') > -1) {
         document.getElementById("errorMsg").style.color="red";
-        this.errorMessage = e.message.split(":",2)[1];
-        //console.error(e.message.split(":",2)[1]);
+        this.translateErrorMessage(e.message.split(":",2)[1]);
       } else {
-        //console.error(e);
         document.getElementById("errorMsg").style.color="red";
-        this.errorMessage = e.message;
+        this.translateErrorMessage(e.message);
       }
-      
-      
-      
+
     }
     
   }

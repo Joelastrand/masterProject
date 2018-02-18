@@ -27,6 +27,20 @@ export class LoginComponent implements OnInit {
   goToSignup() {
     this.router.navigateByUrl('/signup');    
   }
+
+  translateErrorMessage(msg) {
+    switch(msg) {
+      case " First argument \"email\" must be a valid string.":
+        this.errorMessage = "Please enter your email-address in the format yourname@example.com";
+      break;
+      case "There is no user record corresponding to this identifier. The user may have been deleted.":
+        this.errorMessage = "There is no user registered with that email address";
+      break;
+      default:
+        this.errorMessage = "Invalid password";
+  
+    }
+  }
   
   async login(user: User) {
     try {
@@ -38,12 +52,12 @@ export class LoginComponent implements OnInit {
     } catch(e) {
       if(e.message.indexOf(':') > -1) {
         document.getElementById("errorMsg").style.color="red";
-        this.errorMessage = e.message.split(":",2)[1];
+        this.translateErrorMessage(e.message.split(":",2)[1]);
         //console.error(e.message.split(":",2)[1]);
       } else {
-        //console.error(e);
+        //console.error(e.message);
         document.getElementById("errorMsg").style.color="red";
-        this.errorMessage = e.message;
+        this.translateErrorMessage(e.message);
       }
   }
   }
