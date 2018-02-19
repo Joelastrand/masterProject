@@ -9,45 +9,154 @@
   margin-top:0.3%;
 }
   */
-.rightSide {
-  float:right;
-    margin:0;
+
+/*---------------------------Large Desktop --------------------------------*/
+
+@media only screen and (max-width: 2000px) {
+  .header {
+    height: 80px;
+    width: 100%;
+  }
+  .buttons {
+    padding-bottom: 1%;
+  }
+
+  .button {
+    width:200px;
+  }
+
+  .header img {
+    width: 50px;
+    height: 50px;
+    padding-top: 0.8%;
+  }
+
+  .leftSide {
+    float:left;
+    padding-top:1%;
+    padding-left:3%;
+  }
+
+  .rightSide {
+    float:right;
+    padding-top:1%;
+    padding-right:3%;
+  }
+
+  .header-text {
+    margin: 0;
+    color: white;
+    visibility: visible;
+    float: left;
+    padding-left: 1%;
+  }
 }
+/*---------------------------------------------------------------------*/
 
-.header {
-  height: 80px;
+/*--------------------------- Medium Desktop --------------------------------*/
+
+@media only screen and (max-width:1400px) {
+  .header {
+    height: 80px;
+    width: 100%;
+  }
+
+  .buttons {
+  }
+
+  .button {
+    margin-top: 2.5%;
+    width: 200px;
+  }
+
+  .header img {
+    width: 50px;
+    height: 50px;
+    padding-top: 1%;
+  }
+
+  .leftSide {
+    float: left;
+    padding-top: 1.5%;
+    padding-left: 3%;
+  }
+
+  .rightSide {
+    padding-top: 1%;
+    padding-right: 3%;
+  }
+
+  .header-text {
+    margin: 0;
+    color: white;
+    visibility: visible;
+    float: left;
+    padding-left: 1%;
+  }
 }
-
-.leftSide {
-  float: left;
-  padding-top:1%;
-}
-
-.rightSide {
-  float: left;
-  padding-top: 1%;
-}
-
-.header-text {
-  padding-left: 1.5%;
-}
-
-
-.header img {
-  float: left;
-  width: 50px;
-  height: 50px;
-  padding-left: 3%;
-  padding-top: 0.8%;
-}
-
-div {
-  background-color: #3E5062;
-  color: white;
+/*---------------------------------------------------------------------*/
+@media only screen and (max-width: 800px) {
+  .header-text {
+    visibility: hidden;
+  }
+  .header-text {
+    width: 1px;
+  }
+  .button {
+    width: 100px;
+  }
 
 }
+  /*--------------------------- Mobile --------------------------------*/
 
-h1 {
-  color: white;
-  margin:0;
-}
+  @media only screen and (max-width: 500px) {
+    .header {
+      height: 60px;
+    }
+    .button {
+      width: 40px;
+    }
+
+    .header-text {
+      visibility: hidden;
+    }
+
+    .header img {
+      width: 40px;  
+      height: 40px;
+      padding-top: 1.7%;
+    }
+
+    .leftSide {
+      float: left;
+      padding-top: 2%;
+    }
+    .rightSide {
+      padding-right: 12%;
+    }
+
+    .header-text {
+      width:1px;
+    }
+  }
+  /*---------------------------------------------------------------------*/
+
+  /*--------------------------- Generell --------------------------------*/
+  .rightSide {
+    float: right;
+    margin: 0;
+  }
+
+  .leftSide {
+    float: left;
+    margin: 0;
+  }
+
+  div {
+    background-color: #3E5062;
+    color: white;
+  }
+
+  h1 {
+    margin: 0;
+  }
