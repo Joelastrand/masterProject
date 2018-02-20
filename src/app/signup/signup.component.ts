@@ -25,9 +25,9 @@ export class SignupComponent implements OnInit {
     this.display = true;
   }
 
-  goToHome() {
+  goToSetusername() {
     this.display = false;
-    this.router.navigateByUrl('/home');    
+    this.router.navigateByUrl('/setusername');    
   }
 
   translateErrorMessage(msg) {
@@ -54,6 +54,7 @@ export class SignupComponent implements OnInit {
         this.retypedPassword = "";
       }
         const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+        user.uid = result.uid;
         document.getElementById("errorMsg").style.color="green";
         this.errorMessage = "Successfully created account with email " + result.email;
         this.showDialog();

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { StartComponent } from './start/start.component';
 import { ForgotpwComponent } from './forgotpw/forgotpw.component';
+import { SetusernameComponent } from './setusername/setusername.component';
 
 const routes: Routes = [
 
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'setusername',
+    component: SetusernameComponent
   },
   {
     path: 'forgotpassword',
