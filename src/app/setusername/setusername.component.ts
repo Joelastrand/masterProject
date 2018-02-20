@@ -25,14 +25,15 @@ export class SetusernameComponent implements OnInit {
 		this.router.navigateByUrl('/home');
 	}
 
-	checkUsername() {
-		this.auth.checkUsername(this.user.username).subscribe(username => {
+	async checkUsername() {
+		const res = await this.auth.checkUsername(this.user.username).subscribe(username => {
 			this.usernameAvailable = !username.$value
 		});
 	}
 
 	updateUsername() {
 		this.auth.updateUsername(this.user.username);
+		this.goToHome();
 	}
 
 }
