@@ -1,23 +1,108 @@
 
-body {
+ /*---------------------------Large Desktop --------------------------------*/
+
+@media only screen and (max-width: 2000px) { 
+
+  body {
+    font-size: 1.3em;
+  }
+  input, button { 
+    font-size: 1.0em;
+  }
+  .main-div h3{
+    font-size: 1.4em;
+  }
+  .main-div h2 {
+    font-size: 1.0em;
+  }
+  .main-div {
+    width: 70%;
+  }
+  .secondary-div {
+    width: 70%;
+  }
+}
+
+/*--------------------------- Medium Desktop --------------------------------*/
+
+@media only screen and (max-width:1400px) {
+  
+  body {
+    font-size: 1.2em;
+  }
+  input, button { 
+    font-size: 0.9em;
+  }
+  .main-div h3{
+    font-size: 1.3em;
+  }
+  .main-div h2 {
+    font-size: 0.9em;
+  }
+  .main-div {
+    width: 70%;
+  }
+  .secondary-div {
+    width: 70%;
+  }
+
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+
+}
+
+
+
+  /*--------------------------- Mobile --------------------------------*/
+
+  @media only screen and (max-width: 500px) {
+    body {
+      font-size: 1.0em;
+    }
+    input, button { 
+      font-size: 0.7em;
+    }
+    .main-div h3{
+      font-size: 1.2em;
+    }
+    .main-div h2 {
+      font-size: 0.7;
+    }
+    .main-div {
+      width: 90%;
+    }
+    
+    .secondary-div {
+      width: 90%;
+    }
+
+  }
+
+
+/*--------------------------- General --------------------------------*/
+
+  body {
     background: #EFEFEF;
     padding: 0px;
     margin: 0px;
     font-family: 'Nunito', sans-serif;
-    font-size: 1.2em;
   }
 
   input, button {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
-    font-size: 80%;
   }
+
   .secondary-div {
     align-content: center;
     display: flex;
     flex-direction: row;
     padding: 1%;
-    width: 70%;
     margin: 0px auto;
     justify-content: space-between;
   }
@@ -31,7 +116,6 @@ body {
   .main-div {
     align-content: center;
     justify-content: space-between;
-    width: 70%;
     margin: 0px auto;
     margin-top: 0;
     padding: 1%;
@@ -43,22 +127,20 @@ body {
   .main-div h3{
     color: #5d8ffc;
     text-align: center;
-    margin-bottom: 10%;
-    font-size: 120%;
+    margin-bottom: 8%;
   }
   .main-div h2{
     color: #5d8ffc;
     text-align: left;
     margin-bottom: 1%;
-    font-size: 90%;
   }
   .main-div input {
     border: 1px solid #ccc;
     border-radius: 5px;
     background: #fff;
-    padding: 5%;
+    padding: 4%;
     outline: none;
-    margin-bottom: 5%;
+    margin-bottom: 3.5%;
     transition: 0.3s;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
@@ -73,11 +155,9 @@ body {
     color: #fff;
     border: 1px solid #3e8e41;
     border-radius: 5px;
-    padding: 5%;
+    padding: 4%;
   }
 
   .main-div button:hover {
-    
     cursor: pointer;
   }
- 

@@ -5,7 +5,7 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { StartComponent } from './start/start.component';
-
+import { ForgotpwComponent } from './forgotpw/forgotpw.component';
 
 const routes: Routes = [
 
@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotpwComponent
   },
   {
     path: 'signup',

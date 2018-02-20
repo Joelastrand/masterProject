@@ -14,13 +14,12 @@ export class SignupComponent implements OnInit {
   retypedPassword = "";
   user = {} as User;
   errorMessage = "";
+  display: boolean = false;
 
   constructor(private afAuth: AngularFireAuth, private router: Router,) { }
 
   ngOnInit() {
   }
-
-  display: boolean = false;
 
   showDialog() {
     this.display = true;
@@ -38,6 +37,9 @@ export class SignupComponent implements OnInit {
       break;
       case "The email address is badly formatted.":
         this.errorMessage = "Please enter your email-address in the format yourname@example.com";
+      break;
+      case "The email address is already in use by another account.":
+        this.errorMessage = "The email address is already in use";
       break;
       default:
         this.errorMessage = "The passwords need to match and be a minimum of 6 characters";

@@ -28,6 +28,7 @@ import {DialogModule} from 'primeng/dialog';
 
 // Material components
 import { MaterialModule } from './material.module';
+import { ForgotpwComponent } from './forgotpw/forgotpw.component';
 
 
 export const FIREBASE_CONFIG = {
@@ -48,6 +49,7 @@ export const FIREBASE_CONFIG = {
     SignupComponent,
     HeaderComponent,
     StartComponent,
+    ForgotpwComponent,
   ],
   imports: [
     BrowserModule,
