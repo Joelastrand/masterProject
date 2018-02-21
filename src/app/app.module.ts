@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { StartComponent } from './start/start.component';
 import { HeaderComponent } from './header/header.component';
+import { SetusernameComponent } from './setusername/setusername.component';
 
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
@@ -29,7 +30,7 @@ import {DialogModule} from 'primeng/dialog';
 // Material components
 import { MaterialModule } from './material.module';
 import { ForgotpwComponent } from './forgotpw/forgotpw.component';
-import { SetusernameComponent } from './setusername/setusername.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 export const FIREBASE_CONFIG = {
@@ -70,7 +71,8 @@ export const FIREBASE_CONFIG = {
     //ConfirmationService,
 
     // Material components
-    MaterialModule, 
+    MaterialModule,
+    MatToolbarModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
