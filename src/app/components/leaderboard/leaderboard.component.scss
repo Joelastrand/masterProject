@@ -1,0 +1,126 @@
+
+
+.leaderboardHeader {
+    background: grey;
+    color: black;
+    text-align: center;
+  }
+  .icons {
+    width:28px;
+    height:28px
+  }
+  /*---------------------------Large Desktop --------------------------------*/
+  @media only screen and (min-width: 1000px) {
+ 
+    .boxText {
+      font-size: 1em;
+    }
+    .boxPText {
+      font-size: 0.7em;
+    }
+  
+    .leaderboardSmallHeader {
+      font-size: 16px;
+    }
+
+    .icons {
+      width:28px;
+      height:28px
+    }
+  }
+  /*-------------------------------------------------------------------------*/
+    /*---------------------------Tablets Desktop --------------------------------*/
+    @media only screen and (max-width: 768px) {
+
+      .icons {
+        width:22x;
+        height:22px;
+      }
+  
+      .boxText {
+        font-size:1em;
+      }
+      .boxPText {
+        font-size:0.5em;
+      }
+    
+      .leaderboardSmallHeader {
+        //height: 30px;
+        font-size: 12px;
+      }
+    
+      .leaderboardSmallHeader {
+        height: 35px;
+      }
+    }
+    /*-------------------------------------------------------------------------*/
+  
+  /*---------------------------Mobile Desktop --------------------------------*/
+  @media only screen and (max-width: 320px) {
+
+    .icons {
+      width:22x;
+      height:22px;
+    }
+
+    .boxText {
+      font-size:1em;
+    }
+    .boxPText {
+      font-size:0.5em;
+    }
+  
+    .leaderboardSmallHeader {
+      //height: 30px;
+      font-size: 12px;
+    }
+  
+    .leaderboardSmallHeader {
+      height: 35px;
+    }
+  }
+  /*-------------------------------------------------------------------------*/
+  
+    .leaderboardSmallHeader {
+      background: lightgray;
+      color: black;
+      border-style: solid;
+      height: 30px;
+      //font-size: 20px;
+      text-align: center;
+      margin: 5px;
+    }
+
+  
+    .leaderboardBigBox {
+      flex:1;
+      border-style: solid;
+      border-width: 0.5px;
+      color: black;
+      margin: 5px;
+      background-color: rgba(108, 117, 125,0.2);
+    }
+  
+    .leaderboardBox {
+      margin: 5px;
+      background-color: white;
+    }
+  
+    .leaderboardUserBox {
+      border-style: solid;
+      border-width: 0.5px;
+      color: black;
+      text-align: center;
+      background-color: white;
+    }
+  
+    .boxText {
+      margin: 0;
+    }
+  
+    .boxPText {
+      //font-size: 12px;
+      margin: 0;
+    }
+  
+  

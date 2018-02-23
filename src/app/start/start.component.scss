@@ -1,6 +1,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
+
 .ui-panel-images {
   max-width: 100%;
   max-height: 100%;
@@ -15,3 +16,36 @@
 .ui-galleria	{
 
 }
+
+  /*---------------------------Large Desktop --------------------------------*/
+  @media only screen and (min-width: 1000px) {
+    .mainSection {
+      display:flex;
+    }
+
+    .sections{
+      flex:1;
+    }
+
+  }
+  /*-------------------------------------------------------------------------*/
+    /*---------------------------Tablets Desktop --------------------------------*/
+    @media only screen and (max-width: 768px) {
+      .mainSection {
+        display:flex;
+      }
+      .sections{
+        flex:1;
+      }
+  
+    }
+    /*-------------------------------------------------------------------------*/
+  
+  /*---------------------------Mobile Desktop --------------------------------*/
+  @media only screen and (max-width: 500px) {
+    .mainSection {
+      display:block;
+    }
+  }
+  /*-------------------------------------------------------------------------*/
+  
