@@ -1,9 +1,9 @@
 
  /*---------------------------Large Desktop --------------------------------*/
 
- @media only screen and (max-width: 2000px) { 
+ @media only screen and (min-width: 1200px) { 
 
-  body {
+  .mainContent {
     font-size: 1.3em;
   }
   input, button { 
@@ -25,9 +25,9 @@
 
 /*--------------------------- Medium Desktop --------------------------------*/
 
-@media only screen and (max-width:1400px) {
+@media only screen and (max-width:1199px) {
   
-  body {
+  .mainContent {
     font-size: 1.2em;
   }
   input, button { 
@@ -61,7 +61,7 @@
   /*--------------------------- Mobile --------------------------------*/
 
   @media only screen and (max-width: 500px) {
-    body {
+    .mainContent {
       font-size: 1.0em;
     }
     input, button { 
@@ -85,10 +85,11 @@
 
 
 /*--------------------------- General --------------------------------*/
-body {
+.mainContent {
     background: #EFEFEF;
     padding: 0px;
     margin: 0px;
+    min-height: 100%;
     font-family: 'Nunito', sans-serif;
   }
 

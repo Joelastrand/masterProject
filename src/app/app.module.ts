@@ -32,6 +32,7 @@ import { MaterialModule } from './material.module';
 import { ForgotpwComponent } from './forgotpw/forgotpw.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 export const FIREBASE_CONFIG = {
@@ -55,6 +56,7 @@ export const FIREBASE_CONFIG = {
     ForgotpwComponent,
     SetusernameComponent,
     LeaderboardComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
 
 @media only screen and (max-width: 2000px) { 
 
-  body {
+  .mainContent {
     font-size: 1.3em;
   }
   input, button { 
@@ -27,7 +27,7 @@
 
 @media only screen and (max-width:1400px) {
   
-  body {
+  .mainContent {
     font-size: 1.2em;
   }
   input, button { 
@@ -61,7 +61,7 @@
   /*--------------------------- Mobile --------------------------------*/
 
   @media only screen and (max-width: 500px) {
-    body {
+    .mainContent {
       font-size: 1.0em;
     }
     input, button { 
@@ -86,8 +86,9 @@
 
 /*--------------------------- General --------------------------------*/
 
-  body {
+.mainContent {
     background: #EFEFEF;
+    min-height: 100%;
     padding: 0px;
     margin: 0px;
     font-family: 'Nunito', sans-serif;

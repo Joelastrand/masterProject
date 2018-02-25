@@ -1,0 +1,53 @@
+
+$mat-toolbar-height-desktop: 100px !default;
+$mat-toolbar-height-mobile-portrait: 64px !default;
+$mat-toolbar-height-mobile-landscape: 64px !default;
+
+$mat-toolbar-row-padding: 16px !default;
+
+
+@mixin mat-toolbar-height($height) {
+  .mat-toolbar-multiple-rows {
+    min-height: $height;
+  }
+  .mat-toolbar-row, .mat-toolbar-single-row {
+    height: $height;
+  }
+}
+
+
+
+/*--------------------------- Large screens --------------------------------*/
+
+@media only screen and (max-width: 3000px) {
+    @include mat-toolbar-height($mat-toolbar-height-desktop);
+    
+    .md-medium-tall p {
+        font-size: 0.9em;
+        height: 18px;
+
+    }
+}
+
+
+/*--------------------------- Mobile --------------------------------*/
+
+@media only screen and (max-width: 500px) {
+   @include mat-toolbar-height($mat-toolbar-height-mobile-portrait);
+    .md-medium-tall p {
+        font-size: 0.5em;
+        height: 12px;
+    }
+}
+
+/*--------------------------- General --------------------------------*/
+.md-medium-tall {
+    opacity:0.7;
+    position: static;
+    background: #3E5062;
+    //overflow: hidden;
+    bottom:0;
+    right: 0;
+    left: 0;
+}
+

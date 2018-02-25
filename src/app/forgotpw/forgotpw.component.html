@@ -1,17 +1,16 @@
-<body>
-  <div id="login_div" class="main-div">
-      <h3>Reset password</h3>
-      <h2>Email</h2>
-      <input  type="email" placeholder="yourname@example.com..." id="email_field" [(ngModel)] = "user.email"/>
-      <p id="errorMsg" style="text-align: left; color:red; font-size:14px; padding:0; margin-top:4%; margin-bottom:4%">{{errorMessage}}</p>
-      <button (click)="sendResetLink(user)">Send reset link</button>
-      <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
-        <p>Sent password reset link to email {{user.email}}</p>
+<div class="mainContent">
+    <div id="login_div" class="main-div">
+        <h3>Reset password</h3>
+        <h2>Email</h2>
+        <input type="email" placeholder="yourname@example.com..." id="email_field" [(ngModel)]="user.email" />
+        <p id="errorMsg" style="text-align: left; color:red; font-size:14px; padding:0; margin-top:4%; margin-bottom:4%">{{errorMessage}}</p>
+        <button (click)="sendResetLink(user)">Send reset link</button>
+        <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
+            <p>Sent password reset link to email {{user.email}}</p>
             <p-footer>
                 <button type="button" pButton icon="" (click)="goToLogin()" label="Okay!"></button>
             </p-footer>
-      </p-dialog>
+        </p-dialog>
 
-  </div>
-
-</body>
+    </div>
+</div>
