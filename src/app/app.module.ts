@@ -20,6 +20,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { StartComponent } from './pages/start/start.component';
 import { SetusernameComponent } from './pages/setusername/setusername.component';
 import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
+import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.component';
 
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
@@ -30,10 +31,11 @@ import {DialogModule} from 'primeng/dialog';
 import { MaterialModule } from './material.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
-// Ours components
+// Our components
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+
 
 
 export const FIREBASE_CONFIG = {
@@ -58,6 +60,7 @@ export const FIREBASE_CONFIG = {
     SetusernameComponent,
     LeaderboardComponent,
     FooterComponent,
+    DailychallengeComponent,
   ],
   imports: [
     BrowserModule,

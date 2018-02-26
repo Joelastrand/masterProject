@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User } from "../models/user";
+import { User } from "../../models/user";
 
 @Component({
   selector: 'app-login',

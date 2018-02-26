@@ -1,0 +1,69 @@
+.mainSection {
+   /* width: 100%;
+    min-height: 100%;
+    display:flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin: 0;*/
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+.flexArea {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    -webkit-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+    box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+}
+
+.challengeWindow {  
+    flex: 1;
+    width: 100%;
+    background-color: red;
+}
+.challengeStatusWindow {
+    flex: 1;
+    width: 100%;
+    background-color: green;
+}
+    /*---------------------------Large Desktop --------------------------------*/
+    @media only screen and (min-width: 1001px) {
+        .flexArea {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 33%;
+        }
+    }
+  
+    /*---------------------------Medium Desktop --------------------------------*/
+  @media only screen and (max-width: 1000px) and (min-width:501px) {
+        .flexArea {
+            margin-top: 10%;
+            margin-bottom: 10%;
+            width: 70%;
+        }
+    }
+    
+    /*---------------------------Mobile Desktop --------------------------------*/
+    @media only screen and (max-width: 500px) {
+        .flexArea {
+            margin-top: 15%;
+            margin-bottom: 15%;
+            width: 100%;
+        }
+    }
+    /*-------------------------------------------------------------------------*/
+    
