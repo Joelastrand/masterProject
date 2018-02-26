@@ -1,26 +1,67 @@
 
+  /*---------------------------General --------------------------------*/
+  
+  .leaderboardBigBox {
+    flex:1;
+    border-style: solid;
+    border-width: 0.5px;
+    color: black;
+    margin: 5px;
+    background-color: rgba(108, 117, 125,0.2);
+  }
 
-.leaderboardHeader {
+  .leaderboardBox {
+    margin: 5px;
+    background-color: white;
+  }
+
+  .leaderboardUserBox {
+    border-style: solid;
+    border-width: 0.5px;
+    color: black;
+    text-align: center;
+    background-color: white;
+  }
+
+  /*********** Text ***********/ 
+  .leaderboardHeader {
     background: grey;
     color: black;
     text-align: center;
   }
+
+  .leaderboardSmallHeader {
+    background: lightgray;
+    color: black;
+    border-style: solid;
+    height: 30px;
+    text-align: center;
+    margin: 5px;
+  }
+  .boxText {
+    margin: 0;
+  }
+
+  .boxPText {
+    margin: 0;
+  }
+  /*************** */
   .icons {
     width:28px;
     height:28px
   }
   /*---------------------------Large Desktop --------------------------------*/
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 1001px) {
  
     .boxText {
-      font-size: 1em;
+      font-size: 0.8em;
     }
     .boxPText {
-      font-size: 0.7em;
+      font-size: 0.5em;
     }
   
     .leaderboardSmallHeader {
-      font-size: 16px;
+      font-size: 12px;
     }
 
     .icons {
@@ -28,9 +69,8 @@
       height:28px
     }
   }
-  /*-------------------------------------------------------------------------*/
-    /*---------------------------Tablets Desktop --------------------------------*/
-    @media only screen and (max-width: 768px) {
+    /*---------------------------Medium Desktop --------------------------------*/
+    @media only screen and (max-width: 1000px) and (min-width:501px) {
 
       .icons {
         width:22x;
@@ -45,7 +85,6 @@
       }
     
       .leaderboardSmallHeader {
-        //height: 30px;
         font-size: 12px;
       }
     
@@ -53,10 +92,9 @@
         height: 35px;
       }
     }
-    /*-------------------------------------------------------------------------*/
   
   /*---------------------------Mobile Desktop --------------------------------*/
-  @media only screen and (max-width: 320px) {
+  @media only screen and (max-width: 500px) {
 
     .icons {
       width:22x;
@@ -71,7 +109,6 @@
     }
   
     .leaderboardSmallHeader {
-      //height: 30px;
       font-size: 12px;
     }
   
@@ -80,47 +117,3 @@
     }
   }
   /*-------------------------------------------------------------------------*/
-  
-    .leaderboardSmallHeader {
-      background: lightgray;
-      color: black;
-      border-style: solid;
-      height: 30px;
-      //font-size: 20px;
-      text-align: center;
-      margin: 5px;
-    }
-
-  
-    .leaderboardBigBox {
-      flex:1;
-      border-style: solid;
-      border-width: 0.5px;
-      color: black;
-      margin: 5px;
-      background-color: rgba(108, 117, 125,0.2);
-    }
-  
-    .leaderboardBox {
-      margin: 5px;
-      background-color: white;
-    }
-  
-    .leaderboardUserBox {
-      border-style: solid;
-      border-width: 0.5px;
-      color: black;
-      text-align: center;
-      background-color: white;
-    }
-  
-    .boxText {
-      margin: 0;
-    }
-  
-    .boxPText {
-      //font-size: 12px;
-      margin: 0;
-    }
-  
-  

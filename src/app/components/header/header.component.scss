@@ -1,18 +1,27 @@
 
-/*
-.header-style {
-  color: #5d8ffc;
-  text-align: center;
-  color: white;
-  float: left;
-  padding-left: 2%;
-  margin-top:0.3%;
-}
-  */
+/*---------------------------General --------------------------------*/
+  .rightSide {
+    float: right;
+    margin: 0;
+  }
+
+  .leftSide {
+    float: left;
+    margin: 0;
+  }
+
+  div {
+    background-color: #3E5062;
+    color: white;
+  }
+
+  h1 {
+    margin: 0;
+  }
 
 /*---------------------------Large Desktop --------------------------------*/
 
-@media only screen and (max-width: 2000px) {
+@media only screen and (min-width: 1001px) {
   .header {
     height: 80px;
     width: 100%;
@@ -51,17 +60,13 @@
     padding-left: 1%;
   }
 }
-/*---------------------------------------------------------------------*/
 
 /*--------------------------- Medium Desktop --------------------------------*/
 
-@media only screen and (max-width:1400px) {
+@media only screen and (max-width: 1000px) and (min-width:501px) {
   .header {
     height: 80px;
     width: 100%;
-  }
-
-  .buttons {
   }
 
   .button {
@@ -94,7 +99,9 @@
     padding-left: 1%;
   }
 }
-/*---------------------------------------------------------------------*/
+
+/*--------------------------- Small Desktop --------------------------------*/
+
 @media only screen and (max-width: 800px) {
   .header-text {
     visibility: hidden;
@@ -141,23 +148,3 @@
     }
   }
   /*---------------------------------------------------------------------*/
-
-  /*--------------------------- Generell --------------------------------*/
-  .rightSide {
-    float: right;
-    margin: 0;
-  }
-
-  .leftSide {
-    float: left;
-    margin: 0;
-  }
-
-  div {
-    background-color: #3E5062;
-    color: white;
-  }
-
-  h1 {
-    margin: 0;
-  }
