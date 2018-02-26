@@ -13,26 +13,27 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // Pages
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { StartComponent } from './start/start.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SetusernameComponent } from './setusername/setusername.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { StartComponent } from './pages/start/start.component';
+import { SetusernameComponent } from './pages/setusername/setusername.component';
+import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
 
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import {DialogModule} from 'primeng/dialog';
 
-
 // Material components
 import { MaterialModule } from './material.module';
-import { ForgotpwComponent } from './forgotpw/forgotpw.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+
+// Ours components
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 export const FIREBASE_CONFIG = {

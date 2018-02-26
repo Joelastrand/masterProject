@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from "../auth.service";
-import { User } from "../models/user";
+import { AuthService } from "../../auth.service";
+import { User } from "../../models/user";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 
 @Component({
