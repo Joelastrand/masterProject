@@ -25,11 +25,15 @@ import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.c
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 
 // Material components
 import { MaterialModule } from './material.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
+
+//Other components
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SimpleTimer } from 'ng2-simple-timer';
 
 // Our components
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -81,8 +85,22 @@ export const FIREBASE_CONFIG = {
     // Material components
     MaterialModule,
     MatToolbarModule,
+
+    //Other components
+    NgCircleProgressModule.forRoot({
+      //Default settings for progress circle
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
   ],
-  providers: [DataService],
+  providers: [
+    DataService,
+    SimpleTimer
+  ],
   bootstrap: [AppComponent]
 
 })

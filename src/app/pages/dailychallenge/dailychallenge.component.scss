@@ -1,12 +1,4 @@
 .mainSection {
-   /* width: 100%;
-    min-height: 100%;
-    display:flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    margin: 0;*/
     flex-flow: column;
     align-items: center;
     justify-content: center;
@@ -31,14 +23,52 @@
 
 .challengeWindow {  
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
     width: 100%;
-    background-color: red;
+    background-color: #F6F6F6;
 }
 .challengeStatusWindow {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
     width: 100%;
-    background-color: green;
+    background-color: #F6F6F6;
 }
+.challengeStatusWindowHide {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
+    width: 100%;
+    background-color: #F6F6F6;
+    display: none;
+}
+
+input, button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+  }
+  .mainSection button {
+    background: #3e8e41;
+    color: #fff;
+    border: 1px solid #3e8e41;
+    border-radius: 5px;
+    padding: 4%;
+  }
+  
+  .mainSection button:hover {
+    cursor: pointer;
+  }
+
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
         .flexArea {
@@ -46,6 +76,13 @@
             margin-bottom: 5%;
             width: 33%;
         }
+
+        .mainSection {
+            font-size: 1.3em;
+          }
+          input, button { 
+            font-size: 1.0em;
+          }
     }
   
     /*---------------------------Medium Desktop --------------------------------*/
@@ -55,6 +92,13 @@
             margin-bottom: 10%;
             width: 70%;
         }
+
+        .mainSection {
+            font-size: 1.2em;
+          }
+          input, button { 
+            font-size: 0.9em;
+          }
     }
     
     /*---------------------------Mobile Desktop --------------------------------*/
@@ -64,6 +108,13 @@
             margin-bottom: 15%;
             width: 100%;
         }
+
+        .mainSection {
+            font-size: 1.0em;
+          }
+          input, button { 
+            font-size: 0.7em;
+          }
     }
     /*-------------------------------------------------------------------------*/
     

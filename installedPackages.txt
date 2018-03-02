@@ -6,3 +6,5 @@ npm install --save @angular/material @angular/cdk
 
 npm install --save hammerjs // For Angular Material ( gesture support, as some components require this for full-feature support.)
 Tutorial for Angular 5 Material app https://coursetro.com/posts/code/113/How-to-Build-an-Angular-5-Material-App
+npm install ng-circle-progress --save
+npm install ng2-simple-timer

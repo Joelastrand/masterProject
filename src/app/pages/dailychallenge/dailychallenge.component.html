@@ -1,10 +1,21 @@
 <div class="mainSection">
     <div class="flexArea">
+
         <div class="challengeWindow">
-
+            <button (click)="getRandomChallenge()">Get challenge</button>
         </div>
-        <div class="challengeStatusWindow">
-
+<!--"challengeStatusWindow" -->
+        <div class="challengeStatusWindow"  *ngIf="timerVisibility == 'shown'">
+                <circle-progress 
+                [percent]=timerValue
+                [maxPercent]=maxTimerValue
+                [radius]="100"
+                [outerStrokeWidth]="16"
+                [innerStrokeWidth]="8"
+                [outerStrokeColor]="'#78C000'"
+                [innerStrokeColor]="'#C7E596'"
+                [animation]="false"
+              ></circle-progress>
         </div>
     </div>
 </div>
