@@ -2,66 +2,79 @@
 
   <!----------------------Left side-------------------------------->
 
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-2 col-centered">
+      <!--<mat-icon style="float:right; cursor:pointer;" (click)="goToStartPage()">home</mat-icon> -->
+      <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
+        <i class="material-icons">menu</i>
+        <!--<mat-icon>more_vert</mat-icon>         leftSide-->
+      </button>
+      <mat-menu #menu="matMenu" color="black">
+        <button mat-menu-item>
+          <i class="material-icons">search</i>
+          <span>Search</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">settings</i>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">chat</i>
+          <span>Chat</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">forum</i>
+          <span>Forum</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">format_list_numbered</i>
+          <span>Leaderboard</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">timeline</i>
+          <span>Statistics</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">group</i>
+          <span>Friends</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">directions_run</i>
+          <span>Events</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">directions_walk</i>
+          <span>Walking challenge</span>
+        </button>
+        <button mat-menu-item>
+          <i class="material-icons">grade</i>
+          <span>Challenges</span>
+        </button>
+      </mat-menu>
 
-  <!--<mat-icon style="float:right; cursor:pointer;" (click)="goToStartPage()">home</mat-icon> -->
-  <button class="material-icons md-48 leftSide" mat-icon-button [matMenuTriggerFor]="menu">
-    <i class="material-icons">menu</i>
-    <!--<mat-icon>more_vert</mat-icon> -->
-  </button>
-  <mat-menu #menu="matMenu" color="black">
-    <button mat-menu-item>
-      <i class="material-icons">search</i>
-      <span>Search</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">settings</i>
-      <span>Settings</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">chat</i>
-      <span>Chat</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">forum</i>
-      <span>Forum</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">format_list_numbered</i>
-      <span>Leaderboard</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">timeline</i>
-      <span>Statistics</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">group</i>
-      <span>Friends</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">directions_run</i>
-      <span>Events</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">directions_walk</i>
-      <span>Walking challenge</span>
-    </button>
-    <button mat-menu-item>
-      <i class="material-icons">grade</i>
-      <span>Challenges</span>
-    </button>
-  </mat-menu>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-3 col-2" style="margin-top:1%">
+      <!--class="leftSide"-->
+      <img src="assets/logo.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
+    </div>
 
-  <img class="leftSide" src="assets/logo.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
-  <h1 class="header-text leftSide" style="cursor:pointer;" (click)="goToStartPage()">
-    Happen
-  </h1>
+    <div class="col-lg-3 col-md-3 col-sm-1 col-1" style="margin-top:1%">
+      <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
+        Happen
+      </h1>
+    </div>
 
-  <!----------------------Right side-------------------------------->
-  <div class="buttons rightSide">
-    <button style="background-color:#3e8e41; color:white; margin-right:15px;"class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
-    <button style="background-color:#5d8ffc;" class="button" (click)="goToLogIn()" mat-raised-button>Log In</button>
-  </div>
-    <div>
+
+    <!----------------------Right side-------------------------------->
+    <!--class="rightSide"       <div class="buttons">-->
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-3 col-centered">
+      <button style="background-color:#3e8e41; color:white; margin-right:15px;" class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-2 col-centered">
+      <button style="background-color:#5d8ffc;" class="button" (click)="goToLogIn()" mat-raised-button>Log In</button>
+    </div>
+
   </div>
 </div>
 

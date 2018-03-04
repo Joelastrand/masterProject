@@ -1,22 +1,26 @@
 <!--<div>
   <p-galleria [autoPlay]="true" [images]="images" panelWidth="90%" panelHeight="313" [showCaption]="true"></p-galleria>
 </div> style="width:90%; padding-left:25%; " -->
-
-
+<!--
 <div class="mainSection">
+  <!--
   <div class="sections">
     <p-galleria [images]="images" [showFilmstrip]="false" [showCaption]="true" effectDuration=2000 transitionInterval=10000 panelWidth="450"
       panelHeight="313"></p-galleria>>
   </div>
 
-  <!--
-  <div class="button-row" style="text-align:center;">
-    <button (click)="goToCreateAccount()" mat-raised-button color="primary">Create account</button>
-    <button (click)="goToLogIn()" mat-raised-button style="background-color:#00b200">Log In</button>
-  </div>
-      -->
 
   <div class="sections">
+    <app-leaderboard></app-leaderboard>
+  </div>
+</div>
+      -->
+
+<div class="row">
+  <div class="col-md-6 col-lg-6">
+    <app-carousel></app-carousel>
+  </div>
+  <div class="col-md-6 col-lg-6">
     <app-leaderboard></app-leaderboard>
   </div>
 </div>

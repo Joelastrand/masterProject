@@ -22,6 +22,9 @@ import { SetusernameComponent } from './pages/setusername/setusername.component'
 import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
 import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.component';
 
+//Bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // PrimeNG components
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
@@ -39,6 +42,7 @@ import { SimpleTimer } from 'ng2-simple-timer';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 
 
@@ -65,6 +69,7 @@ export const FIREBASE_CONFIG = {
     LeaderboardComponent,
     FooterComponent,
     DailychallengeComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +79,7 @@ export const FIREBASE_CONFIG = {
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    NgbModule.forRoot(),
 
     // PrimeNG components
     ButtonModule,

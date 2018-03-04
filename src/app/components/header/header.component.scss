@@ -1,5 +1,26 @@
 
 /*---------------------------General --------------------------------*/
+.col-centered {
+
+  margin-top: 2%;
+}
+
+.mat-icon-button {
+  padding-left:50%;
+}
+
+.center-block {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+// In case you're dealing with a inline element apply this to the parent
+.text-center {
+  text-align: center
+}
+
+
   .rightSide {
     float: right;
     margin: 0;
