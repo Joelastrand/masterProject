@@ -1,11 +1,19 @@
 <div class="mainSection">
     <div class="flexArea">
+        <div class= "challengeWindow" *ngIf="challengeName">
+            <h2>
+                {{challengeName}}
+            </h2>
+            <h3 *ngIf="challengeName == 'WorkStanding'">
+                Work standing for {{ time }} minutes!
+            </h3>
+        </div>
 
-        <div class="challengeWindow">
+        <div class="getChallengeWindow">
             <button (click)="getRandomChallenge()">Get challenge</button>
         </div>
 <!--"challengeStatusWindow" -->
-        <div class="challengeStatusWindow"  *ngIf="timerVisibility == 'shown'">
+        <div class="challengeStatusWindow"  *ngIf="timer == true">
                 <circle-progress 
                 [percent]=timerValue
                 [maxPercent]=maxTimerValue
@@ -16,6 +24,7 @@
                 [innerStrokeColor]="'#C7E596'"
                 [animation]="false"
               ></circle-progress>
+              <button (click)="initiateChallenge()">Start!</button>
         </div>
     </div>
 </div>

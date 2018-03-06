@@ -31,8 +31,28 @@
     width: 100%;
     background-color: #F6F6F6;
 }
-.challengeStatusWindow {
+
+.challengeWindow h2{  
+    color: black;
+}
+.challengeWindow h3{  
+    color: black;
+}
+
+
+.getChallengeWindow {  
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
+    width: 100%;
+    background-color: #F6F6F6;
+}
+
+.challengeStatusWindow {
+    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
