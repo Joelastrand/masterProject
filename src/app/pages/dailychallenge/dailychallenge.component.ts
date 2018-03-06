@@ -65,7 +65,7 @@ export class DailychallengeComponent implements OnInit {
   }
 
   initiateChallenge() {
-    this.st.newTimer('secondCounter', 0.0001);
+    this.st.newTimer('secondCounter', 0.00001);
     this.timerId = this.st.subscribe('secondCounter', () => this.incrementTime());
   }
   
