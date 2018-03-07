@@ -6,6 +6,9 @@ import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { User } from "../../models/user";
 
+import { UserService } from '../../service/user.service';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,9 +20,13 @@ import { User } from "../../models/user";
 
 export class LoginComponent implements OnInit {
 
+  currentUser: string;
+  editUser: string;
+
+
   errorMessage = "";
   user = {} as User;
-  constructor(private router: Router, private afAuth: AngularFireAuth) { }
+  constructor(private router: Router, private afAuth: AngularFireAuth, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -49,8 +56,11 @@ export class LoginComponent implements OnInit {
   async login(user: User) {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      if(result) {
+      if (result) {
+        console.log(user.uid);
+        this.userService.editUser(this.user.email);
         this.router.navigateByUrl('/home');
+        
       }
     } catch(e) {
       if(e.message.indexOf(':') > -1) {

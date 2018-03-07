@@ -3,7 +3,6 @@ import { NgModule, ViewChild } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { DataService } from './data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -11,6 +10,10 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+// Services
+import { UserService } from './service/user.service'
+import { DataService } from './data.service';
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
@@ -21,6 +24,7 @@ import { StartComponent } from './pages/start/start.component';
 import { SetusernameComponent } from './pages/setusername/setusername.component';
 import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
 import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.component';
+import { UserHomeComponent } from './pages/user-home/user-home.component';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -70,6 +74,7 @@ export const FIREBASE_CONFIG = {
     FooterComponent,
     DailychallengeComponent,
     CarouselComponent,
+    UserHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +110,7 @@ export const FIREBASE_CONFIG = {
   ],
   providers: [
     DataService,
+    UserService,
     SimpleTimer
   ],
   bootstrap: [AppComponent]

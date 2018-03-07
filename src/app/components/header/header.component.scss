@@ -1,7 +1,6 @@
 
 /*---------------------------General --------------------------------*/
 .col-centered {
-
   margin-top: 2%;
 }
 
@@ -15,7 +14,6 @@
   display: block;
 }
 
-// In case you're dealing with a inline element apply this to the parent
 .text-center {
   text-align: center
 }
@@ -43,10 +41,16 @@
 /*---------------------------Large Desktop --------------------------------*/
 
 @media only screen and (min-width: 1001px) {
+
+  .col-centered {
+    margin-top: 1.5%;
+  }
+
   .header {
     height: 80px;
     width: 100%;
   }
+
   .buttons {
     padding-bottom: 1%;
   }

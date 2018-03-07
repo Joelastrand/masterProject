@@ -3,7 +3,7 @@
   <!----------------------Left side-------------------------------->
 
   <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-2 col-centered">
+    <div class="col-lg-1 col-md-1 col-sm-1 col-1 col-centered">
       <!--<mat-icon style="float:right; cursor:pointer;" (click)="goToStartPage()">home</mat-icon> -->
       <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
         <i class="material-icons">menu</i>
@@ -53,15 +53,18 @@
       </mat-menu>
 
     </div>
-    <div class="col-lg-1 col-md-1 col-sm-3 col-2" style="margin-top:1%">
-      <!--class="leftSide"-->
-      <img src="assets/logo.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
-    </div>
-
-    <div class="col-lg-3 col-md-3 col-sm-1 col-1" style="margin-top:1%">
-      <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
-        Happen
-      </h1>
+    <div class="col-lg-6 col-md-1 col-sm-3 col-2" style="margin-top:1%">
+      <div class="row">
+        <!--class="leftSide"-->
+        <div class="col-lg-2 col-md-5 col-sm-6 col-6">
+          <img src="assets/logo.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
+        </div>
+        <div class="col-lg-10 col-md-5 col-sm-6 col-6">
+          <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
+            Happen
+          </h1>
+        </div>
+      </div>
     </div>
 
 
@@ -76,5 +79,14 @@
     </div>
 
   </div>
-</div>
+  </div>
 
+  <!--
+        <div class="col-lg-3 col-md-3 col-sm-1 col-1" style="margin-top:1%">
+      <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
+        Happen
+      </h1>
+    </div>
+
+
+      -->
