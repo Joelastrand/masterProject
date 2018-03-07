@@ -73,18 +73,38 @@
     display: none;
 }
 
-input, button {
+ input, button {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
   }
-  .mainSection button {
+
+  .playButton {
+      color: #3e8e41;
+  }
+  .pauseButton {
+      color:red;
+  }
+  ::ng-deep .mat-icon-button{
+      width: 48px !important;
+      height: 48px !important;
+      font-size: 40px !important;
+    }
+    ::ng-deep .mat-icon{
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 48px !important;
+    }
+  .getRandomChallengeButton {
     background: #3e8e41;
     color: #fff;
     border: 1px solid #3e8e41;
     border-radius: 5px;
     padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
   }
-  
+
+
   .mainSection button:hover {
     cursor: pointer;
   }

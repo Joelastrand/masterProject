@@ -1,19 +1,21 @@
 <div class="mainSection">
     <div class="flexArea">
-        <div class= "challengeWindow" *ngIf="challengeName">
+        <div class= "challengeWindow"  [@challengeInfo]= "showGetChallengeButton">
             <h2>
                 {{challengeName}}
             </h2>
             <h3 *ngIf="challengeName == 'WorkStanding'">
-                Work standing for {{ time }} minutes!
+                 {{ time }} minutes
             </h3>
         </div>
 
-        <div class="getChallengeWindow">
-            <button (click)="getRandomChallenge()">Get challenge</button>
+        <div class="getChallengeWindow" [@getChallengeButton] = "showGetChallengeButton">
+            <button class="getRandomChallengeButton" (click)="getRandomChallenge()">Get challenge</button>
         </div>
-<!--"challengeStatusWindow" -->
-        <div class="challengeStatusWindow"  *ngIf="timer == true">
+
+<!-- *ngIf="timer == true" *ngIf="challengeName"-->
+
+        <div class="challengeStatusWindow" [@timer]="timer" >
                 <circle-progress 
                 [percent]=timerValue
                 [maxPercent]=maxTimerValue
@@ -24,7 +26,14 @@
                 [innerStrokeColor]="'#C7E596'"
                 [animation]="false"
               ></circle-progress>
-              <button (click)="initiateChallenge()">Start!</button>
+
+              <button *ngIf="timerOn == false" mat-icon-button class="playButton" (click)="initiateChallenge()" >
+                <mat-icon aria-label="playButton">play_circle_filled</mat-icon>
+              </button>
+              <button *ngIf="timerOn == true" mat-icon-button class="pauseButton" (click)="pauseTimer()" >
+                <mat-icon aria-label="pauseButton">pause_circle_filled</mat-icon>
+              </button>
+              <!--<button (click)="initiateChallenge()">Start!</button>-->
         </div>
     </div>
 </div>

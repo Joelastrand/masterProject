@@ -26,4 +26,7 @@ export class HeaderComponent implements OnInit {
   goToLogIn() {
     this.router.navigateByUrl('/login');
   }
+  goToDaily() {
+    this.router.navigateByUrl('/dailyChallenge');
+  }
 }
