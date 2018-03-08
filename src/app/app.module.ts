@@ -14,6 +14,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 // Services
 import { UserService } from './service/user.service'
 import { DataService } from './data.service';
+import { AuthService } from './auth.service';
+
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
@@ -111,6 +113,7 @@ export const FIREBASE_CONFIG = {
   providers: [
     DataService,
     UserService,
+    AuthService,
     SimpleTimer
   ],
   bootstrap: [AppComponent]

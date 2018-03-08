@@ -1,4 +1,5 @@
 <div>
+  <!--
   <div style="background-color:grey; display:flex;" class="leaderboardHeader">
     <div style="flex:1;">
       <img class="icons" style="padding-top:10%;" src="assets/leaderboardIcon.png" alt="logo" />
@@ -10,14 +11,15 @@
       <img class="icons" style="padding-top:10%;" src="assets/leaderboardIcon.png" alt="logo" />
     </div>
   </div>
+      -->
 
   <div class="mainSection" style="display:flex;">
 
-    <div class="card" style="flex:1;">
+    <div class="card" style="flex:1; margin:2%;" >
       <div class="card-header">
-        <h1 style="color:black; text-align:center;">
+        <h5 style="color:black; text-align:center;">
           Daily Challenge
-        </h1>
+        </h5>
       </div>
       <div class="card-body">
         <h5 class="card-title"></h5>
@@ -33,14 +35,14 @@
       </div>
     </div>
 
-    <div class="card" style="flex:1;">
+    <div class="card" style="flex:1; margin:2%;">
       <div class="card-header">
-        <h1 style="color:black; text-align:center;">
+        <h5 style="color:black; text-align:center;">
           Challenge a friend
-        </h1>
+        </h5>
       </div>
       <div class="card-body">
-        <h5 class="card-title"></h5>
+        <h5 class="card-title" style="color:black; text-align:center;"></h5>
         <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:#f5f5f0; display:flex; ">
           <div style="flex:3;">
             <h6 class="boxText">{{user.username}}</h6>
@@ -53,11 +55,11 @@
       </div>
     </div>
 
-    <div class="card" style="flex:1;">
+    <div class="card" style="flex:1; margin:2%;">
       <div class="card-header">
-        <h1 style="color:black; text-align:center;">
+        <h5 style="color:black; text-align:center;">
           Most points
-        </h1>
+        </h5>
       </div>
       <div class="card-body">
         <h5 class="card-title"></h5>
