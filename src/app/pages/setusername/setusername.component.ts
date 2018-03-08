@@ -17,15 +17,19 @@ export class SetusernameComponent implements OnInit {
 	user = {} as User;
 	usernameAvailable: boolean = false;
 	result: any;
+	inputField = document.getElementById("username_field");
 
 	ngOnInit() {
-	}
 
+	}
+	
 	goToHome() {
 		this.router.navigateByUrl('/home');
 	}
 
+	
 	async checkUsername() {
+		this.user.username = this.user.username.toLowerCase();
 		const res = await this.auth.checkUsername(this.user.username).subscribe(username => {
 			this.usernameAvailable = !username.$value
 		});
