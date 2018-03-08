@@ -23,7 +23,7 @@ input, button {
 .secondary-div p {
   display: inline-block;
   vertical-align: top;
-  color: #5d8ffc;
+  color: grey;
   cursor: pointer;
 }
 .main-div {
@@ -37,12 +37,17 @@ input, button {
   align-items: stretch;
 }
 .main-div h3{
-  color: #5d8ffc;
-  text-align: center;
+  color: black;
+  text-align: left;
+  //margin-bottom: 8%;
+}
+.main-div h4{
+  color: grey;
+  text-align: left;
   margin-bottom: 8%;
 }
 .main-div h2{
-  color: #5d8ffc;
+  color: black;
   text-align: left;
   margin-bottom: 1%;
 }
@@ -50,7 +55,7 @@ input, button {
   border: 1px solid #ccc;
   border-radius: 5px;
   background: #fff;
-  padding: 4%;
+  padding: 3%;
   outline: none;
   margin-bottom: 3.5%;
   transition: 0.3s;
@@ -66,7 +71,7 @@ input, button {
   color: #fff;
   border: 1px solid #5d8ffc;
   border-radius: 5px;
-  padding: 4%;
+  padding: 3.5%;
 }
 .main-div button:hover {
   cursor: pointer;
@@ -84,17 +89,21 @@ input, button {
   input, button { 
     font-size: 1.0em;
   }
+  .main-div h4{
+    font-size: 0.9em;
+  }
   .main-div h3{
+    margin-top: 5%;
     font-size: 1.4em;
   }
   .main-div h2 {
     font-size: 1.0em;
   }
   .main-div {
-    width: 70%;
+    width: 40%;
   }
   .secondary-div {
-    width: 70%;
+    width: 40%;
   }
 }
 
@@ -111,14 +120,17 @@ input, button {
   .main-div h3{
     font-size: 1.3em;
   }
+  .main-div h4{
+    font-size: 0.8em;
+  }
   .main-div h2 {
     font-size: 0.9em;
   }
   .main-div {
-    width: 70%;
+    width: 50%;
   }
   .secondary-div {
-    width: 70%;
+    width: 50%;
   }
 
 }
@@ -133,11 +145,14 @@ input, button {
     input, button { 
       font-size: 0.7em;
     }
-    .main-div h3{
-      font-size: 1.2em;
+    .main-div h4{
+      font-size: 0.7em;
     }
-    .main-div h2 {
-      font-size: 0.7;
+    .main-div h3{
+      font-size: 1.0em;
+    }
+    .main-div h2{
+      font-size: 0.8em;
     }
     .main-div {
       width: 90%;

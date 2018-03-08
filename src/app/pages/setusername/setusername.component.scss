@@ -41,12 +41,12 @@
   }
 
   .main-div h3{
-    color: #5d8ffc;
-    text-align: center;
+    color: black;
+    text-align: left;
     margin-bottom: 8%;
   }
   .main-div h2{
-    color: #5d8ffc;
+    color: black;
     text-align: left;
     margin-bottom: 1%;
   }
@@ -88,78 +88,89 @@
     cursor: pointer;
   }
 
- /*---------------------------Large Desktop --------------------------------*/
+/*---------------------------Large Desktop --------------------------------*/
 
- @media only screen and (min-width: 1001px) {
+@media only screen and (min-width: 1001px) {
 
+  .mainContent {
+    font-size: 1.3em;
+  }
+  input, button { 
+    font-size: 1.0em;
+  }
+  .main-div h4{
+    font-size: 0.9em;
+  }
+  .main-div h3{
+    margin-top: 5%;
+    font-size: 1.4em;
+  }
+  .main-div h2 {
+    font-size: 1.0em;
+  }
+  .main-div {
+    width: 40%;
+  }
+  .secondary-div {
+    width: 40%;
+  }
+}
+
+/*--------------------------- Medium Desktop --------------------------------*/
+
+@media only screen and (max-width: 1000px) and (min-width:501px) {
+  
+  .mainContent {
+    font-size: 1.2em;
+  }
+  input, button { 
+    font-size: 0.9em;
+  }
+  .main-div h3{
+    font-size: 1.3em;
+  }
+  .main-div h4{
+    font-size: 0.8em;
+  }
+  .main-div h2 {
+    font-size: 0.9em;
+  }
+  .main-div {
+    width: 50%;
+  }
+  .secondary-div {
+    width: 50%;
+  }
+
+}
+
+
+  /*--------------------------- Mobile --------------------------------*/
+
+  @media only screen and (max-width: 500px) {
     .mainContent {
-      font-size: 1.3em;
+      font-size: 1.0em;
     }
     input, button { 
-      font-size: 1.0em;
+      font-size: 0.7em;
+    }
+    .main-div h4{
+      font-size: 0.7em;
     }
     .main-div h3{
-      font-size: 1.4em;
-    }
-    .main-div h2 {
       font-size: 1.0em;
     }
+    .main-div h2{
+      font-size: 0.8em;
+    }
     .main-div {
-      width: 70%;
+      width: 90%;
     }
-    .secondary-div {
-      width: 70%;
-    }
-  }
-  
-  /*--------------------------- Medium Desktop --------------------------------*/
-  
-  @media only screen and (max-width: 1000px) and (min-width:501px) {
     
-    .mainContent {
-      font-size: 1.2em;
-    }
-    input, button { 
-      font-size: 0.9em;
-    }
-    .main-div h3{
-      font-size: 1.3em;
-    }
-    .main-div h2 {
-      font-size: 0.9em;
-    }
-    .main-div {
-      width: 70%;
-    }
     .secondary-div {
-      width: 70%;
+      width: 90%;
     }
-  
-  }
 
-    /*--------------------------- Mobile --------------------------------*/
-  
-    @media only screen and (max-width: 500px) {
-      .mainContent {
-        font-size: 1.0em;
-      }
-      input, button { 
-        font-size: 0.7em;
-      }
-      .main-div h3{
-        font-size: 1.2em;
-      }
-      .main-div h2 {
-        font-size: 0.7;
-      }
-      .main-div {
-        width: 90%;
-      }
-      
-      .secondary-div {
-        width: 90%;
-      }
-  
-    }
+  }
   
   
