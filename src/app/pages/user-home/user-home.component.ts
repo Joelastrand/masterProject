@@ -23,8 +23,13 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit() {
     this.userService.cast.subscribe(user => this.user = user);
-    this.userID = this.authService.getUserID();
-    this.userName = this.authService.getUserName();
+    this.getTheName();
+    
 
+  }
+  async getTheName() {
+    const res = await this.authService.getUserName().subscribe(username => {
+      this.userName = username.$value;
+    });
   }
 }

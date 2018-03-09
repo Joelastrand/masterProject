@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       if (result) {
-        console.log(user.uid);
         this.userService.editUser(this.user.email);
         this.router.navigateByUrl('/home');
         
