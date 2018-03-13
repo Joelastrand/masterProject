@@ -4,21 +4,33 @@
             <h2>
                 {{challengeName}}
             </h2>
-            <h3 *ngIf="challengeName == 'WorkStanding'">
+            <h3 *ngIf="time > 0">
                 {{ time }} minutes
             </h3>
         </div>
-
+        <div [@challengeInfo]="showGetChallengeButton" style="border-bottom: 2px solid #D8D8D8; width: 80%; margin-bottom: 15%; background-color:#f5f5f0;"></div>
         <div class="getChallengeWindow" [@getChallengeButton]="showGetChallengeButton">
             <button class="getRandomChallengeButton" (click)="getRandomChallenge()">Get challenge</button>
         </div>
 
         <!-- *ngIf="timer == true" *ngIf="challengeName"-->
-
-        <div class="challengeStatusWindow" [@timer]="timer">
+    <!--<div style="flex:3;"></div> Components for sequence type of challenges-->
+    <div class="sequenceChallengeStatusWindow" [@sequence]="sequence">
+            <div style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-end; flex-direction: column">
+            <div *ngFor="let item of sequenceList" style="height: 15%; background-color:#F6F6F6; display: flex;">
+                <div class="exerciseListItem">               
+                      <h6 style="margin: 0; margin-left: 2%">{{item.repeats}} X {{item.name}} </h6>
+                </div>
+            </div>
+            </div>
+            <button class="goButtonSequence">Go!</button>
+    </div>
+    
+    <!--Components for timer type of challenges-->
+        <div class="timerChallengeStatusWindow" [@timer]="timer">
             <circle-progress [percent]=timerValue [maxPercent]=maxTimerValue [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
-                [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="false"></circle-progress>
-
+                [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="false"></circle-progress>            
+            
             <button *ngIf="timerOn == false && !challengeFinished" mat-icon-button class="playButton" (click)="initiateChallenge()">
                 <mat-icon aria-label="playButton">play_circle_filled</mat-icon>
             </button>

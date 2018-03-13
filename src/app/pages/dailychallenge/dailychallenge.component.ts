@@ -27,6 +27,17 @@ import "rxjs/add/operator/map";
       })),
       transition('false => true', animate('1000ms ease-in')),
     ]),
+    trigger('sequence', [
+      state('true', style({
+          opacity: 1,
+          display: "flex"
+      })),
+      state('false', style({
+          opacity: 0,
+          display: "none"
+      })),
+      transition('false => true', animate('1000ms ease-in')),
+    ]),
     trigger('getChallengeButton', [
       state('1', style({
           opacity: 1,
@@ -60,6 +71,10 @@ export class DailychallengeComponent implements OnInit {
   showGetChallengeButton = 1;
   challengeFinished = false;
 
+  //Sequence variables
+  sequence = false;
+  sequenceList = [];
+
   //Timer variables
   timerValue = 0.00;
   counter: number = 0;
@@ -83,14 +98,14 @@ export class DailychallengeComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.getUser();
+    //this.getUser();
   }
 
   fetchRandomChallenge() {  
     var list = [];
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
     var count = 0;
-    var randomNumber = this.getRandomInt(1); //TODO: Change to the number of challenges in database, sry for hardcode
+    var randomNumber = this.getRandomInt(2); //TODO: Change to the number of challenges in database, sry for hardcode
 
     var setName = (name) => {this.setChallengeName(name)};
     var setChallengeParams = (para) => {this.setChallengeParameter(para)};
@@ -100,7 +115,7 @@ export class DailychallengeComponent implements OnInit {
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key;
         var childData = childSnapshot.val();
-        if(randomNumber == count) {
+        if(randomNumber == count/*String(key)=="ExerciseSequence"*/) {
           setName(key);
           setChallengeParams(childData);
         }
@@ -128,7 +143,7 @@ export class DailychallengeComponent implements OnInit {
     .then(function(snapshot) { 
       console.log(new Date(snapshot.val()));
       console.log(new Date(date));
-      if(new Date(snapshot.val()).getTime() != new Date(date).getTime()) {
+      if(new Date(snapshot.val()).getTime() != new Date(date).getTime()+1) {
         challengeNotDoneToday();
       } else {
         challengeDoneToday();
@@ -138,9 +153,13 @@ export class DailychallengeComponent implements OnInit {
   }
 
   initiateChallenge() { //Called when "start-button" pressed, should not start timer for all
+  
+  if(this.timer) {
     this.timerOn = true;
     this.st.newTimer('secondCounter', 0.00001);
     this.timerId = this.st.subscribe('secondCounter', () => this.incrementTime());
+  }
+    
   }
   
 
@@ -186,15 +205,26 @@ export class DailychallengeComponent implements OnInit {
   setChallengeName(name: any = null): any{
     this.challengeName = String(name);
   }
+
+
   setChallengeParameter(param: any = null): any{
     this.challengeParameters = param;
-
     //TODO: Continue this when adding more types of challenges
-    if(this.challengeParameters["Timer"]) {
+    if(this.challengeParameters["Timer"]) { //Parameters if timer
       this.timer = this.challengeParameters["Timer"];
       this.time = this.challengeParameters["Time"];
+    } else if(this.challengeParameters["Sequence"]) { //Parameter if sequence
+      this.sequence = this.challengeParameters["Sequence"];
+      for (var key in this.challengeParameters["Exercises"]) {
+        var exerciseObject = {name: key, repeats: this.challengeParameters["Exercises"][key]};
+        this.sequenceList.push(exerciseObject);
+        console.log(exerciseObject);
+        
+      }
+
     }
   }
+
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }

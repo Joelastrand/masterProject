@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-
+    background-color:#F6F6F6;
     -webkit-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
     -moz-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
     box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
@@ -51,8 +51,53 @@
     background-color: #F6F6F6;
 }
 
-.challengeStatusWindow {
-    flex: 2;
+.getRandomChallengeButton {
+    background: #3e8e41;
+    color: #fff;
+    border: 1px solid #3e8e41;
+    border-radius: 5px;
+    padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+  }
+
+
+  .mainSection button:hover {
+    cursor: pointer;
+  }
+
+//Sequence styling
+.goButtonSequence {
+    width: 100%;
+    margin-top: auto;
+    background-color: #3e8e41;
+    border: none;
+    height: 15%;
+    color: #F6F6F6;
+
+}
+.exerciseListItem {
+    display:flex;
+    align-items: center;
+    background-color: #5d8ffc;
+    width: 100%;
+    border-bottom: 2px solid rgba(148,182,255,1);
+}
+.sequenceChallengeStatusWindow {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin-top: auto;
+    flex-flow: column;
+    width: 100%;
+    background-color: #F6F6F6;  
+}
+
+//Timer styling
+.timerChallengeStatusWindow {
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,18 +117,19 @@
     background-color: #F6F6F6;
     display: none;
 }
+.playButton {
+    color: #3e8e41;
+}
+.pauseButton {
+    color:red;
+}
 
  input, button {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
   }
 
-  .playButton {
-      color: #3e8e41;
-  }
-  .pauseButton {
-      color:red;
-  }
+  
   ::ng-deep .mat-icon-button{
       width: 48px !important;
       height: 48px !important;
@@ -94,20 +140,9 @@
         height: 48px !important;
         font-size: 48px !important;
     }
-  .getRandomChallengeButton {
-    background: #3e8e41;
-    color: #fff;
-    border: 1px solid #3e8e41;
-    border-radius: 5px;
-    padding: 4%;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-  }
 
 
-  .mainSection button:hover {
-    cursor: pointer;
-  }
+ 
 
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
