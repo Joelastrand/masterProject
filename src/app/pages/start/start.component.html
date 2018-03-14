@@ -1,36 +1,30 @@
-<!--<div>
-  <p-galleria [autoPlay]="true" [images]="images" panelWidth="90%" panelHeight="313" [showCaption]="true"></p-galleria>
-</div> style="width:90%; padding-left:25%; " -->
-<!--
-<div class="mainSection">
+<div *ngIf="isLoggedOut() == true">
+  <app-home></app-home>
+</div>
 
-  <div class="sections">
-    <p-galleria [images]="images" [showFilmstrip]="false" [showCaption]="true" effectDuration=2000 transitionInterval=10000 panelWidth="450"
-      panelHeight="313"></p-galleria>>
-  </div>
--->
- <!-- 
-  <div class="sections">
-    <app-leaderboard></app-leaderboard>
-  </div>
+<div *ngIf="isLoggedOut() == false">
+  <app-user-home></app-user-home>
 </div>
-class= " col-md-8 col-lg-10 col-centered"
-      -->
-<div>
-<img style="width:100%" src="assets/showcase/images/startpage/frontimage.png" alt=""> 
-</div>
- 
+
+
 <!-- 
+<div>
+  <img style="width:100%" src="assets/showcase/images/startpage/frontimage.png" alt="">
+</div>
+
 <div id="example1" style="height:650px">
 <h2>Hello World</h2>
 <p>The background image is displayed in its original size.</p>
 </div>
--->
-<div class="container">
-   <!-- <app-carousel></app-carousel> -->
 
+
+<div class="container">
+  <!-- <app-carousel></app-carousel> -->
+<!--
   <div class="col-md-12 col-lg-12">
-    <app-leaderboard></app-leaderboard>
+      <app-leaderboard></app-leaderboard>
+    </div>
+  
   </div>
 
-</div>
+-->

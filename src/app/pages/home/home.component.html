@@ -1,10 +1,11 @@
-<div class="container color-dark " style="text-align:center; margin-bottom:10%;">
-  <p>Welcome user!</p>
+<div>
+  <img style="width:100%" src="assets/showcase/images/startpage/frontimage.png" alt="">
 </div>
 
+<div class="container">
 
-<div class="btn-group" style="margin-top:50px">
-  <button style="background-color:#67971A" pButton type="button" label="Daily challenge" (click)="goToDailyChallenge()" class="ui-button-warning btn-button"></button>
-  <button pButton type="button" label="Challenge a friend" (click)="goToChallengeAFriend()" class="ui-button-warning btn-button"></button>
-  <button pButton type="button" label="Statistics" (click)="goToStatistics()" class="ui-button-warning btn-button"></button>
+  <div class="col-md-12 col-lg-12">
+    <app-leaderboard></app-leaderboard>
+  </div>
+
 </div>

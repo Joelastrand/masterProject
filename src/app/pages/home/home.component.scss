@@ -1,62 +1,47 @@
+  /*---------------------------General --------------------------------*/
 
-/*---------------------------General --------------------------------*/
-.container {
-    display: grid;
-}
-.col {
-    padding: .4em 1.3em;
-}
-.color-dark {
-    background: #2885C4;
-}
-.color-light {
-    background: #57B3F1;
-}
-
-input.txt {
-    border: 0;
-    padding: 1em;
-    width: 80%;
-    margin-bottom: 2em;
-}
-input.btn {
-    border: 0;
-    display:block;
-    padding:1em 3em;
-    background:#A5F883;
-    color:#003A61;
-    margin-bottom:1em;
-    cursor:pointer;
-}
-.life-container {
-    background:#3FA0E1;
-    padding:.5em;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.btn-group button {
-  background-color: #009ECE; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  width: 100%; /* Set a width if needed */
-  display: block; /* Make the buttons appear below each other */
-}
-
-.btn-button {
-  margin-top:35px;
-}
-
-.btn-group button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #3e8e41;
-}
-body {
-  background-color: #EFEFEF;
-}
+  .col-centered {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  
+  .mainSection {
+    min-height: 100%;
+  }
+  
+    /*---------------------------Large Desktop --------------------------------*/
+    @media only screen and (min-width: 1001px) {
+      .mainSection {
+        display:flex;
+        
+      }
+  
+      .sections{
+        flex:1;
+        margin-left:5%;
+        margin-right:5%;
+      }
+  
+    }
+  
+    /*---------------------------Medium Desktop --------------------------------*/
+  @media only screen and (max-width: 1000px) and (min-width:501px) {
+    .mainSection {
+      display:flex;
+      }
+    .sections{
+      flex:1;
+      }
+        
+    }
+    
+    /*---------------------------Mobile Desktop --------------------------------*/
+    @media only screen and (max-width: 500px) {
+      .mainSection {
+        display:block;
+      }
+    }
+    /*-------------------------------------------------------------------------*/
+  

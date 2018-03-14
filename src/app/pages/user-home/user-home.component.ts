@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { AuthService } from '../../auth.service';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { Router } from '@angular/router';
 
 
 
@@ -19,17 +20,41 @@ export class UserHomeComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+
+  constructor(private router: Router, private db: AngularFireDatabase, private userService: UserService, private authService: AuthService) { }
+
+  isLoggedIn() {
+
+    //Need to have the localsStorage because the auth request to the Firebase takes to long time.
+    var printUsername = localStorage.getItem("localuserName");
+
+    if (printUsername != null) {
+      document.getElementById("printUserName").innerHTML = "Welcome " + printUsername;
+      return true;
+    }
+    else
+      return false;
+  }
 
   ngOnInit() {
-    this.userService.cast.subscribe(user => this.user = user);
     this.getTheName();
-    
-
   }
-  async getTheName() {
-    const res = await this.authService.getUserName().subscribe(username => {
-      this.userName = username.$value;
+
+  getTheName() {
+    var setUserName = (newName) => {
+      this.userName = newName;
+      localStorage.setItem("localuserName", this.userName);
+    };
+
+    var getName = (ID) => {
+      this.db.database.ref(`/users/${ID}/username`).once("value").then(function (snapshot) {
+        setUserName(snapshot.val());
+      });
+    };
+
+    this.authService.getUserID().then(function (userID) {
+      getName(userID);
     });
+
   }
 }

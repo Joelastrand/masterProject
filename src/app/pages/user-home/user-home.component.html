@@ -1,7 +1,9 @@
+<div id="containerGreeting" style="text-align:center">
+  <h1 id="printUserName" style="text-align:center; color:black;">
+  </h1>
+  <div *ngIf="isLoggedIn() == true">
+  </div>
 
-
-
-<h1 style="text-align:center; color:black;">
-  Welcome {{userName}}!
-
-</h1>
+  <div *ngIf="isLoggedIn() == false">
+    <app-home></app-home>
+  </div>

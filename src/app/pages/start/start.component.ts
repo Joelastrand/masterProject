@@ -11,7 +11,7 @@ export class StartComponent implements OnInit {
 
   images: any[];
 
-  constructor(private router:Router,) { }
+  constructor(private router: Router, ) { }
 
   ngOnInit() {
     this.images = [];
@@ -21,12 +21,14 @@ export class StartComponent implements OnInit {
     this.images.push({ source: 'assets/showcase/images/startpage/victory.jpg', alt: 'Do you feel that? It is the tast of sweet victory.', title: 'Conquer your office now' });
 
   }
-  /*
-  goToCreateAccount() {
-    this.router.navigateByUrl('/signup');    
+
+  isLoggedOut() {
+    var printUsername = localStorage.getItem("localuserName");
+    if (printUsername == null) {
+      return true;
+    }
+    else
+      return false;
   }
-  goToLogIn() {
-    this.router.navigateByUrl('/login');
-  } */
 
 }

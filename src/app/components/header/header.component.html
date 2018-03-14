@@ -1,6 +1,6 @@
 <div class="header" style="display:flex;">
   <!----------------------Left side-------------------------------->
-  
+
   <div style="flex:1;" class="col-centered">
     <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
       <i class="material-icons">menu</i>
@@ -67,9 +67,9 @@
 
 
   <!----------------------Right side-------------------------------->
-  <!--class="rightSide"       <div class="buttons">-->
+
   <div style="flex:5; margin-right:2%;" class="col-centered rightSection">
-    <div style="display:flex;">
+    <div *ngIf="isLoggedOut() == true" style="display:flex;">
       <div>
         <button style="background-color:#3e8e41; color:white; margin-right:15px;" class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
       </div>
@@ -77,16 +77,10 @@
         <button style="background-color:#5d8ffc;" class="button" (click)="goToLogIn()" mat-raised-button>Log In</button>
       </div>
     </div>
+
+    <div *ngIf="isLoggedOut() == false" style="display:flex;">
+      <button class="logOutButton" (click)="logout()">Logout</button>
+    </div>
   </div>
 
 </div>
-
-<!-- </div>
-        <div class="col-lg-3 col-md-3 col-sm-1 col-1" style="margin-top:1%">
-      <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
-        Happen
-      </h1>
-    </div>
-
-
-      -->

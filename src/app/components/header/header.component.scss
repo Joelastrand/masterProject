@@ -1,5 +1,12 @@
 
 /*---------------------------General --------------------------------*/
+
+.logOutButton{
+  width: 200px;
+  float: right;
+  margin-left:50%;
+}
+
 .col-centered {
   margin-top: 2%;
 }
@@ -41,6 +48,12 @@
 /*---------------------------Large Desktop --------------------------------*/
 
 @media only screen and (min-width: 1001px) {
+  
+  .logOutButton{
+    width: 200px;
+    float: right;
+  }  
+  
   .rightSection{
     padding-left:30%;
   }

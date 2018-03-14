@@ -14,8 +14,16 @@ export class AuthService {
 
 
   constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) { }
-
+  private currentUser: firebase.User = null;
   userName = "";
+
+  logout() {
+    this.afAuth.auth.signOut().then(function() {
+      //console.log("signOut");
+    }, function(error) {
+      console.log(error);
+    } );
+  }
 
   checkUsername(username: string) {
     username = username.toLowerCase()
@@ -29,18 +37,24 @@ export class AuthService {
     this.db.object(`/usernames`).update(data)
   }
 
-  getUserID() {
-    var userID: string;
-    //console.log(userID);
-    userID = this.afAuth.auth.currentUser.uid;
+  async getUserID() {
+
+    const userID = await this.afAuth.auth.currentUser.uid;
+    localStorage.setItem("localuserID", "userID");
     return userID;
   }
-
+  /*
   getUserName() {
     var userID: string;
-    userID = this.getUserID();
-    const setUserName = (newName) => { this.userName = newName };
-    return this.db.object(`users/${userID}/username`);
+    var setUserID = (ID) => {
+      
+    };
+    this.getUserID().then(function(ey){
+      setUserID(ey);
+    });
+    console.log(this.db.object(`users/${userID}/username`));
+    return this.db.object(`users/${userID}/username`);    
   }
+  */
 
 }
