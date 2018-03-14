@@ -76,6 +76,7 @@ export class DailychallengeComponent implements OnInit {
   sequence = false;
   sequenceList = [];
   sequenceStarted = false;
+  exerciseIndex = 0;
 
   //Timer variables
   timerValue = 0.00;
@@ -190,6 +191,15 @@ export class DailychallengeComponent implements OnInit {
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
   }
 
+  nextExerciseInSequence() {
+    if(this.sequenceList.length-1 > this.exerciseIndex) {
+      this.exerciseIndex +=1;
+    }   
+  }
+
+  previousExerciseInSequence() {
+    this.exerciseIndex -=1;
+  }
 
   pauseTimer() {
     this.timerOn = false;

@@ -13,8 +13,7 @@
             <button class="getRandomChallengeButton" (click)="getRandomChallenge()">Get challenge</button>
         </div>
 
-        <!-- *ngIf="timer == true" *ngIf="challengeName"-->
-    <!--<div style="flex:3;"></div> Components for sequence type of challenges-->
+    <!-- <h6 style="margin: 0; margin-left: 2%">BILD HÄR</h6> Components for sequence type of challenges-->
     <div class="sequenceChallengeStatusWindow" [@sequence]="sequence">
             <div *ngIf="!sequenceStarted" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-end; flex-direction: column">
             <div *ngFor="let item of sequenceList" style="height: 15%; background-color:#F6F6F6; display: flex;">
@@ -25,18 +24,25 @@
             </div>
             
             <div class="currentExerciseImage" *ngIf="sequenceStarted" >
-                <h6 style="margin: 0; margin-left: 2%">BILD HÄR</h6>
+                <img src="assets/dumbbells.png" style="max-width: auto; height: 100%" />
             </div>
             <div class="currentExercise" *ngIf="sequenceStarted" >
-                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[0].name}}</h6>
-                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[0].repeats}}</h6>
+                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].name}}</h6>
+                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].repeats}}</h6>
             </div>
+
             <div *ngIf="sequenceStarted" style="flex: 1; width: 100%; display:flex; flex-direction: row; ">
-                <button class="goButtonSequence" style="height: 50%; border-right: 1px solid #80C75C" >
-                    <mat-icon aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
+                <button *ngIf="exerciseIndex > 0" (click)="previousExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-right: 1px solid #80C75C" >
+                    <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
                 </button>
-                <button class="goButtonSequence" style="height: 50%; border-left: 1px solid #80C75C" >
-                    <mat-icon aria-label="goBackArrow">keyboard_arrow_right</mat-icon>
+                <button *ngIf="exerciseIndex == 0" disabled=true class="goButtonSequence" style="opacity: 0.6; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C" >
+                    <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
+                </button>
+                <button *ngIf="exerciseIndex < sequenceList.length-1" (click)="nextExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-left: 1px solid #80C75C" >
+                    <mat-icon style="vertical-align:middle; margin-left: 20%" aria-label="goBackArrow">keyboard_arrow_right</mat-icon>
+                </button>
+                <button (click)="finishChallenge()" *ngIf="exerciseIndex == sequenceList.length-1" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-left: 1px solid #80C75C" >
+                    <mat-icon style="vertical-align:middle" aria-label="goBackArrow">check</mat-icon>
                 </button>
             </div>
             <button *ngIf="!sequenceStarted" class="goButtonSequence" (click)="initiateSequence()">Go!</button>
