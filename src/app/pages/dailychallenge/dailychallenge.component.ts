@@ -3,12 +3,16 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SimpleTimer } from 'ng2-simple-timer';
 import { OnChanges } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { /*AngularFireDatabase,*/ AngularFireList } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from "../../auth.service";
+import {DialogModule} from 'primeng/dialog';
+import { Router } from '@angular/router';
+
 import "rxjs/add/operator/map";
+import { forEach } from '@firebase/util';
 
 @Component({
   selector: 'app-dailychallenge',
@@ -70,7 +74,7 @@ export class DailychallengeComponent implements OnInit {
   //Animation triggers
   showGetChallengeButton = 1;
   challengeFinished = false;
-
+  displayFinishChallengeDialog: boolean = false;
 
   //Sequence variables
   sequence = false;
@@ -88,10 +92,12 @@ export class DailychallengeComponent implements OnInit {
 
   //Challenge variables
   challengeName = "";
+  dailyChallengeStreak = 0;
+  dailyChallengeTotal = 0;
   challengeParameters = {};
   username: string;
 
-  constructor(private afAuth: AngularFireAuth, private auth: AuthService, private st: SimpleTimer, private db: AngularFireDatabase) { }
+  constructor(private router: Router, private afAuth: AngularFireAuth, private auth: AuthService, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
   async getUser() {
     /*const res = await this.auth.getUserName().subscribe(uname => {
@@ -104,6 +110,11 @@ export class DailychallengeComponent implements OnInit {
     //this.getUser();
   }
 
+  goToStart() {
+    this.displayFinishChallengeDialog = false;
+    this.router.navigateByUrl('');    
+  }
+  
   fetchRandomChallenge() {
     var list = [];
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
@@ -118,7 +129,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/*randomNumber == count*/String(key)=="ExerciseSequence") {
+          if (randomNumber == count /*String(key)=="ExerciseSequence"*/) {
             setName(key);
             setChallengeParams(childData);
           }
@@ -127,7 +138,7 @@ export class DailychallengeComponent implements OnInit {
       });
   }
 
-  //TODO: Add functionality for more types of challenges, currently only works for timer challenges...
+
   getRandomChallenge() {
 
     var d = new Date();
@@ -138,14 +149,12 @@ export class DailychallengeComponent implements OnInit {
       this.showGetChallengeButton = 0;
     };
     var challengeDoneToday = () => {
-      console.log("Challenge has already been completed today"); //TODO: SKRIV UT ATT CHALLENGE REDAN ÄR KLAR
+      console.log("Challenge has already been completed today"); //TODO: SKRIV UT ATT CHALLENGE REDAN ÄR KLAR, gör i init?
     };
 
-    //Check if daily challenge has been made today
+    //Checks if daily challenge has been made today
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/date").once("value")
       .then(function (snapshot) {
-        console.log(new Date(snapshot.val()));
-        console.log(new Date(date));
         if (new Date(snapshot.val()).getTime() != new Date(date).getTime() + 1) {
           challengeNotDoneToday();
         } else {
@@ -155,10 +164,11 @@ export class DailychallengeComponent implements OnInit {
 
   }
 
+  
   initiateSequence() {
     this.sequenceStarted = true;
-    console.log(this.sequenceList[0]);
   }
+
   initiateChallenge() { //Called when "play-button" pressed
 
     if (this.timer) {
@@ -171,22 +181,37 @@ export class DailychallengeComponent implements OnInit {
 
 
   finishChallenge() {
-
-    console.log("Complete!" + this.username); //TODO: give some confirmation of completion
-
     this.challengeFinished = true;
-    this.updateDailyChallenge(); //Increments streak and updates "date" to current date
-
+    this.updateDailyChallenge();
+    this.displayFinishChallengeDialog = true;
+    
   }
 
   updateDailyChallenge() {
     //Increments streak and updates "date" to current date
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
-    var updateStreak = (newStreak) => { this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak }) };
-    this.db.database.ref("scores/" + this.username + "/dailyChallenge/streak").once("value")
+
+    var updateStreak = (newStreak) => { 
+      this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
+      this.dailyChallengeStreak = newStreak;
+    };
+
+    var updateTotal = (newTotal) => {
+      this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
+      this.dailyChallengeTotal = newTotal;
+    };
+
+    this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
       .then(function (snapshot) {
-        updateStreak(snapshot.val() + 1);
+        snapshot.forEach(function (childSnapshot) {
+          if(childSnapshot.key == "total") {
+            updateTotal(childSnapshot.val()+1);
+          } else if(childSnapshot.key == "streak") {   
+            updateStreak(childSnapshot.val()+1);
+          }
+        });
+        //updateStreak(snapshot.val() + 1);
       });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
   }
@@ -234,7 +259,6 @@ export class DailychallengeComponent implements OnInit {
       for (var key in this.challengeParameters["Exercises"]) {
         var exerciseObject = { name: key, repeats: this.challengeParameters["Exercises"][key] };
         this.sequenceList.push(exerciseObject);
-        console.log(exerciseObject);
 
       }
 
