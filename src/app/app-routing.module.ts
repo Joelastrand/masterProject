@@ -9,6 +9,7 @@ import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
 import { SetusernameComponent } from './pages/setusername/setusername.component';
 import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { ChallengefriendComponent } from './pages/challengefriend/challengefriend.component';
 
 const routes: Routes = [
 
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'dailyChallenge',
     component: DailychallengeComponent
+  },
+  {
+    path: 'challengefriend',
+    component: ChallengefriendComponent
   },
   {
     path: 'about/:id', // /:id = Route parameter

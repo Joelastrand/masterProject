@@ -26,6 +26,7 @@ import { StartComponent } from './pages/start/start.component';
 import { SetusernameComponent } from './pages/setusername/setusername.component';
 import { ForgotpwComponent } from './pages/forgotpw/forgotpw.component';
 import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.component';
+import { ChallengefriendComponent } from './pages/challengefriend/challengefriend.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 
 //Bootstrap
@@ -49,6 +50,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+
 
 
 
@@ -77,6 +79,7 @@ export const FIREBASE_CONFIG = {
     DailychallengeComponent,
     CarouselComponent,
     UserHomeComponent,
+    ChallengefriendComponent,
   ],
   imports: [
     BrowserModule,
