@@ -48,11 +48,11 @@ export class ChallengefriendComponent implements OnInit {
   }
 
   sendChallenge() {
-    console.log(this.username);
-    console.log(localStorage.getItem("localuserName"));
+    let senderName = localStorage.getItem("localuserName");
+    let receiverName = this.username;
+  //  this.db.object(`/userChallenges/${senderName}/outgoing/`).update({ "date": date }); //Update outgoing for sender
+  //  this.db.object(`/userChallenges/${receiverName}/dailyChallenge`).update({ "date": date }); //Update incoming for receiver
+  
   }
 
- /* getListOfChallenges(listPath): Observable<any[]> {
-    return this.db.list(listPath).subscribe(); // valueChanges();
-  }*/
 }
