@@ -1,9 +1,11 @@
 <div class="mainContent">
+    <div class="headingDiv">
+        <h3 style="margin: 0; color: black">Hey there! Welcome back.</h3>
+        <h4 style="color: gray">Enter your sign in details below</h4>
+    </div>
     <div id="login_div" class="main-div">
-        <h3>Hey there! Welcome back.</h3>
-        <h4>Enter your sign in details below</h4>
         <h2>Email</h2>
-        <input type="email" placeholder="Enter Email" id="email_field" [(ngModel)]="user.email"/>
+        <input type="email" placeholder="Enter Email" id="email_field" [(ngModel)]="user.email" />
         <h2>Password</h2>
         <input style="margin-bottom: 0" type="password" placeholder="Enter Password" id="password_field" [(ngModel)]="user.password"
         />

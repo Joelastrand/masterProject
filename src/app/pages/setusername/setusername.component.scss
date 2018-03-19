@@ -29,12 +29,28 @@
     color: #5d8ffc;
     cursor: pointer;
   }
+  .headingDiv {
+    
+    border: 1px solid rgb(189, 189, 189);
+    border-bottom: none;
+    align-content: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0px auto;
+    background-color: white;
+    margin-top: 5%;
+    padding: 2%;
+  }
+  
   .main-div {
+    background-color: rgb(249, 249, 249);
+    border: 1px solid rgb(189, 189, 189);
     align-content: center;
     justify-content: space-between;
     margin: 0px auto;
-    margin-top: 0;
-    padding: 1%;
+    padding: 2%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -98,6 +114,12 @@
   input, button { 
     font-size: 1.0em;
   }
+  .headingDiv h4{
+    font-size: 1.1em;
+  }
+  .headingDiv h3{
+    font-size: 1.4em;
+  }
   .main-div h4{
     font-size: 0.9em;
   }
@@ -109,10 +131,13 @@
     font-size: 1.0em;
   }
   .main-div {
-    width: 40%;
+    width: 50%;
+  }
+  .headingDiv {
+    width: 50%;
   }
   .secondary-div {
-    width: 40%;
+    width: 50%;
   }
 }
 
@@ -126,6 +151,12 @@
   input, button { 
     font-size: 0.9em;
   }
+  .headingDiv h4{
+    font-size: 1.0em;
+  }
+  .headingDiv h3{
+    font-size: 1.3em;
+  }
   .main-div h3{
     font-size: 1.3em;
   }
@@ -136,10 +167,13 @@
     font-size: 0.9em;
   }
   .main-div {
-    width: 50%;
+    width: 60%;
+  }
+  .headingDiv {
+    width: 60%;
   }
   .secondary-div {
-    width: 50%;
+    width: 60%;
   }
 
 }
@@ -154,6 +188,12 @@
     input, button { 
       font-size: 0.7em;
     }
+    .headingDiv h4{
+      font-size: 0.8em;
+    }
+    .headingDiv h3{
+      font-size: 1.0em;
+    }
     .main-div h4{
       font-size: 0.7em;
     }
@@ -166,7 +206,9 @@
     .main-div {
       width: 90%;
     }
-    
+    .headingDiv {
+      width: 90%;
+    }
     .secondary-div {
       width: 90%;
     }
