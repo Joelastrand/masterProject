@@ -33,6 +33,9 @@ export class ChallengefriendComponent implements OnInit {
   selectChallenge(name) {
     this.selectedChallenge = name;
   }
+  returnToChallengeView() {
+    this.selectedChallenge = "";
+  }
 
   getListOfChallenges() {
     var addChallengeToList = (challenge) => {this.listOfChallenges.push(challenge)};
@@ -50,8 +53,13 @@ export class ChallengefriendComponent implements OnInit {
   sendChallenge() {
     let senderName = localStorage.getItem("localuserName");
     let receiverName = this.username;
-  //  this.db.object(`/userChallenges/${senderName}/outgoing/`).update({ "date": date }); //Update outgoing for sender
-  //  this.db.object(`/userChallenges/${receiverName}/dailyChallenge`).update({ "date": date }); //Update incoming for receiver
+
+    if(senderName != receiverName) {  
+      this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({ "accepted": false, "challenge": this.selectedChallenge}); //update outgoing for sender
+      this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
+    } else {
+      console.log("Unsupported action");
+    }
   
   }
 

@@ -92,8 +92,24 @@
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
   }
+  
+  .backArrowButton {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      height: 48px;
+      width: 48px;
+  }
 
+  .backArrowButton :hover{
+    cursor: pointer;
+  }
 
+  ::ng-deep .mat-icon{
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 48px !important;
+}
 
  
 
