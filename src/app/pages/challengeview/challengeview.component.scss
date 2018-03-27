@@ -109,9 +109,10 @@
     align-content: center;
     align-items: center;
     margin-top: 20%;
-    height: 5%;
+    height: 7%;
     background-color: #5d8ffc;
     border-radius: 0 20px 0 0;
+    border-bottom: 2px solid rgba(148,182,255,1);
     width: 30%;
 }
 .smallTitleDiv h4 {
@@ -167,6 +168,11 @@
           input, button { 
             font-size: 0.9em;
           }
+          
+        .smallTitleDiv {
+            height: 10%;
+            width: 35%;
+        }
     }
     
     /*---------------------------Mobile Desktop --------------------------------*/

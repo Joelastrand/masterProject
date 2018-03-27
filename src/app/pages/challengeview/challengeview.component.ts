@@ -20,52 +20,62 @@ export class ChallengeviewComponent implements OnInit {
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
-    this.getIncomingChallenges();
+    this.getUserChallenges();
   }
 
+  acceptChallenge() {
 
-  getIncomingChallenges() {
-    var addIncomingToList = (challenge) => {this.ListOfIncomingChallenges.push(challenge)};
-    let query = "userChallenges/"+this.username+"/incoming"
-    this.db.database.ref(query).once("value")
-    .then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var key = childSnapshot.key;
-        var childData = childSnapshot.val();
-        var challengeObject = {challenger: key, challenge: childData["challenge"]};
-        addIncomingToList(challengeObject);
+  }
+
+  declineChallenge() {
+    
+  }
+
+  //Updates the user's challenge overview in realtime, could perhaps be more elegant...
+  getUserChallenges() {
+    var addIncomingToList = (challenge) => { this.ListOfIncomingChallenges.push(challenge) };
+    var addOutgoingToList = (challenge) => { this.ListOfOutgoingChallenges.push(challenge) };
+    var addCurrentToList = (challenge) => { this.ListOfCurrentChallenges.push(challenge) };
+
+    let query = "userChallenges/" + this.username;
+    let currentList = "";
+    this.db.database.ref(query).on("value", (snapshot) => {
+      this.ListOfIncomingChallenges = [];
+      this.ListOfOutgoingChallenges = [];
+      this.ListOfCurrentChallenges = [];
+      snapshot.forEach((snap) => {
+        snap.forEach((childSnap) => {
+          console.log(snap.key);
+          var key = childSnap.key;
+          var childData = childSnap.val();
+          var challengeObject = { challenger: key, challenge: childData["challenge"] };
+          if(snap.key == "incoming") {
+            addIncomingToList(challengeObject);
+          } else if(snap.key == "outgoing") {
+            addOutgoingToList(challengeObject);
+          } else {
+            addCurrentToList(challengeObject);
+          }
+          return false;
+        });
+        return false;
       });
     });
   }
-
-  getOutgoingChallenges() {
-    var addOutgoingToList = (challenge) => {this.ListOfIncomingChallenges.push(challenge)};
-    let query = "userChallenges/"+this.username+"/outgoing"
-    this.db.database.ref(query).once("value")
-    .then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var key = childSnapshot.key;
-        var childData = childSnapshot.val();
-        var challengeObject = {challenger: key, challenge: childData["challenge"]};
-        addOutgoingToList(challengeObject);
-      });
-    });
-  }
-
-
-  getCurrentChallenges() {
-    var addCurrentToList = (challenge) => {this.ListOfIncomingChallenges.push(challenge)};
-    let query = "userChallenges/"+this.username+"/current"
-    this.db.database.ref(query).once("value")
-    .then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var key = childSnapshot.key;
-        var childData = childSnapshot.val();
-        var challengeObject = {challenger: key, challenge: childData["challenge"]};
-        addCurrentToList(challengeObject);
-      });
-    });
-  }
-
+  /* getIncomingChallenges() {
+     var addIncomingToList = (challenge) => {  this.ListOfIncomingChallenges.push(challenge) };
+     let query = "userChallenges/" + this.username + "/incoming"
+     this.db.database.ref(query).on("value", (snapshot) => {
+       this.ListOfIncomingChallenges = [];
+       snapshot.forEach((snap) => {
+         var key = snap.key;
+         var childData = snap.val();
+         var challengeObject = { challenger: key, challenge: childData["challenge"] };
+         addIncomingToList(challengeObject);
+         return false;
+       });
+     });
+   }*/
+  
 
 }
