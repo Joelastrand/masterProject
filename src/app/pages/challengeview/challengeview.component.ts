@@ -23,8 +23,11 @@ export class ChallengeviewComponent implements OnInit {
     this.getUserChallenges();
   }
 
-  acceptChallenge() {
-
+  acceptChallenge(challengerName, challenge) {
+    this.db.object(`userChallenges/${this.username}/incoming/${challengerName}`).remove();
+    this.db.object(`userChallenges/${challengerName}/outgoing/${this.username}`).remove();
+    this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "victoryStatus":""});
+    this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "victoryStatus":""});
   }
 
   declineChallenge() {
@@ -45,7 +48,6 @@ export class ChallengeviewComponent implements OnInit {
       this.ListOfCurrentChallenges = [];
       snapshot.forEach((snap) => {
         snap.forEach((childSnap) => {
-          console.log(snap.key);
           var key = childSnap.key;
           var childData = childSnap.val();
           var challengeObject = { challenger: key, challenge: childData["challenge"] };
