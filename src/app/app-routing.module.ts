@@ -11,12 +11,17 @@ import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.c
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { ChallengefriendComponent } from './pages/challengefriend/challengefriend.component';
 import { ChallengeviewComponent } from './pages/challengeview/challengeview.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 const routes: Routes = [
 
   {
     path: '',
     component: StartComponent
+  },
+  {
+    path: 'statistics',
+    component: StatisticsComponent
   },
   {
     path: 'login',

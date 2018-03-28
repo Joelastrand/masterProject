@@ -11,6 +11,39 @@
       line-height: 28px;
   }
   
+  .cardSectionBig{
+    display:flex;
+    width:100%;
+    flex-direction:row; 
+    justify-content: center; 
+    align-items: center
+  }
+  .cardSectionSmall{
+    display:flex;
+    width:80%;
+    min-height: 80%;
+    flex-direction:row; 
+    justify-content: center; 
+    align-items: center
+  }
+
+
+  .card{
+    cursor:pointer;flex:1; 
+    display:flex; 
+    background-color:#3E5062; 
+    margin:1%;
+    flex-direction:column; justify-content: center; 
+    align-items: center
+  }
+  .cardh1{
+    font-size:30px;
+    color: #F6F6F6;
+  }
+  .cardp{
+    font-size:18px;
+    color:  #F6F6F6;
+  }
   
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
@@ -23,12 +56,34 @@
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+    .cardh1{
+        font-size:100%;
+        color: #F6F6F6;
+      }
+      .cardp{
+        font-size:80%;
+        color:  #F6F6F6;
+      }  
+      .cardSectionSmall{
+        width:90%;
+      }
         
     }
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+        .cardh1{
+            font-size:0.7em;
+            color: #F6F6F6;
+          }
+          .cardp{
+            font-size:0.5em;
+            color:  #F6F6F6;
+          }  
+          .cardSectionSmall{
+            width:90%;
 
+          }        
     }
     /*-------------------------------------------------------------------------*/
   

@@ -40,6 +40,19 @@ export class UserHomeComponent implements OnInit {
     this.getTheName();
   }
 
+  redirectToDailyChallenge() {
+    this.router.navigate(['./dailyChallenge']);
+  }
+  redirectToStatistics() {
+    this.router.navigate(['./statistics']);
+  }
+
+  redirectToChallengeFriend() {
+    this.router.navigate(['./challengefriend']);
+  }
+
+
+
   getTheName() {
     var setUserName = (newName) => {
       this.userName = newName;

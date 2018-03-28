@@ -29,6 +29,7 @@ import { DailychallengeComponent } from './pages/dailychallenge/dailychallenge.c
 import { ChallengefriendComponent } from './pages/challengefriend/challengefriend.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { ChallengeviewComponent } from './pages/challengeview/challengeview.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -83,6 +84,7 @@ export const FIREBASE_CONFIG = {
     UserHomeComponent,
     ChallengefriendComponent,
     ChallengeviewComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
