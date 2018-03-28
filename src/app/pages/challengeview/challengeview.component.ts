@@ -30,8 +30,9 @@ export class ChallengeviewComponent implements OnInit {
     this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "victoryStatus":""});
   }
 
-  declineChallenge() {
-    
+  declineChallenge(challengerName) {
+    this.db.object(`userChallenges/${this.username}/incoming/${challengerName}`).remove();
+    this.db.object(`userChallenges/${challengerName}/outgoing/${this.username}`).remove();
   }
 
   //Updates the user's challenge overview in realtime, could perhaps be more elegant...

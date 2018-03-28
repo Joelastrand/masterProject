@@ -3,7 +3,7 @@
 
     <div *ngIf="!selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
       <div *ngFor="let challenge of listOfChallenges" class="challengeBox" (click)="selectChallenge(challenge.name)">
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: column;justify-content: center;">
+        <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
           <h3 style="color: #F6F6F6; margin-left: 2%">{{challenge.name}}</h3>
           <h6 style="color: gray; margin-left: 2%">{{challenge.description}}</h6>
         </div>
@@ -42,5 +42,12 @@
       </div>
 
     </div>
+
+    <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
+      <p>Challenge has been sent!</p>
+      <p-footer>
+        <button type="button" pButton icon="" (click)="goToChallengeOverview()" label="Okay!"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
