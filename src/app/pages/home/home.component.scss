@@ -1,4 +1,34 @@
-  /*---------------------------General --------------------------------*/
+.card-deck {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap; 
+  align-items: stretch;
+}
+.card-deck .card {
+  display: block;
+  flex-basis: 33.3%; /* change this value for each breakpoint*/
+  //height: 200px;
+  min-height: 100%;
+}
+
+@media only screen and (max-width: 580px) {
+  .card-deck .card {
+    display: block;
+    flex-basis: 33.3%; /* change this value for each breakpoint*/
+    height: 200px;
+    min-height: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) and (min-width:581px) {
+  .card-deck .card {
+    display: block;
+    flex-basis: 20%; /* change this value for each breakpoint*/
+    height: 300px;
+    min-height: 100%;
+  }
+        
+} /*---------------------------General --------------------------------*/
 
   .col-centered {
     float: none;
