@@ -38,7 +38,9 @@ export class HeaderComponent implements OnInit {
   goToStartPage() {
     this.router.navigateByUrl('');
   }
-
+  goToChallengeAFriend() {
+    this.router.navigateByUrl('/challengefriend');
+  } 
   goToCreateAccount() {
     this.router.navigateByUrl('/signup');
   }
@@ -47,5 +49,8 @@ export class HeaderComponent implements OnInit {
   }
   goToDaily() {
     this.router.navigateByUrl('/dailyChallenge');
+  }
+  goToChallengeView() {
+    this.router.navigateByUrl('/challengeview');
   }
 }

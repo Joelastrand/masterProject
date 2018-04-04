@@ -31,9 +31,9 @@
         <i class="material-icons">timeline</i>
         <span>Statistics</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="goToChallengeAFriend()">
         <i class="material-icons">group</i>
-        <span>Friends</span>
+        <span>Challenge a Friend</span>
       </button>
       <button mat-menu-item>
         <i class="material-icons">directions_run</i>
@@ -43,7 +43,7 @@
         <i class="material-icons">directions_walk</i>
         <span>Daily challenge</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="goToChallengeView()">
         <i class="material-icons">grade</i>
         <span>Challenges</span>
       </button>
