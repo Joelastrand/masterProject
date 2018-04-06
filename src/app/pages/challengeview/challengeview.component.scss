@@ -8,7 +8,7 @@
     flex-direction: column;
   }
 
-.flexArea {
+.overViewArea {
     max-height: 100%;
     //display: flex;
     flex-flow: column;
@@ -21,6 +21,20 @@
     -moz-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
     box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
 }
+
+.flexArea {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color:#F6F6F6;
+    -webkit-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+    box-shadow: 10px 10px 50px -18px rgba(0,0,0,1);
+}
+
 
 .titleBox {
     width: 100%;
@@ -132,6 +146,27 @@
     margin: 0;
 }
 
+.selectedChallenge {
+    width: 100%;
+    height: 15%;
+    justify-content: center;
+    flex-flow: column;
+    background: linear-gradient(#526476, #3E5062) ;
+}
+
+.backArrowButton {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    height: 48px;
+    width: 48px;
+}
+
+.backArrowButton :hover{
+  cursor: pointer;
+}
+
+
 ::ng-deep .mat-icon{
   width: 40px !important;
   height: 40px !important;
@@ -145,9 +180,20 @@
     font-size: 48px !important;
 }
  
+::ng-deep .mat-icon.material-icons.md-60.mat-icon {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 60px !important;
+}
 
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
+
+        .overViewArea {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 40%;
+        }
         .flexArea {
             margin-top: 5%;
             margin-bottom: 5%;
@@ -172,6 +218,12 @@
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+
+        .overViewArea {
+            margin-top: 10%;
+            margin-bottom: 10%;
+            width: 70%;  
+        }
         .flexArea {
             margin-top: 10%;
             margin-bottom: 10%;
@@ -202,6 +254,11 @@
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+        .overViewArea {
+            margin-top: 15%;
+            margin-bottom: 15%;
+            width: 100%;
+        }
         .flexArea {
             margin-top: 15%;
             margin-bottom: 15%;

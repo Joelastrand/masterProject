@@ -7,7 +7,7 @@
       <!--<mat-icon>more_vert</mat-icon>         leftSide-->
     </button>
     <mat-menu #menu="matMenu" color="black">
-      <button mat-menu-item>
+   <!--   <button mat-menu-item>
         <i class="material-icons">search</i>
         <span>Search</span>
       </button>
@@ -31,14 +31,16 @@
         <i class="material-icons">timeline</i>
         <span>Statistics</span>
       </button>
-      <button mat-menu-item (click)="goToChallengeAFriend()">
-        <i class="material-icons">group</i>
-        <span>Challenge a Friend</span>
-      </button>
       <button mat-menu-item>
         <i class="material-icons">directions_run</i>
         <span>Events</span>
       </button>
+    -->
+      <button mat-menu-item (click)="goToChallengeAFriend()">
+        <i class="material-icons">group</i>
+        <span>Challenge a Friend</span>
+      </button>
+    
       <button mat-menu-item (click)="goToDaily()">
         <i class="material-icons">directions_walk</i>
         <span>Daily challenge</span>

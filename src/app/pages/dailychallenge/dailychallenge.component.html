@@ -54,7 +54,7 @@
                 <button *ngIf="exerciseIndex > 0" (click)="previousExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
                     <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
                 </button>
-                <button *ngIf="exerciseIndex == 0" disabled=true class="goButtonSequence" style="opacity: 0.6; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
+                <button *ngIf="exerciseIndex == 0" disabled=true class="goButtonSequence" style="opacity: 0.7; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
                     <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
                 </button>
                 <button *ngIf="exerciseIndex < sequenceList.length-1" (click)="nextExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-left: 1px solid #80C75C">

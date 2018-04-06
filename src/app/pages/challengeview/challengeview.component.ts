@@ -14,6 +14,7 @@ export class ChallengeviewComponent implements OnInit {
   ListOfIncomingChallenges = [];
   ListOfOutgoingChallenges = [];
   ListOfCurrentChallenges = [];
+  selectedChallenge: string = "";
 
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
@@ -33,6 +34,16 @@ export class ChallengeviewComponent implements OnInit {
   declineChallenge(challengerName) {
     this.db.object(`userChallenges/${this.username}/incoming/${challengerName}`).remove();
     this.db.object(`userChallenges/${challengerName}/outgoing/${this.username}`).remove();
+  }
+
+  selectChallenge(challengeName, challengerName) {
+    this.selectedChallenge = challengeName;
+    console.log(challengeName);
+    console.log(challengerName);
+  }
+
+  returnToChallengeOverview() {
+    this.selectedChallenge = "";
   }
 
   //Updates the user's challenge overview in realtime, could perhaps be more elegant...
