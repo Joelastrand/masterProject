@@ -30,6 +30,20 @@
         </div>
       </div>
 
+      <div class="startNewChallengeHover" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
+        <div class="startNewChallenge" (click)="goToChallengeFriend()">
+          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+            <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">play_arrow</mat-icon>
+          </div>
+          <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
+            <h3 style="margin: 0; color: #F6F6F6; text-align: center">Start New Challenge</h3>
+          </div>
+          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+
+          </div>
+        </div>
+      </div>
+
       <div class="smallTitleDiv">
         <h4>Active Challenges</h4>
       </div>
@@ -79,8 +93,8 @@
         <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
           <div style="flex:1; vertical-align: middle; display: flex">
             <button (click)="returnToChallengeOverview()" class="backArrowButton">
-                            <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
-                          </button>
+              <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
+            </button>
           </div>
           <div style=" flex: 2; display: flex; align-items: center; justify-content: center; vertical-align: middle">
             <h2 style="margin: 0; color: #F6F6F6">{{selectedChallenge}}</h2>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../auth.service";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-challengeview',
@@ -17,7 +18,7 @@ export class ChallengeviewComponent implements OnInit {
   selectedChallenge: string = "";
 
 
-  constructor(private db: AngularFireDatabase, public auth: AuthService) { }
+  constructor(private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
@@ -38,12 +39,14 @@ export class ChallengeviewComponent implements OnInit {
 
   selectChallenge(challengeName, challengerName) {
     this.selectedChallenge = challengeName;
-    console.log(challengeName);
-    console.log(challengerName);
   }
 
   returnToChallengeOverview() {
     this.selectedChallenge = "";
+  }
+
+  goToChallengeFriend() {
+    this.router.navigateByUrl('/challengefriend');    
   }
 
   //Updates the user's challenge overview in realtime, could perhaps be more elegant...
