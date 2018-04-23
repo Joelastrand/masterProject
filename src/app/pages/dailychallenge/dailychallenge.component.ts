@@ -97,7 +97,7 @@ export class DailychallengeComponent implements OnInit {
   challengeParameters = {};
   username: string;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private auth: AuthService, private st: SimpleTimer, private db: AngularFireDatabase) { }
+  constructor(private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
   async getUser() {
     /*const res = await this.auth.getUserName().subscribe(uname => {
@@ -107,6 +107,7 @@ export class DailychallengeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.username = localStorage.getItem("localuserName");
     //this.getUser();
   }
 
@@ -188,7 +189,7 @@ export class DailychallengeComponent implements OnInit {
   }
 
   updateDailyChallenge() {
-    //Increments streak and updates "date" to current date
+    //Increments streak and total and updates "date" to current date
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
@@ -202,16 +203,24 @@ export class DailychallengeComponent implements OnInit {
       this.dailyChallengeTotal = newTotal;
     };
 
+    var newTotal, newStreak =  0;
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
           if(childSnapshot.key == "total") {
-            updateTotal(childSnapshot.val()+1);
+            newTotal = childSnapshot.val()+1;
           } else if(childSnapshot.key == "streak") {   
-            updateStreak(childSnapshot.val()+1);
+            newStreak = childSnapshot.val()+1;     
           }
+          if(newTotal == undefined) {
+            newTotal = 1;
+          }
+          if(newStreak == 0) {
+            newStreak = 1;
+          }       
         });
-        //updateStreak(snapshot.val() + 1);
+        updateTotal(newTotal);
+        updateStreak(newStreak);
       });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
   }
