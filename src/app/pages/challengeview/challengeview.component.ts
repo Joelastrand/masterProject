@@ -16,6 +16,7 @@ export class ChallengeviewComponent implements OnInit {
   ListOfOutgoingChallenges = [];
   ListOfCurrentChallenges = [];
   selectedChallenge: string = "";
+  challengerName: string = "";
 
 
   constructor(private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
@@ -38,6 +39,7 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   selectChallenge(challengeName, challengerName) {
+    this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
   }
 
