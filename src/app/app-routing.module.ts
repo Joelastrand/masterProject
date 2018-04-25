@@ -13,7 +13,7 @@ import { ChallengefriendComponent } from './pages/challengefriend/challengefrien
 import { ChallengeviewComponent } from './pages/challengeview/challengeview.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
-import { GameInformationComponent } from './pages/game-information/game-information.component';
+import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
 
 const routes: Routes = [
 

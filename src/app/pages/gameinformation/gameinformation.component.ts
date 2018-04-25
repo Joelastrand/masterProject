@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-game-information',
-  templateUrl: './game-information.component.html',
-  styleUrls: ['./game-information.component.scss']
+  selector: 'app-gameinformation',
+  templateUrl: './gameinformation.component.html',
+  styleUrls: ['./gameinformation.component.scss']
 })
 export class GameInformationComponent implements OnInit {
 

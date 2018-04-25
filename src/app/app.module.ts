@@ -31,6 +31,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { ChallengeviewComponent } from './pages/challengeview/challengeview.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
+import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -53,7 +54,6 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { GameInformationComponent } from './pages/game-information/game-information.component';
 
 
 
