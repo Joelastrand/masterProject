@@ -70,10 +70,11 @@
 .goButtonSequence {
     width: 100%;
     margin-top: auto;
-    background-color: #3e8e41;
+    //background-color: #3e8e41;
+    background-color: #F6F6F6;
     border: none;
     height: 15%;
-    color: #F6F6F6;
+    color: gray;
 
 }
 
@@ -154,7 +155,32 @@
     font-weight: 700;
   }
 
-  
+  .finishExerciseButton {
+    margin-bottom: 5%;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width:56px;
+    height:56px;
+    line-height:56px;
+    border: 2px solid white;
+    border-radius: 50%;
+    color:white; 
+    text-align:center;
+    text-decoration:none;
+    background: linear-gradient(#66b669, #3e8e41);
+    font-size:20px;
+    font-weight:bold;
+}
+
+.skipAndPrevIcon :hover {
+    cursor: pointer;
+}
+
   ::ng-deep .mat-icon-button{
       width: 48px !important;
       height: 48px !important;

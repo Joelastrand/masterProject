@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from "../../auth.service";
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
 import "rxjs/add/operator/map";
@@ -113,9 +113,9 @@ export class DailychallengeComponent implements OnInit {
 
   goToStart() {
     this.displayFinishChallengeDialog = false;
-    this.router.navigateByUrl('');    
+    this.router.navigateByUrl('');
   }
-  
+
   fetchRandomChallenge() {
     var list = [];
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
@@ -130,7 +130,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (randomNumber == count /*String(key)=="ExerciseSequence"*/) {
+          if (/*randomNumber == count*/ String(key) == "ExerciseSequence") {
             setName(key);
             setChallengeParams(childData);
           }
@@ -165,7 +165,7 @@ export class DailychallengeComponent implements OnInit {
 
   }
 
-  
+
   initiateSequence() {
     this.sequenceStarted = true;
   }
@@ -185,7 +185,7 @@ export class DailychallengeComponent implements OnInit {
     this.challengeFinished = true;
     this.updateDailyChallenge();
     this.displayFinishChallengeDialog = true;
-    
+
   }
 
   updateDailyChallenge() {
@@ -193,7 +193,7 @@ export class DailychallengeComponent implements OnInit {
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
-    var updateStreak = (newStreak) => { 
+    var updateStreak = (newStreak) => {
       this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
       this.dailyChallengeStreak = newStreak;
     };
@@ -203,21 +203,21 @@ export class DailychallengeComponent implements OnInit {
       this.dailyChallengeTotal = newTotal;
     };
 
-    var newTotal, newStreak =  0;
+    var newTotal, newStreak = 0;
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
-          if(childSnapshot.key == "total") {
-            newTotal = childSnapshot.val()+1;
-          } else if(childSnapshot.key == "streak") {   
-            newStreak = childSnapshot.val()+1;     
+          if (childSnapshot.key == "total") {
+            newTotal = childSnapshot.val() + 1;
+          } else if (childSnapshot.key == "streak") {
+            newStreak = childSnapshot.val() + 1;
           }
-          if(newTotal == undefined) {
+          if (newTotal == undefined) {
             newTotal = 1;
           }
-          if(newStreak == 0) {
+          if (newStreak == 0) {
             newStreak = 1;
-          }       
+          }
         });
         updateTotal(newTotal);
         updateStreak(newStreak);
@@ -226,13 +226,19 @@ export class DailychallengeComponent implements OnInit {
   }
 
   nextExerciseInSequence() {
-    if(this.sequenceList.length-1 > this.exerciseIndex) {
-      this.exerciseIndex +=1;
-    }   
+    if (this.sequenceList.length - 1 > this.exerciseIndex) {
+      this.exerciseIndex += 1;
+    }
+    if(this.exerciseIndex == this.sequenceList.length-1) {
+      this.finishChallenge();
+    }
   }
 
   previousExerciseInSequence() {
-    this.exerciseIndex -=1;
+    if (this.exerciseIndex > 0) {
+      this.exerciseIndex -= 1;
+    }
+
   }
 
   pauseTimer() {

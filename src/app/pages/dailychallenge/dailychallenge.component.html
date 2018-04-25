@@ -51,20 +51,38 @@
             </div>
 
             <div *ngIf="sequenceStarted" style="flex: 1; width: 100%; display:flex; flex-direction: row; ">
-                <button *ngIf="exerciseIndex > 0" (click)="previousExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
+
+                <div class="goButtonSequence" style="flex: 1; display:flex; vertical-align:middle; height: 50%; margin-bottom: 5%; flex-direction: column; align-items: flex-end; ">
+                    <div class="skipAndPrevIcon" (click)="previousExerciseInSequence()" style="flex: 1; display:flex;  vertical-align:middle; flex-direction: column; align-items: flex-end;">
+                        <mat-icon style="vertical-align:middle" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
+                        <p style="font-size: 0.6em; margin: 0; padding: 0">Previous</p>
+                    </div>
+                </div>
+
+                <!---     <button *ngIf="exerciseIndex == 0" disabled=true class="goButtonSequence" style="opacity: 0.7; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
                     <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
+                </button>-->
+
+                <!--style="flex: 1; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C"-->
+                <button (click)="nextExerciseInSequence()" class="finishExerciseButton" style="margin-right: 4%; margin-left: 4%;">
+                    <mat-icon style="color: white" aria-label="check">check</mat-icon>
                 </button>
-                <button *ngIf="exerciseIndex == 0" disabled=true class="goButtonSequence" style="opacity: 0.7; vertical-align:middle; height: 50%; border-right: 1px solid #80C75C">
-                    <mat-icon style="vertical-align:middle; margin-right: 20%" aria-label="goBackArrow">keyboard_arrow_left</mat-icon>
-                </button>
-                <button *ngIf="exerciseIndex < sequenceList.length-1" (click)="nextExerciseInSequence()" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-left: 1px solid #80C75C">
-                    <mat-icon style="vertical-align:middle; margin-left: 20%" aria-label="goBackArrow">keyboard_arrow_right</mat-icon>
-                </button>
+
+                <div class="goButtonSequence" style="flex: 1; display:flex;  vertical-align:middle; height: 50%; flex-direction: column;  margin-bottom: 5%;  align-items: flex-start">
+
+                    <div class="skipAndPrevIcon" (click)="nextExerciseInSequence()" style="flex: 1; display:flex;  vertical-align:middle; flex-direction: column;  align-items: flex-start">
+                        <mat-icon style="vertical-align:middle" aria-label="goBackArrow">keyboard_arrow_right</mat-icon>
+                        <p style="font-size: 0.6em; margin-left: 20%; padding: 0">Skip</p>
+                    </div>
+
+                </div>
+                <!--
                 <button (click)="finishChallenge()" *ngIf="exerciseIndex == sequenceList.length-1" class="goButtonSequence" style="vertical-align:middle; height: 50%; border-left: 1px solid #80C75C">
                     <mat-icon style="vertical-align:middle" aria-label="goBackArrow">check</mat-icon>
-                </button>
+                </button>-->
+
             </div>
-            <button *ngIf="!sequenceStarted" class="goButtonSequence" (click)="initiateSequence()">Go!</button>
+            <button *ngIf="!sequenceStarted" style="background-color: #3e8e41; color:white " class="goButtonSequence" (click)="initiateSequence()">Go!</button>
 
         </div>
 
