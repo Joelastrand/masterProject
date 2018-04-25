@@ -2,39 +2,43 @@
   <img style="width:100%" src="assets/showcase/images/startpage/frontimage.png" alt="">
 </div>
 
-<div class="container">
+<div class="cardSectionBig">
 
-      <h2>3 Cards wide</h2>
-  <!-- card deck: group of cards not attached to each other -->
-  <div class="card-deck-wrapper">
-    <div class="card-deck">
-      <div class="card">
-        <img class="card-img-top img-responsive" src="http://placehold.it/340x200" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">Medium Text. This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
+  <div class="cardSectionSmall">
+    <div class="card" (click)="goToGameInformation()">
+      <h1 class="cardh1">Daily challenge</h1>
+      <div>
+        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/getStarted.jpg" alt="">
       </div>
-      <div class="card">
-        <img class="card-img-top img-responsive" src="http://placehold.it/340x200" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">Short Text.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top img-responsive" src="http://placehold.it/340x200" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">Long Text. This is a card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. Even more amazing, it works when the window is resized</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
+      <div>
+        <p class="cardp">Try out our challenges and improve your health!</p>
       </div>
     </div>
+
+    <div class="card" (click)="goToHealthInformation()">
+      <h1 class="cardh1">Health improvements</h1>
+      <div>
+        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/health.jpeg" alt="">
+      </div>
+      <div>
+        <p class="cardp">How can this application improve your health?</p>
+      </div>
+    </div>
+
+    <div class="card" (click)="goToGameInformation()">
+      <h1 class="cardh1">Challenge a friend!
+      </h1>
+      <div>
+        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/challenges.jpg" alt="">
+      </div>
+      <div>
+        <p class="cardp">Time for talk is over, it is time for battle!</p>
+      </div>
+    </div>
+
   </div>
 </div>
+
 <div class="container">
 
   <div class="col-md-12 col-lg-12">

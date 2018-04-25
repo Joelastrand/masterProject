@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,21 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit { 
 
 
-  constructor() { }
+  constructor(private router: Router,) { }
 
   ngOnInit() {
   }
 
-  goToDailyChallenge(): void {
-    alert("Under construction, should go to the daily challenge page");
+  goToHealthInformation() {
+    this.router.navigateByUrl('/health');    
   }
-  goToChallengeAFriend(): void {
-    alert("Under construction, should go to the Challenge a friend page");
-  }
-  goToStatistics(): void {
-    alert("Under construction, should go to the statistics page");
+
+  goToGameInformation() {
+    this.router.navigateByUrl('/gameInformation');    
   }
 }

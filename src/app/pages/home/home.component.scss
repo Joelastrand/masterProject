@@ -1,77 +1,89 @@
-.card-deck {
-  display: flex;
-  justify-content: flex-start;
-  flex-flow: row wrap; 
-  align-items: stretch;
-}
-.card-deck .card {
-  display: block;
-  flex-basis: 33.3%; /* change this value for each breakpoint*/
-  //height: 200px;
-  min-height: 100%;
-}
 
-@media only screen and (max-width: 580px) {
-  .card-deck .card {
-    display: block;
-    flex-basis: 33.3%; /* change this value for each breakpoint*/
-    height: 200px;
-    min-height: 100%;
-  }
-}
+  /*---------------------------General --------------------------------*/
 
-@media only screen and (max-width: 1000px) and (min-width:581px) {
-  .card-deck .card {
-    display: block;
-    flex-basis: 20%; /* change this value for each breakpoint*/
-    height: 300px;
-    min-height: 100%;
-  }
-        
-} /*---------------------------General --------------------------------*/
-
-  .col-centered {
-    float: none;
-    margin-right: auto;
-    margin-left: auto;
+  #containerGreeting h1,
+  #containerGreeting p {
+      color:black;
+      display: inline;
+      vertical-align: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 28px;
+      line-height: 28px;
   }
   
-  
-  .mainSection {
-    min-height: 100%;
+  .cardSectionBig{
+    display:flex;
+    width:100%;
+    flex-direction:row; 
+    justify-content: center; 
+    align-items: center
+  }
+  .cardSectionSmall{
+    display:flex;
+    width:80%;
+    min-height: 80%;
+    flex-direction:row; 
+    justify-content: center; 
+    align-items: center
+  }
+
+
+  .card{
+    cursor:pointer;flex:1; 
+    display:flex; 
+    background-color:#3E5062; 
+    margin:1%;
+    flex-direction:column; justify-content: center; 
+    align-items: center
+  }
+  .cardh1{
+    font-size:30px;
+    color: #F6F6F6;
+  }
+  .cardp{
+    font-size:18px;
+    color:  #F6F6F6;
   }
   
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
-      .mainSection {
-        display:flex;
-        
-      }
-  
-      .sections{
-        flex:1;
-        margin-left:5%;
-        margin-right:5%;
-      }
-  
+        #containerGreeting h1,
+        #containerGreeting p {
+            font-size: 48px;
+            line-height: 48px;
+        }
     }
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
-    .mainSection {
-      display:flex;
+    .cardh1{
+        font-size:100%;
+        color: #F6F6F6;
       }
-    .sections{
-      flex:1;
+      .cardp{
+        font-size:80%;
+        color:  #F6F6F6;
+      }  
+      .cardSectionSmall{
+        width:90%;
       }
         
     }
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-      .mainSection {
-        display:block;
-      }
+        .cardh1{
+            font-size:0.7em;
+            color: #F6F6F6;
+          }
+          .cardp{
+            font-size:0.5em;
+            color:  #F6F6F6;
+          }  
+          .cardSectionSmall{
+            width:90%;
+
+          }        
     }
     /*-------------------------------------------------------------------------*/
   

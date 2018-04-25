@@ -12,6 +12,8 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { ChallengefriendComponent } from './pages/challengefriend/challengefriend.component';
 import { ChallengeviewComponent } from './pages/challengeview/challengeview.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { HealthInformationComponent } from './pages/health-information/health-information.component';
+import { GameInformationComponent } from './pages/game-information/game-information.component';
 
 const routes: Routes = [
 
@@ -20,8 +22,16 @@ const routes: Routes = [
     component: StartComponent
   },
   {
+    path: 'gameInformation',
+    component: GameInformationComponent
+  },
+  {
     path: 'statistics',
     component: StatisticsComponent
+  },
+  {
+    path: 'health',
+    component: HealthInformationComponent
   },
   {
     path: 'login',
