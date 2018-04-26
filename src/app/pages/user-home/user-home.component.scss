@@ -1,16 +1,6 @@
 
   /*---------------------------General --------------------------------*/
 
-  #containerGreeting h1,
-  #containerGreeting p {
-      color:black;
-      display: inline;
-      vertical-align: center;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 28px;
-      line-height: 28px;
-  }
-  
   .cardSectionBig{
     display:flex;
     width:100%;
@@ -47,11 +37,6 @@
   
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
-        #containerGreeting h1,
-        #containerGreeting p {
-            font-size: 48px;
-            line-height: 48px;
-        }
     }
   
     /*---------------------------Medium Desktop --------------------------------*/
@@ -65,7 +50,7 @@
         color:  #F6F6F6;
       }  
       .cardSectionSmall{
-        width:90%;
+        width:100%;
       }
         
     }
@@ -81,7 +66,7 @@
             color:  #F6F6F6;
           }  
           .cardSectionSmall{
-            width:90%;
+            width:100%;
 
           }        
     }

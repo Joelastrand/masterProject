@@ -1,16 +1,6 @@
 
 /*---------------------------General --------------------------------*/
 
-  #containerGreeting h1,
-  #containerGreeting p {
-      color:black;
-      display: inline;
-      vertical-align: center;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 28px;
-      line-height: 28px;
-  }
-  
   .cardSectionBig{
     display:flex;
     width:100%;
@@ -34,7 +24,9 @@
     background-color:#3E5062; 
     margin:1%;
     flex-direction:column; justify-content: center; 
-    align-items: center
+    align-items: center;
+    min-height:80%;
+    max-height:80%;
   }
   .cardh1{
     font-size:30px;
@@ -47,15 +39,12 @@
   
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
-        #containerGreeting h1,
-        #containerGreeting p {
-            font-size: 48px;
-            line-height: 48px;
-        }
+
     }
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+    
     .cardh1{
         font-size:100%;
         color: #F6F6F6;
@@ -65,13 +54,17 @@
         color:  #F6F6F6;
       }  
       .cardSectionSmall{
-        width:90%;
+        width:100%;
       }
         
     }
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+        .cardSectionSmall{
+          width:100%;
+        }
+
         .cardh1{
             font-size:0.7em;
             color: #F6F6F6;
@@ -79,11 +72,7 @@
           .cardp{
             font-size:0.5em;
             color:  #F6F6F6;
-          }  
-          .cardSectionSmall{
-            width:90%;
-
-          }        
+          }       
     }
     /*-------------------------------------------------------------------------*/
   
