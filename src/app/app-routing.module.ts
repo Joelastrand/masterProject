@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { StartComponent } from './pages/start/start.component';
@@ -14,12 +13,17 @@ import { ChallengeviewComponent } from './pages/challengeview/challengeview.comp
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
 import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
 
   {
     path: '',
     component: StartComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: 'gameInformation',
@@ -66,11 +70,6 @@ const routes: Routes = [
     path: 'challengefriend',
     component: ChallengefriendComponent
   },
-  {
-    path: 'about/:id', // /:id = Route parameter
-    component: AboutComponent
-  }
-
 ];
 
 @NgModule({

@@ -14,8 +14,10 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
   providers: [AuthService, AngularFireDatabase]
 })
 export class HeaderComponent implements OnInit {
+  printUsername=null;
+  constructor(private router: Router, private authService: AuthService) {
 
-  constructor(private router: Router, private authService: AuthService) { }
+  }
 
   ngOnInit() {
   }
@@ -27,12 +29,12 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedOut() {
-    var printUsername = localStorage.getItem("localuserName");
-    if (printUsername == null) {
+    this.printUsername = localStorage.getItem("localuserName");
+    if (this.printUsername == null) {
       return true;
     }
     else
-      return false;
+    return false;
   }
 
   goToStartPage() {
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
   goToChallengeAFriend() {
     this.router.navigateByUrl('/challengefriend');
-  } 
+  }
   goToCreateAccount() {
     this.router.navigateByUrl('/signup');
   }
@@ -52,5 +54,8 @@ export class HeaderComponent implements OnInit {
   }
   goToChallengeView() {
     this.router.navigateByUrl('/challengeview');
+  }
+  goToSettings() {
+    this.router.navigateByUrl('/settings');
   }
 }

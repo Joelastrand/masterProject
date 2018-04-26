@@ -19,7 +19,6 @@ import { AuthService } from './auth.service';
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { StartComponent } from './pages/start/start.component';
@@ -32,6 +31,7 @@ import { ChallengeviewComponent } from './pages/challengeview/challengeview.comp
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
 import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -72,7 +72,6 @@ export const FIREBASE_CONFIG = {
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
     LoginComponent,
     SignupComponent,
     HeaderComponent,
@@ -89,6 +88,7 @@ export const FIREBASE_CONFIG = {
     StatisticsComponent,
     HealthInformationComponent,
     GameInformationComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
