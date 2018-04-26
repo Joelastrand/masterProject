@@ -1,20 +1,32 @@
 
 /*---------------------------General --------------------------------*/
 
+.logInButton {
+  flex:2;
+  margin-right:2%;
+}
+
+.everyDiv {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.logOutButton{
+  margin-right:10%;
+}
+
 .logOutButton{
   width: 200px;
-  float: right;
-  margin-left:50%;
 }
 
-.col-centered {
-  margin-top: 2%;
-}
-
+/*
 .mat-icon-button {
-  padding-left:50%;
 }
-
+*/
 .center-block {
   margin-left: auto;
   margin-right: auto;
@@ -25,7 +37,7 @@
   text-align: center
 }
 
-
+/*
   .rightSide {
     float: right;
     margin: 0;
@@ -35,7 +47,7 @@
     float: left;
     margin: 0;
   }
-
+*/
   div {
     background-color: #3E5062;
     color: white;
@@ -48,32 +60,27 @@
 /*---------------------------Large Desktop --------------------------------*/
 
 @media only screen and (min-width: 1001px) {
-  
-  .logOutButton{
-    width: 200px;
-    float: right;
+
+  .logInButton {
+    flex:2;
+    margin-right:2%;
   }  
   
-  .rightSection{
-    padding-left:30%;
+  .logOutButton{
+    margin-right:10%;
   }
 
-  .middleSection{
-    padding-left: 4%;
-  }
 
-  .col-centered {
-    margin-top: 1.5%;
-  }
+  .logOutButton{
+    width: 200px;
+  }  
+  
 
   .header {
     height: 80px;
     width: 100%;
   }
 
-  .buttons {
-    padding-bottom: 1%;
-  }
 
   .button {
     width:200px;
@@ -82,41 +89,28 @@
   .header img {
     width: 50px;
     height: 50px;
-    padding-top: 0.8%;
-  }
-
-  .leftSide {
-    float:left;
-    padding-top:1%;
-    padding-left:3%;
-  }
-
-  .rightSide {
-    float:right;
-    padding-top:1%;
-    padding-right:3%;
   }
 
   .header-text {
     margin: 0;
     color: white;
     visibility: visible;
-    float: left;
-    padding-left: 6%;
+
   }
 }
 
 /*--------------------------- Medium Desktop --------------------------------*/
 
 @media only screen and (max-width: 1000px)  and (min-width: 501px)  {
-
-  .middleSection{
-    padding-left: 4%;
+  .logInButton {
+    flex:1;
+    margin-right:2%;
   }
 
-  .rightSection{
-    padding-left:20%;
+  .logOutButton{
+    margin-right:10%;
   }
+
 
   .header {
     height: 80px;
@@ -124,46 +118,33 @@
   }
 
   .button {
-    margin-top: 2.5%;
     width: 200px;
   }
 
   .header img {
     width: 50px;
     height: 50px;
-    padding-top: 2.5%;
   }
 
-  .leftSide {
-    float: left;
-    padding-top: 1.5%;
-    padding-left: 3%;
-  }
-
-  .rightSide {
-    padding-top: 1%;
-    padding-right: 3%;
-  }
 
   .header-text {
     margin: 0;
     color: white;
     visibility: visible;
-    float: left;
-    padding-left: 10%;
   }
 }
 
 /*--------------------------- Small Desktop --------------------------------*/
 
 @media only screen and (max-width: 800px) and (min-width:501px) {
+  .logInButton {
+    flex:1;
+    margin-right:2%;
+  }
+  .logOutButton{
+    margin-right:10%;
+  }
 
-  .col-centered {
-    margin-top: 3%;
-  }
-  .middleSection {
-    margin-left:3%;
-  }
   .header-text {
     visibility: hidden;
   }
@@ -178,16 +159,16 @@
   /*--------------------------- Mobile --------------------------------*/
 
   @media only screen and (max-width: 500px) {
-
-    .col-centered {
-      margin-top: 5%;
+    .logOutButton{
+      width: 100px;
+      margin-right:10%;
     }
 
-    .middleSection {
-      padding-left:6%;
-      flex:2;
+    .logInButton {
+      flex:1;
+      padding-left:5%;
+      margin-right:18%;
     }
-    
     .header {
       height: 80px;
       width: 100%;
@@ -203,16 +184,6 @@
     .header img {
       width: 40px;  
       height: 40px;
-      margin-top: 30%;
-    }
-
-    .leftSide {
-      float: left;
-      padding-top: 3%;
-    }
-    .rightSide {
-      padding-right: 8%;
-      padding-top: 2%;
     }
 
     .header-text {

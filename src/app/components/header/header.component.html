@@ -1,13 +1,14 @@
 <div class="header" style="display:flex;">
   <!----------------------Left side-------------------------------->
 
-  <div style="flex:1;" class="col-centered">
-    <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
-      <i class="material-icons">menu</i>
-      <!--<mat-icon>more_vert</mat-icon>         leftSide-->
-    </button>
-    <mat-menu #menu="matMenu" color="black">
-   <!--   <button mat-menu-item>
+  <div style="flex:1;display:flex;">
+    <div class="everyDiv" style="flex:1;">
+      <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
+        <i class="material-icons">menu</i>
+        <!--<mat-icon>more_vert</mat-icon>         leftSide-->
+      </button>
+      <mat-menu #menu="matMenu" color="black">
+        <!--   <button mat-menu-item>
         <i class="material-icons">search</i>
         <span>Search</span>
       </button>
@@ -36,51 +37,47 @@
         <span>Events</span>
       </button>
     -->
-      <button mat-menu-item (click)="goToChallengeAFriend()">
-        <i class="material-icons">group</i>
-        <span>Challenge a Friend</span>
-      </button>
-    
-      <button mat-menu-item (click)="goToDaily()">
-        <i class="material-icons">directions_walk</i>
-        <span>Daily challenge</span>
-      </button>
-      <button mat-menu-item (click)="goToChallengeView()">
-        <i class="material-icons">grade</i>
-        <span>Challenges</span>
-      </button>
-    </mat-menu>
-  </div>
+        <button mat-menu-item (click)="goToChallengeAFriend()">
+          <i class="material-icons">group</i>
+          <span>Challenge a Friend</span>
+        </button>
 
-  <div style="flex:5; margin-top:1%" class="middleSection">
-    <div style="display:flex;">
-      <div>
-        <img src="assets/logo.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
-      </div>
-      <div>
-        <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
-          Happen
-        </h1>
-      </div>
+        <button mat-menu-item (click)="goToDaily()">
+          <i class="material-icons">directions_walk</i>
+          <span>Daily challenge</span>
+        </button>
+        <button mat-menu-item (click)="goToChallengeView()">
+          <i class="material-icons">grade</i>
+          <span>Challenges</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div style="flex:1;" class="everyDiv">
+      <img src="assets/showcase/images/startpage/logo2.png" alt="logo" (click)="goToStartPage()" style="cursor:pointer;" />
+    </div>
+    <div style="flex:3; align-items:left;" class="everyDiv">
+      <h1 class="header-text" style="cursor:pointer;" (click)="goToStartPage()">
+        Officise
+      </h1>
     </div>
   </div>
-
-
 
 
   <!----------------------Right side-------------------------------->
 
-  <div style="flex:5; margin-right:2%;" class="col-centered rightSection">
-    <div *ngIf="isLoggedOut() == true" style="display:flex;">
-      <div>
-        <button style="background-color:#3e8e41; color:white; margin-right:15px;" class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
+  <div style="flex:1; display:flex;justify-content:flex-end; ">
+    <!-- The user is logged out -->
+    <div *ngIf="isLoggedOut() == true" style="flex:1; flex-flow:row;" class="everyDiv">
+      <div style="display:flex;flex:3; justify-content:flex-end;margin:2%;">
+        <button style="background-color:#3e8e41; color:white;" class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
       </div>
-      <div>
+      <div style="flex:1;"class="logInButton">
         <button style="background-color:#5d8ffc;" class="button" (click)="goToLogIn()" mat-raised-button>Log In</button>
       </div>
     </div>
-
-    <div *ngIf="isLoggedOut() == false" style="display:flex;">
+    <!-- The user is logged in -->
+    <div *ngIf="isLoggedOut() == false" style="display:flex; flex-flow:row;" class="everyDiv">
       <button class="logOutButton" (click)="logout()">Logout</button>
     </div>
   </div>
