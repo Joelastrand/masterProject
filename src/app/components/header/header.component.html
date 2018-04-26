@@ -13,10 +13,6 @@
         <span>Search</span>
       </button>
       <button mat-menu-item>
-        <i class="material-icons">settings</i>
-        <span>Settings</span>
-      </button>
-      <button mat-menu-item>
         <i class="material-icons">chat</i>
         <span>Chat</span>
       </button>
@@ -37,7 +33,7 @@
         <span>Events</span>
       </button>
     -->
-        <button mat-menu-item (click)="goToChallengeAFriend()">
+        <button mat-menu-item (click)="goToChallengeView()">
           <i class="material-icons">group</i>
           <span>Challenge a Friend</span>
         </button>
@@ -46,10 +42,10 @@
           <i class="material-icons">directions_walk</i>
           <span>Daily challenge</span>
         </button>
-        <button mat-menu-item (click)="goToChallengeView()">
-          <i class="material-icons">grade</i>
-          <span>Challenges</span>
-        </button>
+        <button mat-menu-item (click)="goToSettings()">
+            <i class="material-icons">settings</i>
+            <span>Settings</span>
+          </button>
       </mat-menu>
     </div>
 

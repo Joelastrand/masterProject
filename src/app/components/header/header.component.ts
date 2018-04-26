@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("localuserName");
+    this.printUsername=null;
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
@@ -40,9 +41,6 @@ export class HeaderComponent implements OnInit {
   goToStartPage() {
     this.router.navigateByUrl('');
   }
-  goToChallengeAFriend() {
-    this.router.navigateByUrl('/challengefriend');
-  }
   goToCreateAccount() {
     this.router.navigateByUrl('/signup');
   }
@@ -50,9 +48,17 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
   goToDaily() {
+    if (this.printUsername == null) { 
+      this.router.navigateByUrl('/gameInformation');
+    }
+    else
     this.router.navigateByUrl('/dailyChallenge');
   }
   goToChallengeView() {
+    if (this.printUsername == null) { 
+      this.router.navigateByUrl('/gameInformation');
+    }
+    else 
     this.router.navigateByUrl('/challengeview');
   }
   goToSettings() {
