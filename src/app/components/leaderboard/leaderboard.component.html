@@ -1,133 +1,63 @@
-<div>
-  <!--
-  <div style="background-color:grey; display:flex;" class="leaderboardHeader">
-    <div style="flex:1;">
-      <img class="icons" style="padding-top:10%;" src="assets/leaderboardIcon.png" alt="logo" />
+<div class="mainSection">
+
+  <div class="leaderboardBigBox">
+    <div class="card-header">
+      <h5>
+        Daily Challenge
+      </h5>
     </div>
-    <div style="flex:2;">
-      <h1 style="text-decoration: underline; color:white;">Leaderboard</h1>
-    </div>
-    <div style="flex:1;">
-      <img class="icons" style="padding-top:10%;" src="assets/leaderboardIcon.png" alt="logo" />
+    <div class="leaderboardBox">
+      <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+        <div style="flex:3;">
+          <h6 class="boxText">{{user.username}}</h6>
+          <p class="boxPText">Streak: {{user.score}} days</p>
+        </div>
+        <div style="flex:1;">
+          <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
+        </div>
+      </div>
     </div>
   </div>
-      -->
 
-  <div class="mainSection" style="display:flex;">
-
-    <div class="card" style="flex:1; margin:2%;" >
-      <div class="card-header">
-        <h5 style="color:black; text-align:center;">
-          Daily Challenge
-        </h5>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:#f5f5f0; display:flex; ">
-          <div style="flex:3;">
+  <div class="leaderboardBigBox">
+    <div class="card-header">
+      <h5>
+        Challenge a friend
+      </h5>
+    </div>
+    <div>
+      <div class="leaderboardBox">
+        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+          <div style="flex:3">
             <h6 class="boxText">{{user.username}}</h6>
             <p class="boxPText">Streak: {{user.score}} days</p>
           </div>
-          <div style="flex:1;">
+          <div style="flex:1">
             <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card" style="flex:1; margin:2%;">
-      <div class="card-header">
-        <h5 style="color:black; text-align:center;">
-          Challenge a friend
-        </h5>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title" style="color:black; text-align:center;"></h5>
-        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:#f5f5f0; display:flex; ">
-          <div style="flex:3;">
-            <h6 class="boxText">{{user.username}}</h6>
-            <p class="boxPText">Streak: {{user.score}} days</p>
-          </div>
-          <div style="flex:1;">
-            <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
-          </div>
-        </div>
-      </div>
+  </div>
+  <div class="leaderboardBigBox">
+    <div class="card-header">
+      <h5>
+        Most points
+      </h5>
     </div>
-
-    <div class="card" style="flex:1; margin:2%;">
-      <div class="card-header">
-        <h5 style="color:black; text-align:center;">
-          Most points
-        </h5>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:#f5f5f0; display:flex; ">
-          <div style="flex:3;">
+    <div>
+      <div class="leaderboardBox" >
+        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+          <div style="flex:3">
             <h6 class="boxText">{{user.username}}</h6>
             <p class="boxPText">Streak: {{user.score}} days</p>
           </div>
-          <div style="flex:1;">
+          <div style="flex:1">
             <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-  <!--
-    <div class="mainSection" style="display:flex;">
-
-      <div class="leaderboardBigBox">
-        <h5 class="leaderboardSmallHeader" style="background-color:#A2AB58;">Daily Challenge</h5>
-        <div class="leaderboardBox">
-          <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:#f5f5f0; display:flex; ">
-            <div style="flex:3;">
-              <h6 class="boxText">{{user.username}}</h6>
-              <p class="boxPText">Streak: {{user.score}} days</p>
-            </div>
-            <div style="flex:1;">
-              <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="leaderboardBigBox">
-        <div>
-          <h5 class="leaderboardSmallHeader" style="background-color:#E44424;">Challenge a friend</h5>
-          <div class="leaderboardBox">
-            <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:rgba(228, 68, 36,0.5); display: flex">
-              <div style="flex:3">
-                <h6 class="boxText">{{user.username}}</h6>
-                <p class="boxPText">Streak: {{user.score}} days</p>
-              </div>
-              <div style="flex:1">
-                <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="leaderboardBigBox">
-        <div>
-          <h5 class="leaderboardSmallHeader" style="background-color:#67BCDB;">Most points</h5>
-          <div class="leaderboardBox">
-            <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox" style="background-color:rgba(103, 188, 219,0.5);display:flex;">
-              <div style="flex:3">
-                <h6 class="boxText">{{user.username}}</h6>
-                <p class="boxPText">Streak: {{user.score}} days</p>
-              </div>
-              <div style="flex:1">
-                <img class="icons" src="assets/showcase/images/startpage/prizeIcon.png" alt="logo" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      -->
 </div>
