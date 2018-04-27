@@ -1,6 +1,8 @@
 
 /*---------------------------General --------------------------------*/
 
+
+
   .cardSectionBig{
     display:flex;
     width:100%;
@@ -38,8 +40,16 @@
   }
   
     /*---------------------------Large Desktop --------------------------------*/
-    @media only screen and (min-width: 1001px) {
-
+    
+    @media only screen and (max-width: 1401px) and (min-width:1001px) {
+      .card{
+        min-height: 350px;
+      }
+    }
+    @media only screen and (max-width: 1000px) and (min-width:701px) {
+      .card{
+        min-height: 250px;
+      }
     }
   
     /*---------------------------Medium Desktop --------------------------------*/

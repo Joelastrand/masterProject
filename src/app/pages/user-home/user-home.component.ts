@@ -22,8 +22,8 @@ export class UserHomeComponent implements OnInit {
     this.router.navigate(['./statistics']);
   }
 
-  redirectToChallengeFriend() {
-    this.router.navigate(['./challengefriend']);
+  redirectToChallengeView() {
+    this.router.navigate(['./challengeview']);
   }
 
 }
