@@ -1,53 +1,68 @@
 <div class="mainSection">
   <div class="flexArea">
 
-    <div *ngIf="!selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
-      <div *ngFor="let challenge of listOfChallenges" class="challengeBox" (click)="selectChallenge(challenge.name)">
-        <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-          <h3 style="color: #F6F6F6; margin-left: 2%">{{challenge.name}}</h3>
-          <h6 style="color: gray; margin-left: 2%">{{challenge.description}}</h6>
+
+    <div style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
+
+      <div *ngIf="!selectedChallenge" class="titleBox" style="flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
+
+        <div style="flex:1; vertical-align: middle; display: flex">
+          <button (click)="goToChallengeOverview()" class="backArrowButton">
+            <mat-icon style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
+          </button>
+        </div>
+        <div style=" flex: 3; width: 100%;  display: flex; flex-direction: row; vertical-align: center; justify-content: center;">
+          <h3 style="color: #F6F6F6; text-align: center; margin: 0">Choose a challenge</h3>
+        </div>
+        <h2 style="flex:1"></h2>
+      </div>
+
+      <div *ngIf="!selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
+        <div *ngFor="let challenge of listOfChallenges" class="challengeBox" (click)="selectChallenge(challenge.name)">
+          <div style="width: 100%;  display: flex; flex-direction: column; justify-content: center;">
+            <h3 style="color: #F6F6F6; margin-left: 2%; margin-bottom: 0">{{challenge.name}}</h3>
+            <h6 style="color:#dcdcdc; margin-left: 2%">{{challenge.description}}</h6>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
-      <div class="selectedChallenge">
+      <div *ngIf="selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
+        
+        <div class="titleBox">
+          <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
+            <div style="flex:1; vertical-align: middle; display: flex">
+              <button (click)="returnToChallengeView()" class="backArrowButton">
+                <mat-icon style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
+              </button>
+            </div>
+            <div style=" flex: 2; display: flex; align-items: center; justify-content: center; vertical-align: middle">
+              <h3 style="color: #F6F6F6; text-align: center; margin: 0">{{selectedChallenge}}</h3>
+            </div>
+            <h2 style="flex: 1"></h2>
+          </div>
+        </div>
 
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
-          <div style="flex:1; vertical-align: middle; display: flex">
-            <button (click)="returnToChallengeView()" class="backArrowButton">
-              <mat-icon style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
-            </button>
-          </div>
-          <div style=" flex: 2; display: flex; align-items: center; justify-content: center; vertical-align: middle">
-            <h2 style="margin: 0; color: #F6F6F6">{{selectedChallenge}}</h2>
-          </div>
-          <h2 style="flex: 1"></h2>
+        <div style="flex: 1; display: flex; flex-direction: column; width: 80%">
+          <h2 style="color: black; margin-top: 10%">Send challenge to user...</h2>
+          <input class="usernameInput" style="text-transform: lowercase" type="text" placeholder="Username..." id="username_field"
+            [(ngModel)]="username" (keyup)="checkUsername()" />
+          <p class="username_available" *ngIf="usernameExists && username">
+            User with username {{username}} found
+          </p>
+          <p class="username_taken" *ngIf="!usernameExists && username">
+            There is no user with username {{username}}
+          </p>
+          <button *ngIf="usernameExists && username" class="sendChallengeButton" ng-disabled="!usernameExists" (click)="sendChallenge()">Send Challenge</button>
+          <button *ngIf="!usernameExists || !username" class="sendChallengeButton" disabled=true style="opacity: 0.6">Send Challenge</button>
         </div>
 
       </div>
 
-      <div style="flex: 1; display: flex; flex-direction: column; width: 80%">
-        <h2 style="color: black; margin-top: 10%">Send challenge to user...</h2>
-        <input class="usernameInput" style="text-transform: lowercase" type="text" placeholder="Username..." id="username_field"
-          [(ngModel)]="username" (keyup)="checkUsername()" />
-        <p class="username_available" *ngIf="usernameExists && username">
-          User with username {{username}} found
-        </p>
-        <p class="username_taken" *ngIf="!usernameExists && username">
-          There is no user with username {{username}}
-        </p>
-        <button *ngIf="usernameExists && username" class="sendChallengeButton" ng-disabled="!usernameExists" (click)="sendChallenge()">Send Challenge</button>
-        <button *ngIf="!usernameExists || !username" class="sendChallengeButton" disabled=true style="opacity: 0.6">Send Challenge</button>
-      </div>
-
+      <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
+        <p>Challenge has been sent!</p>
+        <p-footer>
+          <button type="button" pButton icon="" (click)="goToChallengeOverview()" label="Okay!"></button>
+        </p-footer>
+      </p-dialog>
     </div>
-
-    <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
-      <p>Challenge has been sent!</p>
-      <p-footer>
-        <button type="button" pButton icon="" (click)="goToChallengeOverview()" label="Okay!"></button>
-      </p-footer>
-    </p-dialog>
   </div>
-</div>

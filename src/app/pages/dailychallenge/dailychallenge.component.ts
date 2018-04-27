@@ -120,7 +120,7 @@ export class DailychallengeComponent implements OnInit {
     var list = [];
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
     var count = 0;
-    var randomNumber = this.getRandomInt(2); //TODO: Change to the number of challenges in database, sry for hardcode
+    var randomNumber = this.getRandomInt(5); //TODO: Change to the number of challenges in database, sry for hardcode
 
     var setName = (name) => { this.setChallengeName(name) };
     var setChallengeParams = (para) => { this.setChallengeParameter(para) };
@@ -130,7 +130,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/*randomNumber == count*/ String(key) == "ExerciseSequence") {
+          if (randomNumber == count/* String(key) == "ExerciseSequence"*/) {
             setName(key);
             setChallengeParams(childData);
           }
