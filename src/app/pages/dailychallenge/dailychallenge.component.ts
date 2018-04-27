@@ -92,8 +92,10 @@ export class DailychallengeComponent implements OnInit {
 
   //Challenge variables
   challengeName = "";
+  completedChallenges = 0;
   dailyChallengeStreak = 0;
   dailyChallengeTotal = 0;
+  numberOfChallenges = [];
   challengeParameters = {};
   username: string;
 
@@ -130,7 +132,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (randomNumber == count/* String(key) == "ExerciseSequence"*/) {
+          if (/*randomNumber == count*/ String(key) == "Exercise Sequence") {
             setName(key);
             setChallengeParams(childData);
           }
@@ -226,16 +228,47 @@ export class DailychallengeComponent implements OnInit {
   }
 
   nextExerciseInSequence() {
+
+    var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
+    currentElement.style.background = 'green';
+    currentElement.style.border = '1px solid gray';
+
+
     if (this.sequenceList.length - 1 > this.exerciseIndex) {
+      var nextElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex + 1];
+      nextElement.style.border = 'solid 1px #5d8ffc';
+      this.completedChallenges += 1;
       this.exerciseIndex += 1;
+    } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
+      if (this.completedChallenges >= 3) {
+        this.finishChallenge();
+      }
+      currentElement.style.border = 'solid 1px #5d8ffc';
     }
-    if(this.exerciseIndex == this.sequenceList.length-1) {
-      this.finishChallenge();
+  }
+  skipExercise() {
+    var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
+    currentElement.style.border = '1px solid gray';
+
+    if (this.sequenceList.length - 1 > this.exerciseIndex) {
+      var nextElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex + 1];
+      nextElement.style.border = 'solid 1px #5d8ffc';
+      this.exerciseIndex += 1;
+    } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
+      if (this.completedChallenges >= 3) {
+        this.finishChallenge();
+      }
+      currentElement.style.border = 'solid 1px #5d8ffc';
     }
   }
 
   previousExerciseInSequence() {
+
     if (this.exerciseIndex > 0) {
+      var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
+      currentElement.style.border = '1px solid gray';
+      var prevElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex - 1];
+      prevElement.style.border = 'solid 1px #5d8ffc';
       this.exerciseIndex -= 1;
     }
 
@@ -270,14 +303,18 @@ export class DailychallengeComponent implements OnInit {
       this.timer = this.challengeParameters["Timer"];
       this.time = this.challengeParameters["Time"];
     } else if (this.challengeParameters["Sequence"]) { //Parameter if sequence
+      this.challengeName = "Exercise Sequence";
       this.sequence = this.challengeParameters["Sequence"];
+      var counter = 0;
       for (var key in this.challengeParameters["Exercises"]) {
         var exerciseObject = { name: key, repeats: this.challengeParameters["Exercises"][key] };
         this.sequenceList.push(exerciseObject);
-
+        counter++;
       }
 
+      this.numberOfChallenges = Array(counter);
     }
+
   }
 
   getRandomInt(max) {

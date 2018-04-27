@@ -70,7 +70,7 @@
 
                 <div class="goButtonSequence" style="flex: 1; display:flex;  vertical-align:middle; height: 50%; flex-direction: column;  margin-bottom: 5%;  align-items: flex-start">
 
-                    <div class="skipAndPrevIcon" (click)="nextExerciseInSequence()" style="flex: 1; display:flex;  vertical-align:middle; flex-direction: column;  align-items: flex-start">
+                    <div class="skipAndPrevIcon" (click)="skipExercise()" style="flex: 1; display:flex;  vertical-align:middle; flex-direction: column;  align-items: flex-start">
                         <mat-icon style="vertical-align:middle" aria-label="goBackArrow">keyboard_arrow_right</mat-icon>
                         <p style="font-size: 0.6em; margin-left: 20%; padding: 0">Skip</p>
                     </div>
@@ -82,6 +82,11 @@
                 </button>-->
 
             </div>
+
+            <div *ngIf="sequenceStarted" style="width: 100%; height: 5%; margin-bottom: 3%; display: flex; flex-direction: row; justify-content: center; align-items: center">
+                <div *ngFor="let nr of numberOfChallenges" class="stepperItem" style="border: 1px solid gray; width: 10%; height: 40%; margin: 1px"></div>
+            </div>
+
             <button *ngIf="!sequenceStarted" style="background-color: #3e8e41; color:white " class="goButtonSequence" (click)="initiateSequence()">Go!</button>
 
         </div>
