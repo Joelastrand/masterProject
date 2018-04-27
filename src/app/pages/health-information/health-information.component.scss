@@ -7,6 +7,10 @@ h1,h2,h3,h4,h5,h6,p {
     width: 300px;
 }
 
+.sectionTwo {
+    margin:50px;
+}
+
 
 .wrapper {
     display: flex;
@@ -70,10 +74,15 @@ img {
     }
     
     .img2 {
+        margin:0px;
         height: 400px; 
         width: auto; 
         max-width: 800px; 
         max-height: 800px;
+    }
+
+    .sectionTwo {
+        margin:0px;
     }
     
     .img3 {
@@ -82,6 +91,22 @@ img {
         width: auto; 
         max-width: 800px; 
         max-height: 800px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size:18px;
+    }
+    h3{
+        font-size:17px;
+    }
+    h5 {
+        font-size:16px;
+    }
+    p {
+        font-size:14px;
     }
 }
 /*-------------------------------------------------------------------------*/

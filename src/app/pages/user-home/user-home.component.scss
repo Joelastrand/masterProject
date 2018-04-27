@@ -1,5 +1,32 @@
 
   /*---------------------------General --------------------------------*/
+  .introText {
+    color:white; 
+    text-align:center; 
+    margin:5%;
+    font-style:italic;
+  }
+
+  #hero {
+    background-image: url(/assets/showcase/images/startpage/frontimage.png); 
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    top: 0; 
+    bottom: 0; 
+    height: 100vh;
+    z-index: -10;
+   }
+  
+   #hero-overlay {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0; 
+    bottom: 0; 
+    height: 100%;
+    width: 100%;
+    z-index: -5;
+  }
 
   .cardSectionBig{
     display:flex;
@@ -36,10 +63,16 @@
   }
   
     /*---------------------------Large Desktop --------------------------------*/
-    
+
+
     @media only screen and (max-width: 1401px) and (min-width:1001px) {
       .card{
         min-height: 350px;
+      }
+
+      .introText {
+        margin:5%;
+        font-size:30px;
       }
     }
     @media only screen and (max-width: 1000px) and (min-width:701px) {
@@ -77,7 +110,11 @@
           .cardSectionSmall{
             width:100%;
 
-          }        
+          }     
+          .introText {
+            font-size: 20px;
+          }
+           
     }
     /*-------------------------------------------------------------------------*/
   
