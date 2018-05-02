@@ -228,7 +228,6 @@ export class DailychallengeComponent implements OnInit {
   }
 
   nextExerciseInSequence() {
-
     var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
     currentElement.style.background = 'green';
     currentElement.style.border = '1px solid gray';
@@ -312,9 +311,9 @@ export class DailychallengeComponent implements OnInit {
         counter++;
       }
 
-      this.numberOfChallenges = Array(counter);
+      this.numberOfChallenges = Array(counter-1);
     }
-
+    
   }
 
   getRandomInt(max) {

@@ -43,7 +43,12 @@
             </div>
 
             <div class="currentExerciseImage" *ngIf="sequenceStarted">
-                <img src="assets/dumbbells.png" style="max-width: auto; height: 100%" />
+                <div class="testTest" style=" background-image:url(assets/rot1.jpg)">
+                </div>
+                <div class="testTest" style=" background-image:url(assets/rot2.jpg)">
+                 <!--   <img src="assets/rot2.jpg" style="transform: rotate(90deg);" />-->
+                </div>
+
             </div>
             <div class="currentExercise" *ngIf="sequenceStarted">
                 <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].name}}</h6>
@@ -84,6 +89,7 @@
             </div>
 
             <div *ngIf="sequenceStarted" style="width: 100%; height: 5%; margin-bottom: 3%; display: flex; flex-direction: row; justify-content: center; align-items: center">
+                <div class="stepperItem" style="border: 1px solid #5d8ffc; width: 10%; height: 40%; margin: 1px"></div>
                 <div *ngFor="let nr of numberOfChallenges" class="stepperItem" style="border: 1px solid gray; width: 10%; height: 40%; margin: 1px"></div>
             </div>
 
