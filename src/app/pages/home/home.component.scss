@@ -12,31 +12,33 @@
   height: 100%;
   width: 100%; 
   margin: auto; 
-  background-image: url(/assets/showcase/images/startpage/frontimage.png); 
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/showcase/images/startpage/frontimage.png);
+  //background-image: url(/assets/showcase/images/startpage/frontimage.png); 
   display:table; 
   top:0; 
   background-size:cover; 
 }
 
 .intro .inner {
-  display: table-cell; 
+  //display: table-cell; 
   vertical-align: middle ; 
   width: 100%; 
   max-width: none;
 }
 
 .content {
-  max-width: 500px; 
+  max-width: 1000px; 
   margin: 0 auto; 
   text-align: center;
 }
 
-.content h1 {
-  padding-bottom: 50%;
+.content h3 {
+  padding-top:5%;
+  //padding-bottom: 50%;
   font-family: 'Raleway', sans-serif; 
   color: #F9F3F4; 
   text-shadow: 0px 0px 300px #000; 
-  font-size: 150%;
+  font-size: 200%;
 }
 
 .button {
@@ -48,6 +50,8 @@
   border:solid #fff 3px; 
   text-transform: uppercase; 
   text-decoration: none;
+  position: absolute;
+  bottom: 5%;
 }
 
 .button:hover{
@@ -57,12 +61,15 @@
 
 @media screen and (max-width:768px) {
   .intro {
-    background-image: url(/assets/phoneImage.jpeg); 
-    //background-image: url(/assets/showcase/images/startpage/frontimage.png); 
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/phoneImage.jpeg);
+    //background-image: url(/assets/phoneImage.jpeg); 
   }
 
-  .content h1 {
+  .content h3 {
     font-size:100%; 
+    padding-top:5%;
+    width: 80%;
+    margin: auto;
   }
 
   .button {
@@ -72,6 +79,7 @@
 }
 
 /*---------------------------General --------------------------------*/
+/*
 .introText {
   color:white; 
   text-align:center; 
@@ -99,7 +107,7 @@
   width: 100%;
   z-index: -5;
 }
-
+*/
   .cardSectionBig{
     display:flex;
     width:100%;
@@ -180,9 +188,12 @@
             font-size:0.5em;
             color:  #F6F6F6;
           }       
+
+          /*
           .introText {
             font-size: 20px;
           }
+          */
            
     }
     /*-------------------------------------------------------------------------*/
