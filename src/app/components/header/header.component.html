@@ -43,9 +43,9 @@
           <span>Daily challenge</span>
         </button>
         <button mat-menu-item (click)="goToSettings()">
-            <i class="material-icons">settings</i>
-            <span>Settings</span>
-          </button>
+          <i class="material-icons">settings</i>
+          <span>Settings</span>
+        </button>
       </mat-menu>
     </div>
 
@@ -76,6 +76,13 @@
     <div *ngIf="isLoggedOut() == false" style="display:flex; flex-flow:row;" class="everyDiv">
       <h5 (click)="goToSettings()" class="everyDiv" style=" cursor:pointer; color:white; margin-right:4%; margin-top:3%;">{{ printUsername }}</h5>
       <i (click)="goToSettings()" style="cursor:pointer; margin-right:10%;" class="material-icons">person</i>
+      <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+        <div class="notificationCircle" *ngIf="challengeCounter != 0" (click)="goToChallengeView()">
+          <h6 style="margin: 0; padding: 0;">
+            {{challengeCounter}}
+          </h6>
+        </div>
+      </div>
       <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>
     </div>
   </div>

@@ -15,16 +15,23 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 })
 export class HeaderComponent implements OnInit {
   printUsername=null;
-  constructor(private router: Router, private authService: AuthService) {
+  ListOfIncomingChallenges = [];
+  username: string = "";
+  challengeCounter: number = 0; 
+
+  constructor(private db: AngularFireDatabase,private router: Router, private authService: AuthService) {
 
   }
 
   ngOnInit() {
+    this.username = localStorage.getItem("localuserName");
+    this.getUserChallenges();
   }
 
   logout() {
     localStorage.removeItem("localuserName");
     this.printUsername=null;
+    this.challengeCounter = 0; 
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
@@ -63,5 +70,29 @@ export class HeaderComponent implements OnInit {
   }
   goToSettings() {
     this.router.navigateByUrl('/settings');
+  }
+
+   //Updates the user's challenge overview in realtime, could perhaps be more elegant...
+   getUserChallenges() {
+    var addIncomingToList = (challenge) => { this.ListOfIncomingChallenges.push(challenge) };
+
+    let query = "userChallenges/" + this.username;
+    let currentList = "";
+    this.db.database.ref(query).on("value", (snapshot) => {
+      this.ListOfIncomingChallenges = [];
+      snapshot.forEach((snap) => {
+        snap.forEach((childSnap) => {
+          var key = childSnap.key;
+          var childData = childSnap.val();
+          var challengeObject = { challenger: key, challenge: childData["challenge"] };
+          if(snap.key == "incoming") {
+            addIncomingToList(challengeObject);
+          } 
+          this.challengeCounter = this.ListOfIncomingChallenges.length;
+          return false;
+        });
+        return false;
+      });
+    });
   }
 }

@@ -37,6 +37,7 @@ export class SetusernameComponent implements OnInit {
 
 	updateUsername() {
 		this.auth.updateUsername(this.user.username);
+		localStorage.setItem("localuserName", this.user.username);
 		this.goToHome();
 	}
 
