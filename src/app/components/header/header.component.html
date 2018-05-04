@@ -1,4 +1,4 @@
-<div class="header" style="display:flex;">
+<div class="header" style="display:flex; ">
   <!----------------------Left side-------------------------------->
 
   <div style="flex:1;display:flex;">
@@ -62,7 +62,7 @@
 
   <!----------------------Right side-------------------------------->
 
-  <div style="flex:1; display:flex;justify-content:flex-end; ">
+  <div style="flex:1; display:flex;justify-content:flex-end;">
     <!-- The user is logged out -->
     <div *ngIf="isLoggedOut() == true" style="flex:1; flex-flow:row;" class="everyDiv">
       <div style="display:flex;flex:3; justify-content:flex-end;margin:2%;">
@@ -73,18 +73,17 @@
       </div>
     </div>
     <!-- The user is logged in -->
-    <div *ngIf="isLoggedOut() == false" style="display:flex; flex-flow:row;" class="everyDiv">
-      <h5 (click)="goToSettings()" class="everyDiv" style=" cursor:pointer; color:white; margin-right:4%; margin-top:3%;">{{ printUsername }}</h5>
-      <i (click)="goToSettings()" style="cursor:pointer; margin-right:10%;" class="material-icons">person</i>
-      <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-        <div class="notificationCircle" *ngIf="challengeCounter != 0" (click)="goToChallengeView()">
-          <h6 style="margin: 0; padding: 0;">
-            {{challengeCounter}}
-          </h6>
+    <div style="display:flex; flex-direction:column; ">
+      <div *ngIf="isLoggedOut() == false" style="display:flex;align-self:flex-end; flex-direction:row;flex:3;" class="everyDiv">
+        <h5 (click)="goToSettings()" class="everyDiv" style=" cursor:pointer; color:white; margin-right:4%; margin-top:3%;">{{ printUsername }}</h5>
+        <i (click)="goToSettings()" style="cursor:pointer; margin-right:10%;" class="material-icons">person</i>
+        <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
         </div>
+        <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>
       </div>
-      <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>
+      <div class="notificationBox" *ngIf="challengeCounter != 0" (click)="goToChallengeView()" >
+        <p style="text-decoration:underline;">You have {{challengeCounter}} new challenge(s) </p>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
