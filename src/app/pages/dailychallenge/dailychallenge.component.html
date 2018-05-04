@@ -8,9 +8,12 @@
                 {{ time }} minutes
             </h3>
         </div>
-        <div [@challengeInfo]="showGetChallengeButton" style="border-bottom: 2px solid #D8D8D8; width: 80%; margin-bottom: 15%; background-color:#f5f5f0;"></div>
+        <div [@challengeInfo]="showGetChallengeButton" style="border-bottom: 2px solid #D8D8D8; width: 80%; margin-bottom: 8%; background-color:#f5f5f0;"></div>
         <div class="getChallengeWindow" [@getChallengeButton]="showGetChallengeButton">
-            <button class="getRandomChallengeButton" (click)="getRandomChallenge()">Get challenge</button>
+            <div class="getChallengeContainer">
+                <img src="assets/bouldering.jpg" alt="bouldering">
+                <a class="link" (click)="getRandomChallenge()">Get challenge</a>
+            </div>
         </div>
 
         <!--Finish challenge dialog getRandomChallenge-->
@@ -43,13 +46,17 @@
             </div>
 
             <div class="currentExerciseImage" *ngIf="sequenceStarted">
-                <div class="testTest" style=" background-image:url(assets/rot1.jpg)">
+                <div style="min-width: 0; margin: 0px; width: 120px; display: flex; align-items: center; justify-content: center; align-content: center;">
+                    <img src="assets/dailyexercises/{{sequenceList[exerciseIndex].name}}1.jpg" style="transform: rotate(90deg); height: 120px"
+                    />
                 </div>
-                <div class="testTest" style=" background-image:url(assets/rot2.jpg)">
-                    <!--   <img src="assets/rot2.jpg" style="transform: rotate(90deg);" />-->
+                <div style="min-width: 0; margin: 0px; width: 120px; display: flex; align-items: center; justify-content: center; align-content: center;">
+                    <img src="assets/dailyexercises/{{sequenceList[exerciseIndex].name}}2.jpg" style="transform: rotate(90deg); height: 120px"
+                    />
                 </div>
 
             </div>
+
             <div class="currentExercise" *ngIf="sequenceStarted">
                 <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].name}}</h6>
                 <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].repeats}}</h6>

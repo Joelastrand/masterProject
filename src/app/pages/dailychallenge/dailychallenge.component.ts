@@ -63,7 +63,7 @@ import { forEach } from '@firebase/util';
         display: "none"
       })),
       transition('1 => 0', animate('1000ms ease-in')),
-    ])
+    ]),
   ]
 })
 
@@ -123,6 +123,7 @@ export class DailychallengeComponent implements OnInit {
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
     var count = 0;
     var randomNumber = this.getRandomInt(5); //TODO: Change to the number of challenges in database, sry for hardcode
+
     var setName = (name) => { this.setChallengeName(name) };
     var setChallengeParams = (para) => { this.setChallengeParameter(para) };
 
@@ -131,7 +132,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/*randomNumber == count*/ String(key) == "Exercise Sequence") {
+          if (randomNumber == count/* String(key) == "Exercise Sequence"*/) {
             setName(key);
             setChallengeParams(childData);
           }
@@ -172,6 +173,7 @@ export class DailychallengeComponent implements OnInit {
   }
 
   initiateChallenge() { //Called when "play-button" pressed
+
     if (this.timer) {
       this.timerOn = true;
       this.st.newTimer('secondCounter', 0.00001);
@@ -237,7 +239,8 @@ export class DailychallengeComponent implements OnInit {
       this.completedChallenges += 1;
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
-      if (this.completedChallenges >= 3) {
+      this.completedChallenges += 1;
+      if (this.completedChallenges >= 0) { //Fix this if we want a minimum finish challenge limit
         this.finishChallenge();
       }
       currentElement.style.border = 'solid 1px #5d8ffc';
@@ -252,7 +255,7 @@ export class DailychallengeComponent implements OnInit {
       nextElement.style.border = 'solid 1px #5d8ffc';
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
-      if (this.completedChallenges >= 3) {
+      if (this.completedChallenges >= 0) { //Fix this if we want a minimum finish challenge limit
         this.finishChallenge();
       }
       currentElement.style.border = 'solid 1px #5d8ffc';
