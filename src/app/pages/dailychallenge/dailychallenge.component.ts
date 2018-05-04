@@ -75,6 +75,7 @@ export class DailychallengeComponent implements OnInit {
   showGetChallengeButton = 1;
   challengeFinished = false;
   displayFinishChallengeDialog: boolean = false;
+  showExerciseDialog: boolean = false;
 
   //Sequence variables
   sequence = false;
@@ -118,6 +119,12 @@ export class DailychallengeComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
+  toggleExerciseDialog() {
+    this.showExerciseDialog ==  false ? this.showExerciseDialog = true : this.showExerciseDialog = false;
+  }
+  
+ 
+
   fetchRandomChallenge() {
     var list = [];
     var query = this.db.database.ref("challenges/dailyChallenges").orderByKey();
@@ -132,7 +139,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (randomNumber == count/* String(key) == "Exercise Sequence"*/) {
+          if (/* randomNumber == count */String(key) == "Exercise Sequence") {
             setName(key);
             setChallengeParams(childData);
           }

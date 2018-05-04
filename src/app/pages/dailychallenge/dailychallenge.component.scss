@@ -41,31 +41,45 @@
 
 .getChallengeContainer {
     position: relative;
-    width: 50%;
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(/assets/bouldering2.jpg);
+    background-size:cover;
+    width: 100%;
+    height: 100%;
+    
 }
 
-.getChallengeContainer img {
-    width: 100%;
-    height: auto;
+  .getChallengeContainer .getChallengeText {
+    position: absolute;
+    z-index: 1;
+    top: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    text-align: center;
+
   }
 
   .getChallengeContainer .link {
     position: absolute;
-    top: 10%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: #3e8e41;
     color: white;
     font-size: 16px;
-    //padding: 12px 24px;
-    border: none;
+    padding: 12px 24px;
     cursor: pointer;
+    border: 1px solid #3e8e41;
     border-radius: 5px;
+    padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
   }
   
-  .getChallengeContainer .btn:hover {
-    background-color: black;
+  .getChallengeContainer .link:hover {
+    filter: brightness(120%);
+    opacity: 0.8;
+   // background-color: black;
   }
   
 
@@ -125,11 +139,25 @@
 .currentExercise{
     flex: 1;
     width: 100%;
-    justify-content: center;
-    align-items: center;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    flex-flow: wrap;
+    flex-wrap: wrap;
+
 }
+
+.exerciseDescriptionDivs {
+    flex:1 0 100%; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center;
+    vertical-align: center;
+}
+
 .currentExerciseImage h6 {
     color: black;
     font-size: 1.3em;
@@ -190,6 +218,26 @@
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
   }
+  .infoButton {
+    width:25px;
+    height:25px;
+    line-height:25px;
+    border-radius: 50%;
+    margin-left: 2%;
+    color: #5d8ffc;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align:center;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+    background: transparent;
+    border: none;
+  }
 
   .finishExerciseButton {
     margin-bottom: 5%;
@@ -226,6 +274,12 @@
         width: 48px !important;
         height: 48px !important;
         font-size: 48px !important;
+    }
+
+    ::ng-deep .mat-icon.material-icons.md-30.mat-icon {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 24px !important;
     }
 
 

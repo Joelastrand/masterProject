@@ -11,8 +11,8 @@
         <div [@challengeInfo]="showGetChallengeButton" style="border-bottom: 2px solid #D8D8D8; width: 80%; margin-bottom: 8%; background-color:#f5f5f0;"></div>
         <div class="getChallengeWindow" [@getChallengeButton]="showGetChallengeButton">
             <div class="getChallengeContainer">
-                <img src="assets/bouldering.jpg" alt="bouldering">
-                <a class="link" (click)="getRandomChallenge()">Get challenge</a>
+                <h3 class="getChallengeText" style="font-style:italic; font-size: 1.3em">Daily challenge - a random challenge per day to benefit your health</h3>
+                <a class="link" (click)="getRandomChallenge()">Get Challenge</a>
             </div>
         </div>
 
@@ -32,6 +32,24 @@
             <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
                 <button type="button" style="background-color: #3e8e41; border: none; height: 50%; width: 40%" pButton icon="" (click)="goToStart()"
                     label="Okay!"></button>
+            </div>
+        </p-dialog>
+
+
+        <!--Exercise description popup-->
+        <p-dialog  *ngIf="sequenceStarted" [(visible)]="showExerciseDialog" [draggable]=false [closeOnEscape]=false width="500" [showHeader]=false
+            modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
+            <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
+                <h1 style="margin: 0; color: #F6F6F6 ">Exercise Description</h1>
+            </div>
+
+            <h2 style="margin: 0; color: #F6F6F6">{{sequenceList[exerciseIndex].name}}</h2>
+            
+
+
+            <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
+                <button type="button" style="background-color: #3e8e41; border: none; height: 50%; width: 40%" pButton icon="" (click)="toggleExerciseDialog()"
+                    label="Got it!"></button>
             </div>
         </p-dialog>
 
@@ -58,9 +76,19 @@
             </div>
 
             <div class="currentExercise" *ngIf="sequenceStarted">
-                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].name}}</h6>
-                <h6 style="margin: 0; margin-left: 2%">{{sequenceList[exerciseIndex].repeats}}</h6>
+                <div class="exerciseDescriptionDivs">
+                    <h6 style="margin: 0; ">{{sequenceList[exerciseIndex].name}}
+                    </h6>
+                    <button (click)="toggleExerciseDialog()" class="infoButton">
+                        <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+                    </button>
+                </div>
+                <div class="exerciseDescriptionDivs">
+                    <h6 style="margin: 0;  ">{{sequenceList[exerciseIndex].repeats}}</h6>
+                </div>
             </div>
+
+
 
             <div *ngIf="sequenceStarted" style="flex: 1; width: 100%; display:flex; flex-direction: row; ">
 
