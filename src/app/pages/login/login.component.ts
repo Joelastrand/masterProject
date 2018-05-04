@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private afAuth: AngularFireAuth, private userService: UserService, private db: AngularFireDatabase, private authService: AuthService) { }
 
   ngOnInit() {
+    // Make so the page starts on top. 
+    window.scrollTo(0, 0);
   }
 
   goToSignup() {

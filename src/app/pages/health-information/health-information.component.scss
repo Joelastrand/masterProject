@@ -3,6 +3,16 @@ h1,h2,h3,h4,h5,h6,p {
     text-align: center;
 }
 
+.centerImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.makeSpace {
+    margin:50px;
+}
+
 .button {
     width: 300px;
 }
@@ -24,13 +34,6 @@ img {
     width: auto; 
     max-width: 300px; 
     max-height: 300px;
-}
-
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 }
 
 .img1 {
@@ -61,11 +64,26 @@ img {
 
 /*---------------------------Medium Desktop --------------------------------*/
 @media only screen and (max-width: 1000px) and (min-width:501px) {
+    .makeSpace {
+        margin:0;
+        margin-top:30px;
+        margin-bottom:30px;
+        margin-left:10px;
+        margin-right:10px;
+    }
 
 }
 
 /*---------------------------Mobile Desktop --------------------------------*/
 @media only screen and (max-width: 500px) {
+    .makeSpace {
+        margin:0;
+        margin-top:30px;
+        margin-bottom:30px;
+        margin-left:10px;
+        margin-right:10px;
+    }
+
     .img1 {
         height: 150px; 
         width: auto; 
@@ -86,11 +104,8 @@ img {
     }
     
     .img3 {
-        visibility: hidden;
-        height: 250px; 
-        width: auto; 
-        max-width: 800px; 
-        max-height: 800px;
+        display: none;
+
     }
 
     h1 {
@@ -101,6 +116,9 @@ img {
     }
     h3{
         font-size:17px;
+    }
+    h4{
+        font-size:16px; 
     }
     h5 {
         font-size:16px;

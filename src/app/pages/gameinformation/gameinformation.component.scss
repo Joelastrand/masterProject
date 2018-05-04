@@ -1,7 +1,16 @@
 
-h1,h2,h3,p {
+h1,h2,h3,h4,h5,h6,p {
     color:black;
     text-align: center;
+}
+
+.textSection {
+    width:70%;
+    margin:auto;
+}
+
+.makeSpace {
+    margin:50px;
 }
 
 .wrapper {
@@ -22,9 +31,60 @@ img {
     max-height: 300px;
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+.centerImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/*---------------------------Medium Desktop --------------------------------*/
+@media only screen and (max-width: 1000px) and (min-width:501px) {
+    .makeSpace {
+        margin:0;
+        margin-top:30px;
+        margin-bottom:30px;
+        margin-left:10px;
+        margin-right:10px;
+    }
+
+}
+
+/*---------------------------Mobile Desktop --------------------------------*/
+@media only screen and (max-width: 500px) {
+    .makeSpace {
+        margin:0;
+        margin-top:30px;
+        margin-bottom:30px;
+        margin-left:10px;
+        margin-right:10px;
+    }
+
+    img {
+        border-radius: 8px;
+        height: 200px; 
+        width: auto; 
+        //max-width: 300px; 
+        //max-height: 300px;
+    }
+    
+
+    h1 {
+        font-size: 150%;
+    }
+    h2 {
+        font-size: 130%;
+    }
+    h3 {
+        font-size: 120%;
+    }
+    h4 {
+        font-size: 110%;
+    }
+
+    p{
+        font-size: 90%;
+    }
+
 }

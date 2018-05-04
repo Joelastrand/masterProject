@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
+.buttonSection { 
+  width: 100%; 
+  height: 50px; 
+  display: flex; 
+  justify-content: center; 
+}
+
 .frontPageSection{
   margin:0; 
   padding:0; 
@@ -62,7 +69,14 @@
 @media screen and (max-width:768px) {
   .intro {
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/phoneImage.jpeg);
-    //background-image: url(/assets/phoneImage.jpeg); 
+    height: 100%;
+    width: 100%; 
+    margin: auto; 
+    //background-image: url(/assets/showcase/images/startpage/frontimage.png); 
+    background-repeat:no-repeat;
+    display:table; 
+    top:0; 
+    background-size:cover; 
   }
 
   .content h3 {
