@@ -26,8 +26,9 @@
         </div>
       </div>
 
+
       <div *ngIf="selectedChallenge" style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
-        
+
         <div class="titleBox">
           <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
             <div style="flex:1; vertical-align: middle; display: flex">
@@ -44,16 +45,27 @@
 
         <div style="flex: 1; display: flex; flex-direction: column; width: 80%">
           <h2 style="color: black; margin-top: 10%">Send challenge to user...</h2>
-          <input class="usernameInput" style="text-transform: lowercase" type="text" placeholder="Username..." id="username_field"
+          <div style="position: relative" [formGroup]='userForm'>
+            <input [(ngModel)]="username" (keyup)="checkUsername()" clickOutside (clickOutside)="closeDropdown()" id="search" formControlName='search'
+              class="usernameInput" (click)="openDropdown()" style="width: 100%; text-transform: lowercase" type="text" placeholder="Username..."
+            />
+            <div class="state-container-dropdown" *ngIf="showDropdown && username.length > 0">
+              <div (click)="selectUser(user.$key)" class="state" *ngFor="let user of users | searchFilter: getSearchValue()">
+                {{user.$key}}
+              </div>
+            </div>
+
+          </div>
+          <!-- <input class="usernameInput" style="text-transform: lowercase" type="text" placeholder="Username..." id="username_field"
             [(ngModel)]="username" (keyup)="checkUsername()" />
           <p class="username_available" *ngIf="usernameExists && username">
             User with username {{username}} found
           </p>
           <p class="username_taken" *ngIf="!usernameExists && username">
             There is no user with username {{username}}
-          </p>
-          <button *ngIf="usernameExists && username" class="sendChallengeButton" ng-disabled="!usernameExists" (click)="sendChallenge()">Send Challenge</button>
-          <button *ngIf="!usernameExists || !username" class="sendChallengeButton" disabled=true style="opacity: 0.6">Send Challenge</button>
+          </p>-->
+          <button *ngIf="username.length > 0 && usernameExists" class="sendChallengeButton" ng-disabled="!usernameExists" (click)="sendChallenge()">Send Challenge</button>
+          <button *ngIf="username.length == 0 || !usernameExists" class="sendChallengeButton" disabled=true style="opacity: 0.6">Send Challenge</button>
         </div>
 
       </div>
@@ -64,5 +76,6 @@
           <button type="button" pButton icon="" (click)="goToChallengeOverview()" label="Okay!"></button>
         </p-footer>
       </p-dialog>
+
     </div>
   </div>

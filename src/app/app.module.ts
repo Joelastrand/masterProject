@@ -4,8 +4,9 @@ import { NgModule, ViewChild } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -16,6 +17,11 @@ import { UserService } from './service/user.service'
 import { DataService } from './data.service';
 import { AuthService } from './auth.service';
 
+
+//Directives 
+import { ClickOutsideDirective } from './dropdown.directive';
+
+import { SearchFilterPipe } from './filter-pipe';
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
@@ -89,11 +95,14 @@ export const FIREBASE_CONFIG = {
     HealthInformationComponent,
     GameInformationComponent,
     SettingsComponent,
+    ClickOutsideDirective,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
@@ -43,6 +43,11 @@ export class AuthService {
     localStorage.setItem("localuserID", "userID");
     return userID;
   }
+
+  getUsers(): FirebaseListObservable<any> {
+    return this.db.list('/usernames');
+  }
+
   /*
   getUserName() {
     var userID: string;
