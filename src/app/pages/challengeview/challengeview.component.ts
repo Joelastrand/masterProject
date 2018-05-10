@@ -3,23 +3,33 @@ import { AuthService } from "../../auth.service";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+
+
 
 @Component({
   selector: 'app-challengeview',
   templateUrl: './challengeview.component.html',
   styleUrls: ['./challengeview.component.scss'],
-  providers: [AuthService, AngularFireDatabase]
+  providers: [AuthService, AngularFireDatabase,AngularFirestore]
 })
 export class ChallengeviewComponent implements OnInit {
+
+  challenge: Observable<any>; 
+  challengeDoc: AngularFirestoreDocument<any>; 
+
   username: string = "";
   ListOfIncomingChallenges = [];
   ListOfOutgoingChallenges = [];
   ListOfCurrentChallenges = [];
   selectedChallenge: string = "";
   challengerName: string = "";
+  challengeDescription: string = "";
+  //challengeDescription: FirebaseObjectObservable<any>; 
+  challengeObject: Observable<String>;
 
 
-  constructor(private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
+  constructor(private afs:AngularFirestore, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
@@ -41,6 +51,23 @@ export class ChallengeviewComponent implements OnInit {
   selectChallenge(challengeName, challengerName) {
     this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
+    var setDesc = (decription) => {this.challengeDescription = decription };
+    this.db.database.ref("challenges/challengeFriend/"+challengeName).once("value")
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        var key = childSnapshot.key;
+        var childData = childSnapshot.val();
+        if(key == "description") {
+          setDesc(childData);
+        }
+      });
+    });
+
+    //this.challengeDescription =  this.db.object(`challenges/challengeFriend/${challengeName}/description`);
+    //this.challengeDescription = this.challengeObject.description; 
+    //this.challengeObject.subscribe(users => this.users = users);
+
+    //console.log(this.challengeObject);
   }
 
   returnToChallengeOverview() {
