@@ -87,39 +87,45 @@
 
   <!--HTML AFTER CHALLENGE HAS BEEN SELECTED-->
 
-  <div class="flexArea" *ngIf="selectedChallenge">
+  <div class="flexArea challengeViewBox" *ngIf="selectedChallenge">
     <div style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
-      <div class="titleBox">
+      <!-- Box header -->
+      <div class="titleBox" style="display:flex; flex: 1">
         <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
           <div style="flex:1; vertical-align: middle; display: flex">
             <button (click)="returnToChallengeOverview()" class="backArrowButton">
               <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
             </button>
           </div>
-          <div style=" flex: 2; display: flex; align-items: center; justify-content: center; vertical-align: middle">
+          <div style="flex: 3; display: flex; align-items: center; justify-content: center; vertical-align: middle">
             <h2 style="margin: 0; color: #F6F6F6">{{username}}
               <i>vs</i> {{challengerName}}</h2>
           </div>
-          <h2 style="flex: 1"></h2>
+          <div style="flex:1">
+          </div>
         </div>
       </div>
-      <!-- Inside box -->
-      <div style="color:black; text-align:center;">
-        <h3>{{selectedChallenge}}</h3>
-        <p class="challengeDescText">{{challengeDescription}}</p>
-        <div style="margin-bottom:10%;"class="centerImage">
-          <img src="assets/challengeFriend/{{selectedChallenge}}.jpg" alt="Challenge image">
-            <!--<img src="assets/showcase/images/startpage/Fussball.jpg" alt="Fussball"> -->
+
+      <div style="color:black; text-align:center;flex-direction: column; align-items:center; justify-content: flex-start; display:flex; flex: 6">
+        <!-- Inside box: Challenge Information and Image -->
+        <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center; display:flex; flex: 4">
+          <h3 style="display:flex; flex: 1">{{selectedChallenge}}</h3>
+          <p style="display:flex; flex: 3" class="challengeDescText">{{challengeDescription}}</p>
+          <div style="margin-bottom:10%;display:flex; flex: 5" class="centerImage">
+            <img src="assets/challengeFriend/{{selectedChallenge}}.jpg" alt="Challenge image">
+          </div>
         </div>
-        <p class="challengeButtonText">If you won the match, please click on the won button.
-          <br> if you lost the match, please click on the Lost button.</p>
-        <div>
-          <button style="background-color:#3e8e41; color:white; width: 36%;" class="button" (click)="goToCreateAccount()">Won</button>
-          <button style="background-color:red; color:white; width: 36%;" class="button" (click)="goToCreateAccount()">Lost</button>
+        <!-- Inside box: Buttons information and Buttons -->
+        <div style="flex-direction: column;  flex:2;">
+          <p style="display:flex; flex: 1" class="challengeButtonText">If you won the match, please click on the won button.
+            <br> if you lost the match, please click on the Lost button.</p>
+          <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+            <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41;" (click)="goToCreateAccount()">Won</button>
+            <button class="resultButtons" style="background-color:red;border: 1px solid red;" (click)="goToCreateAccount()">Lost</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 
 </div>
