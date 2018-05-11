@@ -11,12 +11,12 @@ import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore 
   selector: 'app-challengeview',
   templateUrl: './challengeview.component.html',
   styleUrls: ['./challengeview.component.scss'],
-  providers: [AuthService, AngularFireDatabase,AngularFirestore]
+  providers: [AuthService, AngularFireDatabase, AngularFirestore]
 })
 export class ChallengeviewComponent implements OnInit {
 
-  challenge: Observable<any>; 
-  challengeDoc: AngularFirestoreDocument<any>; 
+  challenge: Observable<any>;
+  challengeDoc: AngularFirestoreDocument<any>;
 
   username: string = "";
   ListOfIncomingChallenges = [];
@@ -25,22 +25,58 @@ export class ChallengeviewComponent implements OnInit {
   selectedChallenge: string = "";
   challengerName: string = "";
   challengeDescription: string = "";
-  //challengeDescription: FirebaseObjectObservable<any>; 
   challengeObject: Observable<String>;
 
 
-  constructor(private afs:AngularFirestore, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
+  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
     this.getUserChallenges();
   }
 
+
+
+  sendGameWon() {
+    //var challengeStatus = (status) => {this.challengeDescription = decription };
+    var resetChallengeStatus = () => {
+      this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
+      this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
+      console.log("Nollställt bådas");
+    }
+    this.db.database.ref("userChallenges/" + this.challengerName + "/current/" + this.username).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "victoryStatus") {
+            if (childData == "lost") {
+              console.log("Uppdatera poäng");
+            }
+            else if( childData =="") {
+              this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "won" });
+              console.log("vunnit");
+            }
+
+            else {
+              resetChallengeStatus();
+            }
+            //console.log(childData);
+            //this.db.object(`userChallenges/`+ this.challengerName).update({ "victoryStatus":"won"});
+          }
+        });
+      });
+  }
+
+  SendGameLost() {
+
+  }
+
   acceptChallenge(challengerName, challenge) {
     this.db.object(`userChallenges/${this.username}/incoming/${challengerName}`).remove();
     this.db.object(`userChallenges/${challengerName}/outgoing/${this.username}`).remove();
-    this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "victoryStatus":""});
-    this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "victoryStatus":""});
+    this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "victoryStatus": "" });
+    this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "victoryStatus": "" });
   }
 
   declineChallenge(challengerName) {
@@ -51,17 +87,17 @@ export class ChallengeviewComponent implements OnInit {
   selectChallenge(challengeName, challengerName) {
     this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
-    var setDesc = (decription) => {this.challengeDescription = decription };
-    this.db.database.ref("challenges/challengeFriend/"+challengeName).once("value")
-    .then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var key = childSnapshot.key;
-        var childData = childSnapshot.val();
-        if(key == "challengeInfo") {
-          setDesc(childData);
-        }
+    var setDesc = (decription) => { this.challengeDescription = decription };
+    this.db.database.ref("challenges/challengeFriend/" + challengeName).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "challengeInfo") {
+            setDesc(childData);
+          }
+        });
       });
-    });
 
     //this.challengeDescription =  this.db.object(`challenges/challengeFriend/${challengeName}/description`);
     //this.challengeDescription = this.challengeObject.description; 
@@ -75,7 +111,7 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   goToChallengeFriend() {
-    this.router.navigateByUrl('/challengefriend');    
+    this.router.navigateByUrl('/challengefriend');
   }
 
   //Updates the user's challenge overview in realtime, could perhaps be more elegant...
@@ -95,9 +131,9 @@ export class ChallengeviewComponent implements OnInit {
           var key = childSnap.key;
           var childData = childSnap.val();
           var challengeObject = { challenger: key, challenge: childData["challenge"] };
-          if(snap.key == "incoming") {
+          if (snap.key == "incoming") {
             addIncomingToList(challengeObject);
-          } else if(snap.key == "outgoing") {
+          } else if (snap.key == "outgoing") {
             addOutgoingToList(challengeObject);
           } else {
             addCurrentToList(challengeObject);
@@ -122,6 +158,6 @@ export class ChallengeviewComponent implements OnInit {
        });
      });
    }*/
-  
+
 
 }
