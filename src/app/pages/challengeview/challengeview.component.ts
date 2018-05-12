@@ -48,24 +48,38 @@ export class ChallengeviewComponent implements OnInit {
     }
 
     var updateUserCurrentChallengePoints = (currentPoints) => {
-      console.log("Update current wins on challenge"); 
+      console.log("Update current wins on challenge");
     }
     var getUserUserCurrentChallengePoints = () => {
-      console.log("Get the current wins on challenge"); 
+      console.log("Get the current wins on challenge");
     }
 
-    // Function that sets the user current score to a variable and updating it with 200. 
-    var updateUserCurrentScore = (currentScore) => {
-      this.userCurrentScore = currentScore
-      this.userCurrentScore = this.userCurrentScore + 200;
-      this.db.object(`scores/${this.username}/Points`).update({ "points": this.userCurrentScore });
-      this.toastr.success('Congratulations to the victory!You have got 200 points.', 'Challenge a friend');
+    // Function that sets the user and opponent current score to a variable and
+    // updating it with 200 resp 150. Both players get points for playing.
+    var updateUserAndOpponentCurrentScore = (currentScore, whichUser) => {
+
+      // The user
+      if (whichUser == 1) {
+        this.userCurrentScore = currentScore
+        this.userCurrentScore = this.userCurrentScore + 200;
+        this.db.object(`scores/${this.username}/Points`).update({ "points": this.userCurrentScore });
+        this.toastr.success('Congratulations to the victory! You have got 200 points.', 'Challenge a friend');
+      }
+
+      // The opponent
+      else if (whichUser == 2) {
+        this.opponentCurrentScore = currentScore
+        this.opponentCurrentScore = this.opponentCurrentScore + 150;
+        this.db.object(`scores/${this.challengerName}/Points`).update({ "points": this.opponentCurrentScore });
+      }
+
     }
 
-    getUserCurrentScore
+    // Function that get the user and opponents current score and send 
+    //it to updateUserAndOpponentCurrentScore. 
+    var getUserAndOpponentCurrentScore = () => {
 
-    // Function that get the user current score and send it to updateUserCurrentScore. 
-    var getUserCurrentScore = () => {
+      // For the user
       this.db.database.ref("scores/" + this.username + "/Points").once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
@@ -75,7 +89,21 @@ export class ChallengeviewComponent implements OnInit {
               if (childData == undefined) {
                 childData = 0;
               }
-              updateUserCurrentScore(childData);
+              updateUserAndOpponentCurrentScore(childData, 1);
+            }
+          });
+        });
+      // For the opponent
+      this.db.database.ref("scores/" + this.challengerName + "/Points").once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "points") {
+              if (childData == undefined) {
+                childData = 0;
+              }
+              updateUserAndOpponentCurrentScore(childData, 2);
             }
           });
         });
@@ -99,7 +127,7 @@ export class ChallengeviewComponent implements OnInit {
             // If the user has choice that he/she won and the opponent has choice he/she lost we can
             // give points to the winner. 
             if (childData == "lost") {
-              getUserCurrentScore();
+              getUserAndOpponentCurrentScore();
               deleteCurrentChallenge();
             }
 
@@ -119,7 +147,6 @@ export class ChallengeviewComponent implements OnInit {
 
   SendGameLost() {
 
-
     var resetChallengeStatus = () => {
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
@@ -131,23 +158,55 @@ export class ChallengeviewComponent implements OnInit {
       this.toastr.success('You have chosen to have lost', 'Challenge a friend');
     }
 
-    // Function that sets the opponent current score to a variable and updating it with 200. 
-    var updateOpponentCurrentScore = (currentScore) => {
-      this.opponentCurrentScore = currentScore
-      this.opponentCurrentScore = this.opponentCurrentScore + 200;
-      this.db.object(`scores/${this.challengerName}/Points`).update({ "points": this.opponentCurrentScore });
-      this.toastr.success('You have unfortunately lost, challenge the person again and take revenge', 'Challenge a friend');
+    // Function that sets the user and opponent current score to a variable and
+    // updating it with 150 resp 200. Both players get points for playing.
+    var updateOpponentAndUserCurrentScore = (currentScore, whichUser) => {
+
+      // The opponent
+      if (whichUser == 1) {
+        this.opponentCurrentScore = currentScore
+        this.opponentCurrentScore = this.opponentCurrentScore + 200;
+        this.db.object(`scores/${this.challengerName}/Points`).update({ "points": this.opponentCurrentScore });
+      }
+
+      // The user
+      else if (whichUser == 2) {
+        this.userCurrentScore = currentScore
+        this.userCurrentScore = this.userCurrentScore + 150;
+        this.db.object(`scores/${this.username}/Points`).update({ "points": this.userCurrentScore });
+      }
+      this.toastr.success('You have unfortunately lost but gain 150 points for playing', 'Challenge a friend');
     }
 
     // Function that get the opponent current score and send it to updateOpponentCurrentScore. 
-    var getOpponentCurrentScore = () => {
+    var getOpponentAndUserCurrentScore = () => {
+
+      // For the opponent
       this.db.database.ref("scores/" + this.challengerName + "/Points").once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
             if (key == "points") {
-              updateOpponentCurrentScore(childData);
+              if (childData == undefined) {
+                childData = 0;
+              }
+              updateOpponentAndUserCurrentScore(childData, 1);
+            }
+          });
+        });
+
+      // For the user
+      this.db.database.ref("scores/" + this.challengerName + "/Points").once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "points") {
+              if (childData == undefined) {
+                childData = 0;
+              }
+              updateOpponentAndUserCurrentScore(childData, 2);
             }
           });
         });
@@ -172,7 +231,7 @@ export class ChallengeviewComponent implements OnInit {
             // If the user has choice that he/she won and the opponent has choice he/she lost we can
             // give points to the winner. 
             if (childData == "won") {
-              getOpponentCurrentScore();
+              getOpponentAndUserCurrentScore();
               deleteCurrentChallenge();
             }
 
