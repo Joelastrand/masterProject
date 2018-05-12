@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-challengefriend',
@@ -25,7 +26,7 @@ export class ChallengefriendComponent implements OnInit {
 
   userForm: FormGroup;
 
-  constructor(private db: AngularFireDatabase, public auth: AuthService, private router: Router, private fb: FormBuilder) {
+  constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router, private fb: FormBuilder) {
     this.initForm();
   }
 
@@ -45,7 +46,9 @@ export class ChallengefriendComponent implements OnInit {
   }
 
   showDialog() {
-    this.display = true;
+    //this.display = true;
+    this.toastr.success('Challenge has been sent!', 'Challenge a friend');
+    this.router.navigateByUrl('/challengeview');
   }
 
   closeDropdown() {
@@ -62,11 +65,12 @@ export class ChallengefriendComponent implements OnInit {
     this.closeDropdown();
     
   }
-
+  
   goToChallengeOverview() {
     this.display = false;
     this.router.navigateByUrl('/challengeview');
   }
+  
 
   async checkUsername() {
     this.username = this.username.toLowerCase();

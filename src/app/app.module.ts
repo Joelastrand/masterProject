@@ -54,6 +54,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 //Other components
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SimpleTimer } from 'ng2-simple-timer';
+import { ToastrModule } from 'ngx-toastr';
 
 // Our components
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -129,7 +130,12 @@ export const FIREBASE_CONFIG = {
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
-    })
+    }),
+      ToastrModule.forRoot({
+        timeOut: 20000,
+        positionClass: 'toast-center-center',
+        preventDuplicates: true,
+      }),
   ],
   providers: [
     DataService,

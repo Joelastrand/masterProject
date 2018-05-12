@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -29,7 +30,7 @@ export class ChallengeviewComponent implements OnInit {
   userCurrentScore: number = 0;
   opponentCurrentScore: number = 0;
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
+  constructor(private toastr: ToastrService, private afs: AngularFirestore, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
@@ -42,11 +43,14 @@ export class ChallengeviewComponent implements OnInit {
     var resetChallengeStatus = () => {
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
+      this.toastr.error('Oh no!Both players have chosen that you have won. Discuss the real winner and redo your selection. ', 'Challenge a friend');
+
     }
 
 
     var updateChallengeStatus = () => {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "won" });
+      this.toastr.success('You have chosen to have won!', 'Challenge a friend');
     }
 
     // Function that sets the user current score to a variable and updating it with 200. 
@@ -54,12 +58,12 @@ export class ChallengeviewComponent implements OnInit {
       this.userCurrentScore = currentScore
       this.userCurrentScore = this.userCurrentScore + 200;
       this.db.object(`scores/${this.username}/Points`).update({ "points": this.userCurrentScore });
+      this.toastr.success('Congratulations to the victory!You have got 200 points.', 'Challenge a friend');
     }
     getUserCurrentScore
 
     // Function that get the user current score and send it to updateUserCurrentScore. 
     var getUserCurrentScore = () => {
-      console.log(this.username);
       this.db.database.ref("scores/" + this.username + "/Points").once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
@@ -75,6 +79,7 @@ export class ChallengeviewComponent implements OnInit {
     var deleteCurrentChallenge = () => {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).remove();
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).remove();
+      this.router.navigateByUrl('/');
     }
 
     // Checks if the user and the opponent has different choise on who is winner. 
@@ -91,22 +96,16 @@ export class ChallengeviewComponent implements OnInit {
             if (childData == "lost") {
               getUserCurrentScore();
               deleteCurrentChallenge();
-              //TODO SEND A CONFIRM MESSAGE THAT THE CHALLENGE IS OVER
-              this.router.navigateByUrl('/challengeview');
             }
 
             // If the opponent has not respond yet we set the users choice.
             else if (childData == "") {
               updateChallengeStatus();
-              //TODO SEND A CONFIRM MESSAGE THAT THE PLAYER HAS SENT ANSWER
-
             }
 
             // If both players hacve choose the same choice, we reset both options. 
             else {
               resetChallengeStatus();
-              //TODO SEND A CONFIRM MESSAGE THAT BOTH PLAYER HAS ANSWER SAME AND NEED TO RESEND
-
             }
           }
         });
@@ -119,10 +118,12 @@ export class ChallengeviewComponent implements OnInit {
     var resetChallengeStatus = () => {
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
+      this.toastr.error('Oh no!Both players have chosen that you have lost. Even if you are friends, someone need to win, please redo your selection. ', 'Challenge a friend');
     }
 
     var updateChallengeStatus = () => {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "lost" });
+      this.toastr.success('You have chosen to have lost', 'Challenge a friend');
     }
 
     // Function that sets the opponent current score to a variable and updating it with 200. 
@@ -130,6 +131,7 @@ export class ChallengeviewComponent implements OnInit {
       this.opponentCurrentScore = currentScore
       this.opponentCurrentScore = this.opponentCurrentScore + 200;
       this.db.object(`scores/${this.challengerName}/Points`).update({ "points": this.opponentCurrentScore });
+      this.toastr.success('You have unfortunately lost, challenge the person again and take revenge', 'Challenge a friend');
     }
 
     // Function that get the opponent current score and send it to updateOpponentCurrentScore. 
@@ -149,6 +151,8 @@ export class ChallengeviewComponent implements OnInit {
     var deleteCurrentChallenge = () => {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).remove();
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).remove();
+      this.router.navigateByUrl('/');
+
     }
 
 
@@ -165,8 +169,6 @@ export class ChallengeviewComponent implements OnInit {
             if (childData == "won") {
               getOpponentCurrentScore();
               deleteCurrentChallenge();
-              //TODO SEND A CONFIRM MESSAGE THAT THE CHALLENGE IS OVER
-              this.router.navigateByUrl('/challengeview');
             }
 
             // If the opponent has not respond yet we set the users choice.
