@@ -25,10 +25,6 @@
         <span>Leaderboard</span>
       </button>
       <button mat-menu-item>
-        <i class="material-icons">timeline</i>
-        <span>Statistics</span>
-      </button>
-      <button mat-menu-item>
         <i class="material-icons">directions_run</i>
         <span>Events</span>
       </button>
@@ -42,6 +38,11 @@
           <i class="material-icons">directions_walk</i>
           <span>Daily challenge</span>
         </button>
+        <button mat-menu-item (click)="goToStatistics()">
+          <i class="material-icons">timeline</i>
+          <span>Statistics</span>
+        </button>
+
         <button mat-menu-item (click)="goToSettings()">
           <i class="material-icons">settings</i>
           <span>Settings</span>
@@ -81,7 +82,7 @@
         </div>
         <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>
       </div>
-      <div class="notificationBox" *ngIf="challengeCounter != 0" (click)="goToChallengeView()" >
+      <div class="notificationBox" *ngIf="challengeCounter != 0" (click)="goToChallengeView()">
         <p style="text-decoration:underline;">You have {{challengeCounter}} new challenge(s) </p>
       </div>
     </div>

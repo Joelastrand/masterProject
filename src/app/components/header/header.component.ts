@@ -71,6 +71,9 @@ export class HeaderComponent implements OnInit {
   goToSettings() {
     this.router.navigateByUrl('/settings');
   }
+  goToStatistics() {
+    this.router.navigateByUrl('/statistics');
+  }
 
    //Updates the user's challenge overview in realtime, could perhaps be more elegant...
    getUserChallenges() {
