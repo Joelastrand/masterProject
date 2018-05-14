@@ -99,6 +99,7 @@ export class DailychallengeComponent implements OnInit {
   numberOfChallenges = [];
   challengeParameters = {};
   username: string;
+  userCurrentScore: number = 0;
 
   constructor(private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
@@ -120,10 +121,10 @@ export class DailychallengeComponent implements OnInit {
   }
 
   toggleExerciseDialog() {
-    this.showExerciseDialog ==  false ? this.showExerciseDialog = true : this.showExerciseDialog = false;
+    this.showExerciseDialog == false ? this.showExerciseDialog = true : this.showExerciseDialog = false;
   }
-  
- 
+
+
 
   fetchRandomChallenge() {
     var list = [];
@@ -193,8 +194,34 @@ export class DailychallengeComponent implements OnInit {
   finishChallenge() {
     this.challengeFinished = true;
     this.updateDailyChallenge();
+    this.getUserCurrentScore();
     this.displayFinishChallengeDialog = true;
 
+  }
+
+
+  // Get and updates the user points. 
+  getUserCurrentScore = () => {
+
+    var updateUsersPoints = (currentScore) =>  {
+      this.userCurrentScore = currentScore
+      this.userCurrentScore = this.userCurrentScore + 250;
+      this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
+    }
+
+    this.db.database.ref("scores/" + this.username + "/points").once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "score") {
+            if (childData == undefined) {
+              childData = 0;
+            }
+            updateUsersPoints(childData);
+          }
+        });
+      });
   }
 
   updateDailyChallenge() {
@@ -319,9 +346,9 @@ export class DailychallengeComponent implements OnInit {
         counter++;
       }
 
-      this.numberOfChallenges = Array(counter-1);
+      this.numberOfChallenges = Array(counter - 1);
     }
-    
+
   }
 
   getRandomInt(max) {
