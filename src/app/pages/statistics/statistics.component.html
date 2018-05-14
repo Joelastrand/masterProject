@@ -1,6 +1,9 @@
 <div class="mainSection">
-  <div style="width:100%; text-align:center;">
+  <div style="width:70%; text-align:center;">
     <h1 style="flex:1">Statistics</h1>
+    <p>Here can you see all your statistics. You gain points to the score table by playing the different games. If you complete
+      one daily challenge you got 200 points. If you play "Challenge a friend" you receive 200 points if you win and 150
+      points if you lose. If you play "Challenge with a friend you receive 300 points if both manage to complete the task.</p>
     <hr>
   </div>
   <!-- Show the users different statistics -->
@@ -17,9 +20,13 @@
     </div>
     <div class="flexItem">
       <h4>Challenge a friend:</h4>
-      <h6>Foosball</h6>
+      <div *ngFor="let challenge of challengeFriendObservable | async">
+        <div *ngIf="!(challenge.name == start)">
+          <h6>{{challenge.name}} : {{challenge.victories}} wins</h6>
+        </div>
+      </div>
     </div>
-  </div>
+    
 
-  <!-- Show the users leaderboard  -->
-</div>
+    <!-- Show the users leaderboard  -->
+  </div>

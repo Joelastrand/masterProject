@@ -37,10 +37,11 @@ export class SetusernameComponent implements OnInit {
 
 	updateUsername() {
 		this.auth.updateUsername(this.user.username);
-		this.db.object(`scores/`+this.user.username + `/dailyChallenge/`).update({"streak":0, "timestamp":""});
+		this.db.object(`scores/`+this.user.username + `/dailyChallenge/`).update({"streak":0});
 		this.db.object(`scores/`+this.user.username + `/points/`).update({"score":0});
 		this.db.object(`scores/`+this.user.username + `/challengeFriend/`).update({"start":0});
 		this.db.object(`scores/`+this.user.username + `/challengeWithFriend/`).update({"start":0});
+
 		localStorage.setItem("localuserName", this.user.username);
 		this.goToHome();
 	}

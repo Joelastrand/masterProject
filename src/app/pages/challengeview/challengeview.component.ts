@@ -50,7 +50,7 @@ export class ChallengeviewComponent implements OnInit {
 
     // If the user does not have this challenge we create the challenge and give the user one points.
     var createChallenge = () => {
-      this.db.object(`scores/${this.username}/challengeFriend/`).update({ [this.selectedChallenge]: { "victories": 1 } });
+      this.db.object(`scores/${this.username}/challengeFriend/`).update({ [this.selectedChallenge]: {"name": this.selectedChallenge, "victories": 1 } });
     }
 
     var updateUserCurrentChallengeVictories = (victories) => {
@@ -98,8 +98,6 @@ export class ChallengeviewComponent implements OnInit {
 
 
     var getUserCurrentChallengeVictories = () => {
-      this.db.database.ref("scores/" + this.username + "/challengeFriend").once('value',
-        function (snapshot) { alert('Count: ' + snapshot.numChildren()); });
 
       this.db.database.ref("scores/" + this.username + "/challengeFriend").once("value")
         .then(function (snapshot) {
@@ -226,7 +224,7 @@ export class ChallengeviewComponent implements OnInit {
 
     // If the opponent does not have this challenge we create the challenge and give the opponent one point.
     var createChallenge = () => {
-      this.db.object(`scores/${this.challengerName}/challengeFriend/`).update({ [this.selectedChallenge]: { "victories": 1 } });
+      this.db.object(`scores/${this.challengerName}/challengeFriend/`).update({ [this.selectedChallenge]: { "name": this.selectedChallenge, "victories": 1 } });
     }
 
     var updateOpponetCurrentChallengeVictories = (victories) => {
@@ -274,8 +272,6 @@ export class ChallengeviewComponent implements OnInit {
 
 
     var getOpponentCurrentChallengeVictories = () => {
-      this.db.database.ref("scores/" + this.challengerName + "/challengeFriend").once('value',
-        function (snapshot) { alert('Count: ' + snapshot.numChildren()); });
 
       this.db.database.ref("scores/" + this.challengerName + "/challengeFriend").once("value")
         .then(function (snapshot) {
