@@ -53,12 +53,12 @@ export class StatisticsComponent implements OnInit {
       this.userScore = userScore;
     }
 
-    this.db.database.ref("scores/" + this.username + "/Points").once("value")
+    this.db.database.ref("scores/" + this.username + "/points").once("value")
     .then(function (snapshot) {
       snapshot.forEach(function (childSnapshot) {
         var key = childSnapshot.key;
         var childData = childSnapshot.val();
-        if (key == "points") {
+        if (key == "score") {
           setUserScoreToVariable(childData);
         }
       });
