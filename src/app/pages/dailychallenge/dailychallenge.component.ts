@@ -203,7 +203,7 @@ export class DailychallengeComponent implements OnInit {
   // Get and updates the user points. 
   getUserCurrentScore = () => {
 
-    var updateUsersPoints = (currentScore) =>  {
+    var updateUsersPoints = (currentScore) => {
       this.userCurrentScore = currentScore
       this.userCurrentScore = this.userCurrentScore + 250;
       this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });

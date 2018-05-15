@@ -1,9 +1,16 @@
 <div class="mainSection">
   <div style="width:70%; text-align:center;">
     <h1 style="flex:1">Statistics</h1>
-    <p>Here can you see all your statistics. You gain points to the score table by playing the different games. If you complete
-      one daily challenge you got 250 points. If you play "Challenge a friend" you receive 200 points if you win and 150
-      points if you lose. If you play "Challenge with a friend you receive 300 points if both manage to complete the task.</p>
+    <p>Here can you see all your statistics. You gain points to the score table by playing the different games,below are the
+      points you got for all the games.</p>
+      <ul>
+        <li><b>Daily Challenge:</b></li>
+        <p>250 points if you complete the challenge.</p>
+        <li><b>Challenge a friend</b></li>
+        <p>200 points if you win the challenge, 150 points if you lose. </p>
+        <li><b>Challenge with a friend</b></li>
+        <p>300 points if both complete the challenge.</p>
+      </ul>
     <hr>
   </div>
   <!-- Show the users different statistics -->
@@ -15,7 +22,7 @@
     <div class="flexItem">
       <h4>Daily challenge:</h4>
       <h6>{{dailyChallengeStreak}} days in row </h6>
-      <h6>{{dailyChallengeTotal}} total </h6>
+      <h6>{{dailyChallengeTotal}} in total </h6>
 
     </div>
     <div class="flexItem">
@@ -26,7 +33,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <!-- Show the users leaderboard  -->
   </div>
