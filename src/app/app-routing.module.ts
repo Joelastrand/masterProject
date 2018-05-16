@@ -14,12 +14,18 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
 import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { ChallengeWithFriendComponent } from './pages/challengeWithFriend/challengeWithFriend.component';
+import { ChallengeViewWithFriendComponent } from './pages/challengeViewWithFriend/challengeViewWithFriend.component';
 
 const routes: Routes = [
 
   {
     path: '',
     component: StartComponent
+  },
+  {
+    path: 'challengeWithFriend',
+    component: ChallengeWithFriendComponent
   },
   {
     path: 'settings',
@@ -66,6 +72,11 @@ const routes: Routes = [
     path: 'challengeview',
     component: ChallengeviewComponent
   },
+  {
+    path: 'challengeViewWithFriend',
+    component: ChallengeViewWithFriendComponent
+  },
+
   {
     path: 'challengefriend',
     component: ChallengefriendComponent

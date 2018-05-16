@@ -54,6 +54,9 @@ export class HeaderComponent implements OnInit {
   goToLogIn() {
     this.router.navigateByUrl('/login');
   }
+  goToChallengeWithFriend() {
+    this.router.navigateByUrl('/challengeViewWithFriend');
+  }
   goToDaily() {
     if (this.printUsername == null) { 
       this.router.navigateByUrl('/gameInformation');

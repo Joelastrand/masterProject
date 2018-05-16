@@ -38,6 +38,8 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HealthInformationComponent } from './pages/health-information/health-information.component';
 import { GameInformationComponent } from './pages/gameinformation/gameinformation.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { ChallengeWithFriendComponent } from './pages/challengeWithFriend/challengeWithFriend.component';
+import { ChallengeViewWithFriendComponent } from './pages/challengeViewWithFriend/challengeViewWithFriend.component';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -98,6 +100,9 @@ export const FIREBASE_CONFIG = {
     SettingsComponent,
     ClickOutsideDirective,
     SearchFilterPipe,
+    ChallengeWithFriendComponent,
+    ChallengeViewWithFriendComponent,
+
   ],
   imports: [
     BrowserModule,
