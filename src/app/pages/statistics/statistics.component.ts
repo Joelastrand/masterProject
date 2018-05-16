@@ -17,6 +17,8 @@ export class StatisticsComponent implements OnInit {
   dailyChallengeTotal: number = 0;
   dailyChallengeStreak: number = 0;
   challengeFriendObservable: Observable<any[]>;
+  challengeWithFriendObservable: Observable<any[]>;
+
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
 
@@ -25,11 +27,18 @@ export class StatisticsComponent implements OnInit {
     this.getUserScore();
     this.getUserDailyChallenge();
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/'+ this.username +'/challengeFriend');
+    this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/'+ this.username +'/challengeWithFriend');
+
   }
 
   getUserChallengeFriendList(listPath): Observable<any[]> {
     return this.db.list(listPath);
   }
+
+  getUserChallengeWithFriendList(listPath): Observable<any[]> {
+    return this.db.list(listPath);
+  }
+
 
   getUserDailyChallenge() {
     var setUserDailyChallengeTotal = (userDailyChallengeTotal) => {

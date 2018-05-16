@@ -27,6 +27,7 @@ export class ChallengeviewComponent implements OnInit {
   opponentCurrentVictories: number = 0;
   challengeFind: boolean = false;
   counterChild: number = 1;
+  showExplanationDialog: boolean = false;
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
@@ -35,6 +36,9 @@ export class ChallengeviewComponent implements OnInit {
     this.getUserChallenges();
   }
 
+  toggleExplanationDialog() {
+    this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
+  }
 
   sendGameWon() {
     var resetChallengeStatus = () => {
@@ -50,7 +54,7 @@ export class ChallengeviewComponent implements OnInit {
 
     // If the user does not have this challenge we create the challenge and give the user one points.
     var createChallenge = () => {
-      this.db.object(`scores/${this.username}/challengeFriend/`).update({ [this.selectedChallenge]: {"name": this.selectedChallenge, "victories": 1 } });
+      this.db.object(`scores/${this.username}/challengeFriend/`).update({ [this.selectedChallenge]: { "name": this.selectedChallenge, "victories": 1 } });
     }
 
     var updateUserCurrentChallengeVictories = (victories) => {

@@ -3,14 +3,23 @@
     <h1 style="flex:1">Statistics</h1>
     <p>Here can you see all your statistics. You gain points to the score table by playing the different games,below are the
       points you got for all the games.</p>
-      <ul>
-        <li><b>Daily Challenge:</b></li>
-        <p>250 points if you complete the challenge.</p>
-        <li><b>Challenge a friend</b></li>
-        <p>200 points if you win the challenge, 150 points if you lose. </p>
-        <li><b>Challenge with a friend</b></li>
-        <p>300 points if both complete the challenge.</p>
-      </ul>
+    <ul>
+      <li>
+        <b>Daily Challenge:</b>
+      </li>
+      <p>250 points if you complete the challenge.</p>
+      <li>
+        <b>Challenge a friend</b>
+      </li>
+      <p>200 points if you win the challenge, 150 points if you lose. </p>
+      <li>
+        <b>Challenge with a friend</b>
+      </li>
+      <p>350 points if both complete the challenge. 
+        <br> If only one complete the challenge the person who completes the challenge receives 200 points.
+        <br> When both complete the challenge, a streak begins. To maintain the streak both users need to complete a new challenge within a day.
+      </p>
+    </ul>
     <hr>
   </div>
   <!-- Show the users different statistics -->
@@ -26,10 +35,19 @@
 
     </div>
     <div class="flexItem">
-      <h4>Challenge a friend:</h4>
+      <h4>Challenge a Friend:</h4>
       <div *ngFor="let challenge of challengeFriendObservable | async">
         <div *ngIf="!(challenge.name == start)">
           <h6>{{challenge.name}} : {{challenge.victories}} wins</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="flexItem">
+      <h4>Challenge With a Friend:</h4>
+      <div *ngFor="let friend of challengeWithFriendObservable | async">
+        <div *ngIf="!(friend.name == start)">
+          <h6>{{friend.name}} : {{friend.streak}} days in row.</h6>
         </div>
       </div>
     </div>

@@ -29,6 +29,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   opponentCurrentVictories: number = 0;
   challengeFind: boolean = false;
   counterChild: number = 1;
+  showExplanationDialog: boolean = false;
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
@@ -36,6 +37,11 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     this.username = localStorage.getItem("localuserName");
     this.getUserChallenges();
   }
+
+  toggleExplanationDialog() {
+    this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
+  }
+
 
 
   sendChallengeCompleted() {
@@ -52,8 +58,8 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     // If the user does not have this challenge we create the challenge and give the user one points.
     var createFriendStreak = () => {
-      this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.selectedChallenge, "streak": 1 } });
-      this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.selectedChallenge, "streak": 1 } });
+      this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1 } });
+      this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1 } });
     }
 
     var updateUserAndFriendCurrentStreak = (streak) => {
@@ -177,7 +183,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
               if (childData == undefined) {
                 childData = 0;
               }
-              updateUserAndFriendCurrentScore(childData, 2,OnlyUserCompleted);
+              updateUserAndFriendCurrentScore(childData, 2, OnlyUserCompleted);
             }
           });
         });
@@ -229,7 +235,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   }
 
   sendChallengeSkipped() {
-    
+
 
     var updateChallengeStatus = () => {
       this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).update({ "challengeStatus": "skip" });
