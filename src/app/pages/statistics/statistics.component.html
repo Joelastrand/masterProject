@@ -3,19 +3,22 @@
   <div style="width: 100%; height: 100%; display: flex; flex-direction: column;justify-content: center;">
     <div style="width:100%; text-align:center; justify-content: center; ">
       <h1 style="flex:1">Statistics</h1>
-      <p>Here can you see all your statistics. You gain points by playing the different games, below are the
-        points you got for all the games.</p>
       <hr>
     </div>
 
     <!-- Show the users different statistics -->
     <div class="userStatistics">
       <div class="flexItem">
-        <h4>Score:</h4>
+        <div style="display:flex;flex-direction: row;justify-content: center;">
+          <button (click)="toggleExplanationScore()" class="infoButton" style="margin-right:2%;">
+            <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+          </button>
+          <h4>Score:</h4>
+        </div>
         <h6>{{userScore}} points</h6>
       </div>
 
-      <div class="flexItem" style="flex:2">
+      <div class="flexItemBig">
         <div style="display:flex;flex-direction: row;justify-content: center;">
           <button (click)="toggleExplanationDailyChallenge()" class="infoButton" style="margin-right:2%;">
             <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
@@ -26,7 +29,7 @@
         <h6>{{dailyChallengeTotal}} in total </h6>
       </div>
 
-      <div class="flexItem" style="flex:2">
+      <div class="flexItemBig">
         <div style="display:flex;flex-direction: row;justify-content: center;">
           <button (click)="toggleExplanationChallengeAFriendDialog()" class="infoButton" style="margin-right:2%;">
             <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
@@ -40,7 +43,7 @@
         </div>
       </div>
 
-      <div class="flexItem" style="flex:2">
+      <div class="flexItemBig">
         <div style="display:flex;flex-direction: row;justify-content: center;">
           <button (click)="toggleExplanationChallengeWithAFriendDialog()" class="infoButton" style="margin-right:2%;">
             <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
@@ -57,6 +60,17 @@
   </div>
 
   <!-- Different information boxes.-->
+  <p-dialog styleClass="pDialog" [(visible)]="showExplanationScoreDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false
+    modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
+    <div class="pDialogBox">
+      <h1 class="pDialogHeader">Score</h1>
+    </div>
+    <p class="pDialogText">You gain points by playing the different games.
+      <br>Read more about how much points the different games give in their information button.</p>
+    <div class="gotItButton">
+      <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationScore()" label="Got it!"></button>
+    </div>
+  </p-dialog>
 
   <p-dialog styleClass="pDialog" [(visible)]="showExplanationDailyChallenge" [draggable]=false [closeOnEscape]=false [showHeader]=false
     modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
@@ -66,8 +80,7 @@
     <p class="pDialogText">250 points if you complete the challenge. When you complete a daily challenge, a streak begins.
       <br> To maintain the streak you need to complete one daily challenge per day. </p>
     <div class="gotItButton">
-      <button type="button insideGotItButton"  pButton icon="" (click)="toggleExplanationDailyChallenge()"
-        label="Got it!"></button>
+      <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationDailyChallenge()" label="Got it!"></button>
     </div>
   </p-dialog>
 
@@ -80,24 +93,22 @@
       <br>When you win a challenge you got plus one in victories in the particular challenge.
     </p>
     <div class="gotItButton">
-      <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationChallengeAFriendDialog()"
-        label="Got it!"></button>
+      <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationChallengeAFriendDialog()" label="Got it!"></button>
     </div>
   </p-dialog>
 
-  <p-dialog styleClass="myStyle" [(visible)]="showExplanationChallengeWithAFriendDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false
-    modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
+  <p-dialog styleClass="myStyle" [(visible)]="showExplanationChallengeWithAFriendDialog" [draggable]=false [closeOnEscape]=false
+    [showHeader]=false modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
     <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
       <h1 class="pDialogHeader">Challenge With a Friend Description</h1>
     </div>
-    <p class="pDialogText">350 points if both complete the challenge.
-      <br> If only one complete the challenge the person who completes the challenge receives 200 points.
+    <p class="pDialogText">350 points if both complete the challenge. If only one complete the challenge the person who completes the challenge
+      receives 200 points.
       <br> When both complete the challenge, a streak begins. To maintain the streak both users need to complete a new challenge
       within a day.
     </p>
     <div class="gotItButton">
-      <button type="button insideGotItButton"  pButton icon="" (click)="toggleExplanationChallengeWithAFriendDialog()"
-        label="Got it!"></button>
+      <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationChallengeWithAFriendDialog()" label="Got it!"></button>
     </div>
   </p-dialog>
 

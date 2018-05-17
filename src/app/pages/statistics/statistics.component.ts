@@ -21,6 +21,7 @@ export class StatisticsComponent implements OnInit {
   showExplanationChallengeWithAFriendDialog: boolean = false;
   showExplanationDailyChallenge: boolean = false;
   showExplanationChallengeAFriendDialog: boolean = false;
+  showExplanationScoreDialog: boolean = false;
 
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
@@ -29,10 +30,13 @@ export class StatisticsComponent implements OnInit {
     this.username = localStorage.getItem("localuserName");
     this.getUserScore();
     this.getUserDailyChallenge();
-    this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/'+ this.username +'/challengeFriend');
-    this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/'+ this.username +'/challengeWithFriend');
+    this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/' + this.username + '/challengeFriend');
+    this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
 
+  toggleExplanationScore() {
+    this.showExplanationScoreDialog == false ? this.showExplanationScoreDialog = true : this.showExplanationScoreDialog = false;
+  }
   toggleExplanationChallengeWithAFriendDialog() {
     this.showExplanationChallengeWithAFriendDialog == false ? this.showExplanationChallengeWithAFriendDialog = true : this.showExplanationChallengeWithAFriendDialog = false;
   }
@@ -42,9 +46,6 @@ export class StatisticsComponent implements OnInit {
   toggleExplanationDailyChallenge() {
     this.showExplanationDailyChallenge == false ? this.showExplanationDailyChallenge = true : this.showExplanationDailyChallenge = false;
   }
-
-
-
 
   getUserChallengeFriendList(listPath): Observable<any[]> {
     return this.db.list(listPath);

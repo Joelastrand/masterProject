@@ -58,16 +58,34 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     // If the user does not have this challenge we create the challenge and give the user one points.
     var createFriendStreak = () => {
-      this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1 } });
-      this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1 } });
+      var d = new Date();
+      var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
+
+      //this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]:{ "date": date } });
+      //this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]:{ "date": date } });
+      this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1, "date": date } });
+      this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1, "date": date } });
     }
 
     var updateUserAndFriendCurrentStreak = (streak) => {
       //TODO CHECK IF THE STREAK HAS BEEN WITHIN A DAY
-      this.userAndFriendCurrentStreak = streak
-      this.userAndFriendCurrentStreak = this.userAndFriendCurrentStreak + 1;
-      this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak });
-      this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak });
+      var d = new Date();
+      var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
+      var updateStreak = false;
+      this.db.database.ref("scores/" + this.username + "/challengeFriend/" + this.username + "/date").once("value")
+        .then(function (snapshot) {
+          if (new Date(snapshot.val()).getTime() != new Date(date).getTime()) {
+            return updateStreak = true;
+          } else {
+            return updateStreak = false;
+          }
+        });
+      if (updateStreak) {
+        this.userAndFriendCurrentStreak = streak
+        this.userAndFriendCurrentStreak = this.userAndFriendCurrentStreak + 1;
+        this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak });
+        this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak });
+      }
 
       this.userAndFriendCurrentStreak = 0;
     }

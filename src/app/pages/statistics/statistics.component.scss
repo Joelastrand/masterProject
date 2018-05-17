@@ -81,6 +81,12 @@
     text-align: center;
 }
 
+.flexItemBig {
+    flex:2;
+    text-align: center;
+}
+
+
 
 ::ng-deep .mat-icon.material-icons.md-25.mat-icon {
     width: 25px !important;
@@ -106,8 +112,12 @@
     }
 
     .flexItem {
-        margin-top:5%;
+        //margin-top:5%;
         flex:1
+    }
+
+    .flexItemBig {
+        flex:1;
     }
 
     .pDialogHeader{
