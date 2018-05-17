@@ -61,14 +61,11 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       var d = new Date();
       var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
-      //this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]:{ "date": date } });
-      //this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]:{ "date": date } });
       this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1, "date": date } });
       this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1, "date": date } });
     }
 
     var updateUserAndFriendCurrentStreak = (streak) => {
-      //TODO CHECK IF THE STREAK HAS BEEN WITHIN A DAY
       var d = new Date();
       var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
       var updateStreak = false;
@@ -144,16 +141,15 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     // Function that sets the user and the friend current score to a variable and
     // updating both with 350 points.
-    var updateUserAndFriendCurrentScore = (currentScore, whichUser, OnlyUserCompleted = 0) => {
+    var updateUserAndFriendCurrentScore = (currentScore, whichUser,challengePoints, OnlyUserCompleted = 0) => {
 
-      console.log(OnlyUserCompleted);
-      // The user
-      if (whichUser == 1 && OnlyUserCompleted == 0) {
-        this.userCurrentScore = currentScore
-        this.userCurrentScore = this.userCurrentScore + 350;
-        this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
-        this.toastr.success('Execellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get 350 points.', 'Challenge With a Friend');
-      }
+        // The user
+        if (whichUser == 1 && OnlyUserCompleted == 0) {
+          this.userCurrentScore = currentScore
+          this.userCurrentScore = this.userCurrentScore + challengePoints;
+          this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
+          this.toastr.success('Execellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
+        }
 
       if (whichUser == 1 && OnlyUserCompleted == 1) {
         this.userCurrentScore = currentScore
@@ -165,18 +161,39 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
       // The Friend
       else if (whichUser == 2 && OnlyUserCompleted == 0) {
-        console.log("FRIEND: updateUserAndFriendCurrentScore");
         this.opponentCurrentScore = currentScore
-        this.opponentCurrentScore = this.opponentCurrentScore + 350;
+        this.opponentCurrentScore = this.opponentCurrentScore + challengePoints;
         this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
       }
 
     }
 
+    var getChallengeLevelBeforeUpdate = (score, whichUser, OnlyUserCompleted) => {
+      this.db.database.ref("challenges/challengeWithFriend/" + this.selectedChallenge).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "level") {
+              if (childData == "hard") {
+                childData = 400;
+              }
+              else if (childData == "medium") {
+                childData = 300; 
+              }
+              else  {
+                childData = 200; 
+              }
+              updateUserAndFriendCurrentScore(score, whichUser, childData, OnlyUserCompleted);
+              //updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
+            }
+          });
+        });
+    }
+
     // Function that get the user and the friend current score and send 
     //it to updateUserAndFriendCurrentScore. 
     var getUserAndFriendCurrentScore = (OnlyUserCompleted = 0) => {
-      console.log(OnlyUserCompleted);
       // For the user
       this.db.database.ref("scores/" + this.username + "/points").once("value")
         .then(function (snapshot) {
@@ -187,7 +204,8 @@ export class ChallengeViewWithFriendComponent implements OnInit {
               if (childData == undefined) {
                 childData = 0;
               }
-              updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
+              getChallengeLevelBeforeUpdate(childData, 1, OnlyUserCompleted);
+              //updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
             }
           });
         });
@@ -201,7 +219,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
               if (childData == undefined) {
                 childData = 0;
               }
-              updateUserAndFriendCurrentScore(childData, 2, OnlyUserCompleted);
+              getChallengeLevelBeforeUpdate(childData, 2, OnlyUserCompleted);
             }
           });
         });

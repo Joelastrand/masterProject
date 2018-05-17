@@ -93,7 +93,16 @@ export class ChallengeWithFriendComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          var challengeObject = { name: childData.name, description: childData.description };
+          if (childData.level == "hard") {
+            childData.level = 400;
+          }
+          else if (childData.level == "medium") {
+            childData.level = 300; 
+          }
+          else  {
+            childData.level = 200; 
+          }
+          var challengeObject = { name: childData.name, description: childData.description, level:childData.level  };
           addChallengeToList(challengeObject);
         });
       });
