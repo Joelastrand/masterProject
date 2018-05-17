@@ -1,3 +1,13 @@
+.pDialogHeader{
+    margin: 0; 
+    color: #F6F6F6;
+    text-align: center;
+}
+.pDialogText{
+    color:white;
+    text-align: center;
+}
+
 .infoButton {
     width:25px;
     height:25px;
@@ -102,8 +112,9 @@ img {
     height: 90px;
     display: flex;
     justify-content: center;
-    flex-flow: column;
-    background: linear-gradient(#526476, #3E5062) ;
+    flex-flow: column; 
+    //background: linear-gradient(#526476, #3E5062) ;
+    background: linear-gradient(#526476, #058FAF) ;
     border-bottom: 2px solid gray;
   
 }
@@ -355,6 +366,13 @@ img {
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+        
+        .pDialogHeader{
+            font-size: 110%;
+        }
+        .pDialogText{
+            font-size: 70%;
+        }
         
         img {
             border-radius: 8px;
