@@ -10,6 +10,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from "../../auth.service";
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import "rxjs/add/operator/map";
 import { forEach } from '@firebase/util';
@@ -101,22 +102,18 @@ export class DailychallengeComponent implements OnInit {
   username: string;
   userCurrentScore: number = 0;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
+  constructor(private toastr: ToastrService, private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
-  async getUser() {
-    /*const res = await this.auth.getUserName().subscribe(uname => {
-      this.username = uname.$value;
-    });*/
 
-  }
 
   ngOnInit() {
+    
     this.username = localStorage.getItem("localuserName");
-    //this.getUser();
+    this.getDailyChallengeValues();
+
   }
 
   goToStart() {
-    this.displayFinishChallengeDialog = false;
     this.router.navigateByUrl('');
   }
 
@@ -124,6 +121,19 @@ export class DailychallengeComponent implements OnInit {
     this.showExerciseDialog == false ? this.showExerciseDialog = true : this.showExerciseDialog = false;
   }
 
+
+  showFinishChallengeDialog() {
+    var newStreak = this.dailyChallengeStreak+1;
+    var newTotal = this.dailyChallengeTotal+1;
+    this.toastr.success('Current streak: ' + newStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+    
+  }
+
+  showChallengeDoneDialog() {
+    
+    this.toastr.warning('Daily challenge already completed today!', 'Daily Challenge');
+    
+  }
 
 
   fetchRandomChallenge() {
@@ -140,7 +150,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/* randomNumber == count */String(key) == "Exercise Sequence") {
+          if (randomNumber == count /*String(key) == "Exercise Sequence"*/) {
             setName(key);
             setChallengeParams(childData);
           }
@@ -160,13 +170,14 @@ export class DailychallengeComponent implements OnInit {
       this.showGetChallengeButton = 0;
     };
     var challengeDoneToday = () => {
-      console.log("Challenge has already been completed today"); //TODO: SKRIV UT ATT CHALLENGE REDAN ÄR KLAR, gör i init?
+      this.showChallengeDoneDialog(); 
+      //console.log("Challenge has already been completed today"); 
     };
 
     //Checks if daily challenge has been made today
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/date").once("value")
       .then(function (snapshot) {
-        if (new Date(snapshot.val()).getTime() != new Date(date).getTime() + 1) {
+        if (new Date(snapshot.val()).getTime() != new Date(date).getTime()) {
           challengeNotDoneToday();
         } else {
           challengeDoneToday();
@@ -184,18 +195,28 @@ export class DailychallengeComponent implements OnInit {
 
     if (this.timer) {
       this.timerOn = true;
-      this.st.newTimer('secondCounter', 0.00001);
+      this.st.newTimer('secondCounter', 1);
       this.timerId = this.st.subscribe('secondCounter', () => this.incrementTime());
     }
 
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
+  async dealyedNagivation() {
+    await this.sleep(500);
+    this.router.navigateByUrl('');
+  }
+  
   finishChallenge() {
     this.challengeFinished = true;
     this.updateDailyChallenge();
     this.getUserCurrentScore();
-    this.displayFinishChallengeDialog = true;
+    this.showFinishChallengeDialog();
+    this.dealyedNagivation();
+    
 
   }
 
@@ -204,7 +225,7 @@ export class DailychallengeComponent implements OnInit {
   getUserCurrentScore = () => {
 
     var updateUsersPoints = (currentScore) => {
-      this.userCurrentScore = currentScore
+      this.userCurrentScore = currentScore;
       this.userCurrentScore = this.userCurrentScore + 250;
       this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
     }
@@ -224,41 +245,47 @@ export class DailychallengeComponent implements OnInit {
       });
   }
 
+  getDailyChallengeValues() {
+    var setStreak = (newStreak) => {
+      this.dailyChallengeStreak = newStreak;
+
+    };
+
+    var setTotal = (newTotal) => {  
+      this.dailyChallengeTotal = newTotal;     
+    };
+  
+    var total, streak = 0;
+    this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.key == "total") {         
+            total = childSnapshot.val();
+          } else if (childSnapshot.key == "streak") {
+            streak = childSnapshot.val();
+          }
+          if (total == undefined) {
+            total = 1;
+          }
+          if (streak == 0) {
+            streak = 1;
+          }
+        });
+        setTotal(total);
+        setStreak(streak);
+      });
+  }
   updateDailyChallenge() {
     //Increments streak and total and updates "date" to current date
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
-
-    var updateStreak = (newStreak) => {
-      this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
-      this.dailyChallengeStreak = newStreak;
-    };
-
-    var updateTotal = (newTotal) => {
-      this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
-      this.dailyChallengeTotal = newTotal;
-    };
-
-    var newTotal, newStreak = 0;
-    this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.key == "total") {
-            newTotal = childSnapshot.val() + 1;
-          } else if (childSnapshot.key == "streak") {
-            newStreak = childSnapshot.val() + 1;
-          }
-          if (newTotal == undefined) {
-            newTotal = 1;
-          }
-          if (newStreak == 0) {
-            newStreak = 1;
-          }
-        });
-        updateTotal(newTotal);
-        updateStreak(newStreak);
-      });
+    var newStreak = this.dailyChallengeStreak+1;
+    var newTotal = this.dailyChallengeTotal+1;
+    this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
+    this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
+
+    
   }
 
   nextExerciseInSequence() {

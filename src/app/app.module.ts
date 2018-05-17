@@ -140,6 +140,7 @@ export const FIREBASE_CONFIG = {
         timeOut: 20000,
         positionClass: 'toast-center-center',
         preventDuplicates: true,
+        enableHtml: true,
       }),
   ],
   providers: [
