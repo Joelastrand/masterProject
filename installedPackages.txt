@@ -12,4 +12,4 @@ npm install ng2-simple-timer
  npm install --save @ng-bootstrap/ng-bootstrap
 
 npm install ngx-toastr --save
-npm install @angular/animations --save
+

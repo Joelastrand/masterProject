@@ -18,6 +18,9 @@ export class StatisticsComponent implements OnInit {
   dailyChallengeStreak: number = 0;
   challengeFriendObservable: Observable<any[]>;
   challengeWithFriendObservable: Observable<any[]>;
+  showExplanationChallengeWithAFriendDialog: boolean = false;
+  showExplanationDailyChallenge: boolean = false;
+  showExplanationChallengeAFriendDialog: boolean = false;
 
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
@@ -28,8 +31,20 @@ export class StatisticsComponent implements OnInit {
     this.getUserDailyChallenge();
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/'+ this.username +'/challengeFriend');
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/'+ this.username +'/challengeWithFriend');
-
   }
+
+  toggleExplanationChallengeWithAFriendDialog() {
+    this.showExplanationChallengeWithAFriendDialog == false ? this.showExplanationChallengeWithAFriendDialog = true : this.showExplanationChallengeWithAFriendDialog = false;
+  }
+  toggleExplanationChallengeAFriendDialog() {
+    this.showExplanationChallengeAFriendDialog == false ? this.showExplanationChallengeAFriendDialog = true : this.showExplanationChallengeAFriendDialog = false;
+  }
+  toggleExplanationDailyChallenge() {
+    this.showExplanationDailyChallenge == false ? this.showExplanationDailyChallenge = true : this.showExplanationDailyChallenge = false;
+  }
+
+
+
 
   getUserChallengeFriendList(listPath): Observable<any[]> {
     return this.db.list(listPath);

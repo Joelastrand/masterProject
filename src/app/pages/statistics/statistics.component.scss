@@ -1,20 +1,80 @@
+.pDialogHeader{
+    margin: 0; 
+    color: #F6F6F6; 
+    text-align:center;
+}
+.pDialogText{
+    color:white; 
+    text-align:center;
+}
+
+.pDialogBox {
+    border-bottom: solid 2px gray; 
+    margin-bottom: 10%;
+}
+
+.gotItButton{
+    margin-top: 15%; 
+    width: 100%; 
+    display: flex;
+    align-items:center;
+    justify-content: center
+}
+
+.insideGotItButton {
+    background-color: #3e8e41; 
+    border: none;
+    height: 50%; 
+    width: 40%
+}
+
+.infoButton {
+    width:25px;
+    height:25px;
+    line-height:25px;
+    border-radius: 50%;
+    margin-left: 2%;
+    color: #5d8ffc;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align:center;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+    background: transparent;
+    border: none;
+}
+
+.challengeExplanationDivs {
+    flex:1 0 100%; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center;
+    vertical-align: center;
+}
+
 .mainSection {
     color:black;
     display:flex; 
     flex-direction: column;
     align-items: center; 
     vertical-align: middle; 
-    justify-content: center
+    justify-content: center;
+    height:100%;
 }
 
 .userStatistics{
     display:flex; 
     flex:5; 
     flex-direction: row; 
-    align-items: center; 
     vertical-align: middle; 
     justify-content: center; 
-    width:90%;
+    width:100%;
 }
 .flexItem {
     flex:1;
@@ -43,5 +103,11 @@
         flex:1
     }
 
+    .pDialogHeader{
+        font-size: 110%;
+    }
+    .pDialogText{
+        font-size: 70%;
+    }
 }
 /*-------------------------------------------------------------------------*/
