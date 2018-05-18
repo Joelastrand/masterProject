@@ -40,6 +40,9 @@
           <div *ngIf="!(challenge.name == start)">
             <h6>{{challenge.name}} : {{challenge.victories}} wins</h6>
           </div>
+          <div *ngIf="(challengeFriendListEmpty)">
+            <h6>No victories yet</h6>
+          </div>
         </div>
       </div>
 
@@ -53,6 +56,9 @@
         <div *ngFor="let friend of challengeWithFriendObservable | async">
           <div *ngIf="!(friend.name == start)">
             <h6>{{friend.name}} : {{friend.streak}} days in row.</h6>
+          </div>
+          <div *ngIf="(challengeWithFriendListEmpty)">
+            <h6>No streaks yet</h6>
           </div>
         </div>
       </div>

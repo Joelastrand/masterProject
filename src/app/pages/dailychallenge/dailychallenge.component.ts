@@ -107,7 +107,8 @@ export class DailychallengeComponent implements OnInit {
 
 
   ngOnInit() {
-    
+    // Make so the page starts on top. 
+    window.scrollTo(0, 0);
     this.username = localStorage.getItem("localuserName");
     this.getDailyChallengeValues();
 
@@ -123,16 +124,16 @@ export class DailychallengeComponent implements OnInit {
 
 
   showFinishChallengeDialog() {
-    var newStreak = this.dailyChallengeStreak+1;
-    var newTotal = this.dailyChallengeTotal+1;
+    var newStreak = this.dailyChallengeStreak + 1;
+    var newTotal = this.dailyChallengeTotal + 1;
     this.toastr.success('Current streak: ' + newStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
-    
+
   }
 
   showChallengeDoneDialog() {
-    
+
     this.toastr.warning('Daily challenge already completed today!', 'Daily Challenge');
-    
+
   }
 
 
@@ -170,7 +171,7 @@ export class DailychallengeComponent implements OnInit {
       this.showGetChallengeButton = 0;
     };
     var challengeDoneToday = () => {
-      this.showChallengeDoneDialog(); 
+      this.showChallengeDoneDialog();
       //console.log("Challenge has already been completed today"); 
     };
 
@@ -209,14 +210,14 @@ export class DailychallengeComponent implements OnInit {
     await this.sleep(500);
     this.router.navigateByUrl('');
   }
-  
+
   finishChallenge() {
     this.challengeFinished = true;
     this.updateDailyChallenge();
     this.getUserCurrentScore();
     this.showFinishChallengeDialog();
     this.dealyedNagivation();
-    
+
 
   }
 
@@ -251,15 +252,15 @@ export class DailychallengeComponent implements OnInit {
 
     };
 
-    var setTotal = (newTotal) => {  
-      this.dailyChallengeTotal = newTotal;     
+    var setTotal = (newTotal) => {
+      this.dailyChallengeTotal = newTotal;
     };
-  
+
     var total, streak = 0;
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.key == "total") {         
+          if (childSnapshot.key == "total") {
             total = childSnapshot.val();
           } else if (childSnapshot.key == "streak") {
             streak = childSnapshot.val();
@@ -279,13 +280,13 @@ export class DailychallengeComponent implements OnInit {
     //Increments streak and total and updates "date" to current date
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
-    var newStreak = this.dailyChallengeStreak+1;
-    var newTotal = this.dailyChallengeTotal+1;
+    var newStreak = this.dailyChallengeStreak + 1;
+    var newTotal = this.dailyChallengeTotal + 1;
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
 
-    
+
   }
 
   nextExerciseInSequence() {

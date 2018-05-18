@@ -137,7 +137,7 @@ export const FIREBASE_CONFIG = {
       animationDuration: 300,
     }),
       ToastrModule.forRoot({
-        timeOut: 20000,
+        timeOut: 2500,
         positionClass: 'toast-center-center',
         preventDuplicates: true,
         enableHtml: true,

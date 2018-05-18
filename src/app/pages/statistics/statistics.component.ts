@@ -22,16 +22,50 @@ export class StatisticsComponent implements OnInit {
   showExplanationDailyChallenge: boolean = false;
   showExplanationChallengeAFriendDialog: boolean = false;
   showExplanationScoreDialog: boolean = false;
-
+  challengeFriendListEmpty: boolean = false; 
+  challengeWithFriendListEmpty: boolean = false; 
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
 
   ngOnInit() {
+    // Make so the page starts on top. 
+    window.scrollTo(0, 0);
     this.username = localStorage.getItem("localuserName");
     this.getUserScore();
     this.getUserDailyChallenge();
+    this.checkIfChallengeAFriendIsEmpty();
+    this.checkIfChallengeWithAFriendIsEmpty();
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/' + this.username + '/challengeFriend');
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
+  }
+
+  checkIfChallengeAFriendIsEmpty() {
+    var setChallengeFriendListEmpty = () => {
+      this.challengeFriendListEmpty = true; 
+    }
+
+    this.db.database.ref("scores/" + this.username + "/challengeFriend").once("value")
+    .then(function (snapshot) {
+      let numberOfChild = snapshot.numChildren();
+      if(numberOfChild == 1) {
+        setChallengeFriendListEmpty();
+      }
+    });
+  }
+
+  
+  checkIfChallengeWithAFriendIsEmpty() {
+    var setChallengeWithFriendListEmpty = () => {
+      this.challengeWithFriendListEmpty = true; 
+    }
+
+    this.db.database.ref("scores/" + this.username + "/challengeWithFriend").once("value")
+    .then(function (snapshot) {
+      let numberOfChild = snapshot.numChildren();
+      if(numberOfChild == 1) {
+        setChallengeWithFriendListEmpty();
+      }
+    });
   }
 
   toggleExplanationScore() {
