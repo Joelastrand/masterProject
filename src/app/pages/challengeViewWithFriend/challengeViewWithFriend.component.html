@@ -4,8 +4,9 @@
 
     <div style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
       <div class="titleBox">
-        <div style="display:flex;flex-direction: row;justify-content: center;">
-          <h3 style="color: #F6F6F6; text-align: center;flex:10;">Challenge With a Friend</h3>
+        <div style="display:flex; flex-direction: row; justify-content: center; vertical-align:middle">
+          <p style="flex:1"></p>
+          <h3 style="color: #F6F6F6; text-align: center; margin: 0; flex: 4">Challenge With a Friend</h3>
           <button (click)="toggleExplanationDialog()" class="infoButton" style="flex:1;color:white;">
             <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
           </button>
@@ -71,7 +72,7 @@
         </div>
       </div>
 
-      <div class="smallTitleDiv">
+      <div class="smallTitleDiv" *ngIf="ListOfCurrentChallenges.length > 0 || ListOfOutgoingChallenges.length > 0">
         <h4>Active Challenges</h4>
       </div>
 
@@ -107,6 +108,10 @@
         </div>
       </div>
 
+    </div>
+    <div style="margin-top: 30%; margin-bottom: 20%; display: flex; height: 100%; justify-content: center; align-items:center;vertical-align: middle"
+      *ngIf="ListOfCurrentChallenges.length <= 0 && ListOfOutgoingChallenges.length <= 0">
+      <p style="height: 100%; margin: 0; color:#686668">No active challenges</p>
     </div>
   </div>
 
