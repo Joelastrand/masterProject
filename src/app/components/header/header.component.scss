@@ -1,5 +1,9 @@
 
 /*---------------------------General --------------------------------*/
+.header-text {
+  font-family: italic;
+}
+
 .notificationBox {
   color: red;
   display:flex; 
@@ -93,7 +97,6 @@
     color: white;
     visibility: visible;
     font-family: italic;
-
   }
 }
 
