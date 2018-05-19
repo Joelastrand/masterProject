@@ -39,6 +39,8 @@ export class StatisticsComponent implements OnInit {
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
 
+  
+
   checkIfChallengeAFriendIsEmpty() {
     var setChallengeFriendListEmpty = () => {
       this.challengeFriendListEmpty = true; 
