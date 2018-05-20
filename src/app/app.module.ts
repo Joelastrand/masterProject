@@ -51,7 +51,7 @@ import { DialogModule } from 'primeng/dialog';
 
 // Material components
 import { MaterialModule } from './material.module';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 //Other components
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -136,12 +136,13 @@ export const FIREBASE_CONFIG = {
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
     }),
-      ToastrModule.forRoot({
-        timeOut: 2500,
-        positionClass: 'toast-center-center',
-        preventDuplicates: true,
-        enableHtml: true,
-      }),
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 100000,
+      positionClass: 'toast-center-center',
+      preventDuplicates: true,
+      enableHtml: true,
+    }),
   ],
   providers: [
     DataService,

@@ -1,7 +1,7 @@
 <div class="mainContent">
     <div class="headingDiv">
         <h3 style="margin: 0; color: black">Step 2/2</h3>
-        <h4 style="color: gray">Choose a username. This will act as your display name on leaderboards etc.</h4>
+        <h4 style="color: gray">Choose a username. This will act as your display name on leaderboards etc. Only lower case is accepted.</h4>
     </div>
   <div id="setusername_div" class="main-div">
     <h2>Username...</h2>
@@ -13,8 +13,8 @@
     <p class="username_taken" *ngIf="!usernameAvailable && user.username">
       {{user.username}} has already been taken
     </p>
-    <button *ngIf="usernameAvailable && user.username" ng-disabled="!usernameAvailable" style="margin-top: 1.4%" (click)="updateUsername()">Ok</button>
-    <button *ngIf="!usernameAvailable || !user.username" disabled=true style="margin-top: 1.4%; opacity: 0.6" (click)="updateUsername()">Ok</button>
+    <button *ngIf="usernameAvailable && user.username" ng-disabled="!usernameAvailable" style="margin-top: 1.4%" (click)="updateUsername()">Continue</button>
+    <button *ngIf="!usernameAvailable || !user.username" disabled=true style="margin-top: 1.4%; opacity: 0.6" (click)="updateUsername()">Continue</button>
   </div>
 
 </div>

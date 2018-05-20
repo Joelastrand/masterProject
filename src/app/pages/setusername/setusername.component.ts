@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from "../../auth.service";
 import { User } from "../../models/user";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-setusername',
@@ -12,7 +13,7 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 })
 export class SetusernameComponent implements OnInit {
 
-	constructor(private router: Router, public auth: AuthService,private db: AngularFireDatabase) { }
+	constructor(private toastr: ToastrService, private router: Router, public auth: AuthService, private db: AngularFireDatabase) { }
 	usernameCandidate: string;
 	user = {} as User;
 	usernameAvailable: boolean = false;
@@ -22,12 +23,12 @@ export class SetusernameComponent implements OnInit {
 	ngOnInit() {
 
 	}
-	
+
 	goToHome() {
 		this.router.navigateByUrl('/home');
 	}
 
-	
+
 	async checkUsername() {
 		this.user.username = this.user.username.toLowerCase();
 		const res = await this.auth.checkUsername(this.user.username).subscribe(username => {
@@ -37,13 +38,18 @@ export class SetusernameComponent implements OnInit {
 
 	updateUsername() {
 		this.auth.updateUsername(this.user.username);
-		this.db.object(`scores/`+this.user.username + `/dailyChallenge/`).update({"streak":0});
-		this.db.object(`scores/`+this.user.username + `/points/`).update({"score":0});
-		this.db.object(`scores/`+this.user.username + `/challengeFriend/`).update({"start":0});
-		this.db.object(`scores/`+this.user.username + `/challengeWithFriend/`).update({"start":0});
+		this.db.object(`scores/` + this.user.username + `/dailyChallenge/`).update({ "streak": 0 });
+		this.db.object(`scores/` + this.user.username + `/points/`).update({ "score": 0 });
+		this.db.object(`scores/` + this.user.username + `/challengeFriend/`).update({ "start": 0 });
+		this.db.object(`scores/` + this.user.username + `/challengeWithFriend/`).update({ "start": 0 });
+
 
 		localStorage.setItem("localuserName", this.user.username);
 		this.goToHome();
+		this.toastr.info('Welcome ' + this.user.username + '!! Officise is an application with will improve ' +
+			' your health by getting your more physically active at the office. Read more about the application at the About Us page.'
+			+ ' Or try our games directly, go to Challenge a friend and play one game! '
+			, 'Officise');	
 	}
 
 }
