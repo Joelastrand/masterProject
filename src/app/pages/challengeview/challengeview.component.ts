@@ -36,6 +36,7 @@ export class ChallengeviewComponent implements OnInit {
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.username = localStorage.getItem("localuserName");
     this.getUserChallenges();
   }

@@ -1,4 +1,4 @@
-<div class="mainContent">
+<div class="mainContent backgroundColor">
     <div class="headingDiv">
         <h3 style="margin: 0; color: black">Step 1/2</h3>
         <h4 style="color: gray">Register a new account</h4>
@@ -18,7 +18,7 @@
         <p-dialog header="Confirmation" [(visible)]="display" modal="modal" [responsive]="true">
             <p>Successfully created account with email {{user.email}}</p>
             <p-footer>
-                <button type="button" pButton icon="" (click)="goToSetusername()" label="Continue"></button>
+                <button type="button greenButtons" pButton icon="" (click)="goToSetusername()" label="Continue"></button>
             </p-footer>
         </p-dialog>
 

@@ -7,11 +7,44 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/dist/css/bootstrap.css";
 
+.blueButtons {
+    background-color:#1985A1;
+    border: 1px solid #1985A1;
+    color:white;
+}
+
+.greenButtons {
+    background-color:#3e8e41;
+    border: 1px solid #3e8e41;
+    color:white;
+}
+
+.redButtons {
+    background-color:red;
+    border: 1px solid red;
+}
+
+.headerColor {
+    background-color:#4C5C68;
+}
+
+.flexDivColor {
+    background-color:#4C5C68;
+}
+
+.footerColor {
+    background-color:#4C5C68;
+}
+
+.backgroundColor {
+    background-color: #DCDCDD; 
+}
+
 html {
     height: 100%;
 }
 body {
-  background: #EFEFEF;
+  background: #DCDCDD;
   //padding: 3em;
   font-family: 'Raleway', 'Arial';
   color: #fff;

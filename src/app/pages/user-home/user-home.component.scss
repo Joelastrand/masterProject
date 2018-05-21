@@ -64,8 +64,8 @@
   }
   
   .button:hover{
-    color:#036A81; 
-    border: solid #036A81 3px; 
+    color:white; 
+    border: solid black 3px; 
   }
   /*
   .introText {
@@ -116,7 +116,7 @@
   .card{
     cursor:pointer;flex:1; 
     display:flex; 
-    background-color:#3E5062; 
+    //background-color:#3E5062; 
     margin:1%;
     flex-direction:column; justify-content: center; 
     align-items: center

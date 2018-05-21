@@ -1,4 +1,4 @@
-<div class="header" style="display:flex; ">
+<div class="header headerColor" style="display:flex; ">
   <!----------------------Left side-------------------------------->
 
   <div class="leftSide">
@@ -73,10 +73,10 @@
     <!-- The user is logged out -->
     <div *ngIf="isLoggedOut() == true" style="flex:1; flex-flow:row;" class="everyDiv">
       <div style="display:flex;flex:3; justify-content:flex-end;margin:2%;">
-        <button style="background-color:#3e8e41; color:white;" class="button" (click)="goToCreateAccount()" mat-raised-button>Register</button>
+        <button  class="button greenButtons" (click)="goToCreateAccount()" mat-raised-button>Register</button>
       </div>
       <div style="flex:1;" class="logInButton">
-        <button style="background-color:#5d8ffc;" class="button" (click)="goToLogIn()" mat-raised-button>Log In</button>
+        <button class="button blueButtons" (click)="goToLogIn()" mat-raised-button>Log In</button>
       </div>
     </div>
     <!-- The user is logged in -->
@@ -95,5 +95,4 @@
         <p style="text-decoration:underline;">You have {{challengeCounterChallengeWithAFriend}} new challenge(s) </p>
       </div>
     </div>
-
   </div>

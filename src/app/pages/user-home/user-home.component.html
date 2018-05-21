@@ -1,18 +1,19 @@
-<div class="frontPageSection">
-  <section class="intro">
-    <div class="inner">
-      <div class="content">
-        <h3 style="font-style:italic;">Almost everything will work again if you unplug it for a few minutes...
-          <br> including you.</h3>
-        <div class="buttonSection">
-          <a class="button" href="#middle">Get Started</a>
+<div class="backgroundColor">
+  <div class="frontPageSection">
+    <section class="intro">
+      <div class="inner">
+        <div class="content">
+          <h3 style="font-style:italic;">Almost everything will work again if you unplug it for a few minutes...
+            <br> including you.</h3>
+          <div class="buttonSection">
+            <a class="button" href="#middle">Get Started</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<!--
+  <!--
 <div id="hero">
   <div id="hero-overlay">
     <h3 class="introText">
@@ -23,39 +24,40 @@
 </div>
 -->
 
-<div id="middle" class="cardSectionBig">
+  <div id="middle" class="cardSectionBig">
 
-  <div class="cardSectionSmall">
-    <div class="card" (click)="redirectToDailyChallenge()">
-      <h1 class="cardh1">Daily challenge</h1>
-      <div>
-        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/getStarted.jpg" alt="">
+    <div class="cardSectionSmall">
+      <div class="card headerColor" (click)="redirectToDailyChallenge()">
+        <h1 class="cardh1">Daily challenge</h1>
+        <div>
+          <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/getStarted.jpg" alt="">
+        </div>
+        <div>
+          <p class="cardp">Do challenges and improve your health!</p>
+        </div>
       </div>
-      <div>
-        <p class="cardp">Do challenges and improve your health!</p>
+
+      <div class="card headerColor" (click)="redirectToStatistics()">
+        <h1 class="cardh1">Statistics</h1>
+        <div>
+          <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/victory.jpg" alt="">
+        </div>
+        <div>
+          <p class="cardp">How is it going? See your stats here</p>
+        </div>
       </div>
+
+      <div class="card headerColor" (click)="redirectToChallengeView()">
+        <h1 class="cardh1">Challenge a friend!
+        </h1>
+        <div>
+          <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/challenges.jpg" alt="">
+        </div>
+        <div>
+          <p class="cardp">Time for talk is over, it is time for battle!</p>
+        </div>
+      </div>
+
     </div>
-
-    <div class="card" (click)="redirectToStatistics()">
-      <h1 class="cardh1">Statistics</h1>
-      <div>
-        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/victory.jpg" alt="">
-      </div>
-      <div>
-        <p class="cardp">How is it going? See your stats here</p>
-      </div>
-    </div>
-
-    <div class="card" (click)="redirectToChallengeView()">
-      <h1 class="cardh1">Challenge a friend!
-      </h1>
-      <div>
-        <img style="width:100%;height:auto;" src="assets/showcase/images/startpage/challenges.jpg" alt="">
-      </div>
-      <div>
-        <p class="cardp">Time for talk is over, it is time for battle!</p>
-      </div>
-    </div>
-
   </div>
 </div>
