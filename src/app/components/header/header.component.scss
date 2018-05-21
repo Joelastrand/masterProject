@@ -4,6 +4,17 @@
   font-family: italic;
 }
 
+.rightSide { 
+  flex:1; 
+  display:flex;
+  justify-content:flex-end;
+}
+
+.leftSide {
+  flex:1;
+  display:flex;
+}
+
 .notificationBox {
   color: red;
   display:flex; 
@@ -160,6 +171,18 @@
   /*--------------------------- Mobile --------------------------------*/
 
   @media only screen and (max-width: 500px) {
+
+    .rightSide { 
+      flex:2; 
+    }
+
+    .notificationBox {
+      flex:2; 
+      align-self:flex-start;
+      cursor:pointer;
+      margin-bottom:3%; 
+    }
+
     .logOutButton{
       width: 100px;
       margin-right:10%;

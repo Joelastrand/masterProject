@@ -1,7 +1,7 @@
 <div class="header" style="display:flex; ">
   <!----------------------Left side-------------------------------->
 
-  <div style="flex:1;display:flex;">
+  <div class="leftSide">
     <div class="everyDiv" style="flex:1;">
       <button class="material-icons md-48" mat-icon-button [matMenuTriggerFor]="menu">
         <i class="material-icons">menu</i>
@@ -69,7 +69,7 @@
 
   <!----------------------Right side-------------------------------->
 
-  <div style="flex:1; display:flex;justify-content:flex-end;">
+  <div class="rightSide">
     <!-- The user is logged out -->
     <div *ngIf="isLoggedOut() == true" style="flex:1; flex-flow:row;" class="everyDiv">
       <div style="display:flex;flex:3; justify-content:flex-end;margin:2%;">
@@ -88,8 +88,11 @@
         </div>
         <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>
       </div>
-      <div class="notificationBox" *ngIf="challengeCounter != 0" (click)="goToChallengeView()">
-        <p style="text-decoration:underline;">You have {{challengeCounter}} new challenge(s) </p>
+      <div class="notificationBox" *ngIf="challengeCounterChallengeAFriend != 0" (click)="goToChallengeView()">
+        <p style="text-decoration:underline;">You have {{challengeCounterChallengeAFriend}} new challenge(s) </p>
+      </div>
+      <div class="notificationBox" *ngIf="challengeCounterChallengeWithAFriend != 0" (click)="goToChallengeWithFriend()">
+        <p style="text-decoration:underline;">You have {{challengeCounterChallengeWithAFriend}} new challenge(s) </p>
       </div>
     </div>
 

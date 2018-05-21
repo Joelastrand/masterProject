@@ -15,9 +15,11 @@ import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 })
 export class HeaderComponent implements OnInit {
   printUsername=null;
-  ListOfIncomingChallenges = [];
+  ListOfIncomingChallengeAFriend = [];
+  ListOfIncomingChallengeWithAFriend = [];
   username: string = "";
-  challengeCounter: number = 0; 
+  challengeCounterChallengeAFriend: number = 0; 
+  challengeCounterChallengeWithAFriend: number = 0; 
 
   constructor(private db: AngularFireDatabase,private router: Router, private authService: AuthService) {
 
@@ -25,13 +27,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.username = localStorage.getItem("localuserName");
-    this.getUserChallenges();
+    this.getUserChallengeAFriend();
+    this.getUserChallengeWithAFriend();
   }
 
   logout() {
     localStorage.removeItem("localuserName");
     this.printUsername=null;
-    this.challengeCounter = 0; 
+    this.challengeCounterChallengeAFriend = 0; 
+    this.challengeCounterChallengeWithAFriend = 0; 
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
@@ -55,6 +59,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
   goToChallengeWithFriend() {
+    if (this.printUsername == null) { 
+      this.router.navigateByUrl('/gameInformation');
+    }
+    else 
     this.router.navigateByUrl('/challengeViewWithFriend');
   }
   goToDaily() {
@@ -79,13 +87,13 @@ export class HeaderComponent implements OnInit {
   }
 
    //Updates the user's challenge overview in realtime, could perhaps be more elegant...
-   getUserChallenges() {
-    var addIncomingToList = (challenge) => { this.ListOfIncomingChallenges.push(challenge) };
+   getUserChallengeAFriend() {
+    var addIncomingToList = (challenge) => { this.ListOfIncomingChallengeAFriend.push(challenge) };
 
     let query = "userChallenges/" + this.username;
     let currentList = "";
     this.db.database.ref(query).on("value", (snapshot) => {
-      this.ListOfIncomingChallenges = [];
+      this.ListOfIncomingChallengeAFriend = [];
       snapshot.forEach((snap) => {
         snap.forEach((childSnap) => {
           var key = childSnap.key;
@@ -94,7 +102,30 @@ export class HeaderComponent implements OnInit {
           if(snap.key == "incoming") {
             addIncomingToList(challengeObject);
           } 
-          this.challengeCounter = this.ListOfIncomingChallenges.length;
+          this.challengeCounterChallengeAFriend = this.ListOfIncomingChallengeAFriend.length;
+          return false;
+        });
+        return false;
+      });
+    });
+  }
+
+  getUserChallengeWithAFriend() {
+    var addIncomingToList = (challenge) => { this.ListOfIncomingChallengeWithAFriend.push(challenge) };
+
+    let query = "userChallengesWithFriend/" + this.username;
+    let currentList = "";
+    this.db.database.ref(query).on("value", (snapshot) => {
+      this.ListOfIncomingChallengeWithAFriend = [];
+      snapshot.forEach((snap) => {
+        snap.forEach((childSnap) => {
+          var key = childSnap.key;
+          var childData = childSnap.val();
+          var challengeObject = { challenger: key, challenge: childData["challenge"] };
+          if(snap.key == "incoming") {
+            addIncomingToList(challengeObject);
+          } 
+          this.challengeCounterChallengeWithAFriend = this.ListOfIncomingChallengeWithAFriend.length;
           return false;
         });
         return false;
