@@ -28,6 +28,10 @@ export class ChallengeviewComponent implements OnInit {
   challengeFind: boolean = false;
   counterChild: number = 1;
   showExplanationDialog: boolean = false;
+  finishChallenge: boolean = false;
+  choiceWon: boolean = false;
+  choiceLost: boolean = false;
+
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
@@ -40,11 +44,55 @@ export class ChallengeviewComponent implements OnInit {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
   }
 
+  resetChoice() {
+    this.finishChallenge = false;
+    this.choiceWon = false;
+    this.choiceLost = false;
+    this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
+    this.toastr.warning('You have reset your previous choice of the challenge!', 'Challenge a Friend');
+
+  }
+
+  getChallengeStatus() {
+    var setFinishChallenge = (challengeStatus) => {
+
+      if (challengeStatus == "won") {
+        this.choiceWon = true;
+        this.finishChallenge = true;
+      }
+      else if (challengeStatus == "lost") {
+        this.choiceLost = true;
+        this.finishChallenge = true;
+      }
+      else {
+        this.finishChallenge = false;
+      }
+    }
+
+    this.db.database.ref("userChallenges/" + this.username + "/current/" + this.challengerName).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+
+          if (key == "victoryStatus") {
+            setFinishChallenge(childData);
+          }
+        });
+      });
+  }
+
   sendGameWon() {
     var resetChallengeStatus = () => {
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
       this.toastr.error('Oh no!Both players have chosen that you have won. Discuss the real winner and redo your selection. ', 'Challenge a friend');
+    }
+
+    var setFinishChallenge = () => {
+      this.finishChallenge = true;
+      this.choiceWon = true;
+      this.choiceLost = false;
     }
 
     var updateChallengeStatus = () => {
@@ -196,12 +244,14 @@ export class ChallengeviewComponent implements OnInit {
               getUserAndOpponentCurrentScore();
               getUserCurrentChallengeVictories();
               deleteCurrentChallenge();
+              setFinishChallenge();
               resetVariables();
             }
 
             // If the opponent has not respond yet we set the users choice.
             else if (childData == "") {
               updateChallengeStatus();
+              setFinishChallenge();
             }
 
             // If both players hacve choose the same choice, we reset both options. 
@@ -214,6 +264,13 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   SendGameLost() {
+
+    var setFinishChallenge = () => {
+      this.finishChallenge = true;
+      this.choiceLost = true;
+      this.choiceWon = false;
+    }
+
 
     var resetChallengeStatus = () => {
       this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
@@ -369,12 +426,14 @@ export class ChallengeviewComponent implements OnInit {
               getOpponentAndUserCurrentScore();
               getOpponentCurrentChallengeVictories();
               resetVariables();
+              setFinishChallenge();
               deleteCurrentChallenge();
             }
 
             // If the opponent has not respond yet we set the users choice.
             else if (childData == "") {
               updateChallengeStatus();
+              setFinishChallenge();
             }
 
             // If both players hacve choose the same choice, we reset both options. 
@@ -402,6 +461,9 @@ export class ChallengeviewComponent implements OnInit {
   selectChallenge(challengeName, challengerName) {
     this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
+
+    this.getChallengeStatus(); 
+
     var setDesc = (decription) => { this.challengeDescription = decription };
     this.db.database.ref("challenges/challengeFriend/" + challengeName).once("value")
       .then(function (snapshot) {

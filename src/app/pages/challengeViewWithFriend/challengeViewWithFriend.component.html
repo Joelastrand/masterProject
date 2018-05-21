@@ -147,11 +147,24 @@
         </div>
         <!-- Inside box: Buttons information and Buttons -->
         <div style="flex-direction: column;  flex:2;">
-          <p style="display:flex; flex: 1" class="challengeButtonText">If you complete the challenge, please click on the Completed button.
-            <br> If you did not completed the challenge, please click on the Skip button.</p>
-          <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
-            <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41;" (click)="sendChallengeCompleted()">Completed</button>
-            <button class="resultButtons" style="background-color:red;border: 1px solid red;" (click)="sendChallengeSkipped()">Skipped</button>
+          <div *ngIf="!(finishChallenge)">
+            <p style="display:flex; flex: 1" class="challengeButtonText">Select the button below depending on whether
+              <br>you completed the challenge or not.</p>
+            <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+              <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41;" (click)="sendChallengeCompleted()">Completed</button>
+              <button class="resultButtons" style="background-color:red;border: 1px solid red;" (click)="sendChallengeSkipped()">Skipped</button>
+            </div>
+          </div>
+          <div *ngIf="(finishChallenge)">
+            <div *ngIf="(choiceCompleted)">
+              <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have completed the challenge</p>
+            </div>
+            <div *ngIf="(choiceSkipped)">
+              <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have skipped the challenge</p>
+            </div>
+            <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+              <button class="resultButtons" style="background-color:blue;border: 1px solid blue; width: 50%; " (click)="resetChoice()">Undo</button>
+            </div>
           </div>
         </div>
       </div>

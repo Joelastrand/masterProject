@@ -30,6 +30,10 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   challengeFind: boolean = false;
   counterChild: number = 1;
   showExplanationDialog: boolean = false;
+  finishChallenge: boolean = false;
+  choiceCompleted: boolean = false;
+  choiceSkipped: boolean = false;
+
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
@@ -42,10 +46,46 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
   }
 
+  resetChoice() {
+    this.finishChallenge = false;
+    this.choiceSkipped = false;
+    this.choiceCompleted = false;
+    this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).update({ "challengeStatus": "" });
+    this.toastr.warning('You have reset your previous choice of the challenge!', 'Challenge With a Friend');
+
+  }
+
+  getChallengeStatus() {
+    var setFinishChallenge = (challengeStatus) => {
+
+      if (challengeStatus == "completed") {
+        this.choiceCompleted = true;
+        this.finishChallenge = true;
+      }
+      else if (challengeStatus == "skip") {
+        this.choiceSkipped = true;
+        this.finishChallenge = true;
+      }
+      else {
+        this.finishChallenge = false;
+      }
+    }
+
+    this.db.database.ref("userChallengesWithFriend/" + this.username + "/current/" + this.challengerName).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+
+          if (key == "challengeStatus") {
+            setFinishChallenge(childData);
+          }
+        });
+      });
+  }
 
 
   sendChallengeCompleted() {
-
     var giveTheUserPoints = () => {
       // Give the optional parameter a value so we can update only the user.
       getUserAndFriendCurrentScore(1);
@@ -141,15 +181,15 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     // Function that sets the user and the friend current score to a variable and
     // updating both with 350 points.
-    var updateUserAndFriendCurrentScore = (currentScore, whichUser,challengePoints, OnlyUserCompleted = 0) => {
+    var updateUserAndFriendCurrentScore = (currentScore, whichUser, challengePoints, OnlyUserCompleted = 0) => {
 
-        // The user
-        if (whichUser == 1 && OnlyUserCompleted == 0) {
-          this.userCurrentScore = currentScore
-          this.userCurrentScore = this.userCurrentScore + challengePoints;
-          this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
-          this.toastr.success('Execellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
-        }
+      // The user
+      if (whichUser == 1 && OnlyUserCompleted == 0) {
+        this.userCurrentScore = currentScore
+        this.userCurrentScore = this.userCurrentScore + challengePoints;
+        this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
+        this.toastr.success('Execellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
+      }
 
       if (whichUser == 1 && OnlyUserCompleted == 1) {
         this.userCurrentScore = currentScore
@@ -179,10 +219,10 @@ export class ChallengeViewWithFriendComponent implements OnInit {
                 childData = 400;
               }
               else if (childData == "medium") {
-                childData = 300; 
+                childData = 300;
               }
-              else  {
-                childData = 200; 
+              else {
+                childData = 200;
               }
               updateUserAndFriendCurrentScore(score, whichUser, childData, OnlyUserCompleted);
               //updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
@@ -228,6 +268,13 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     var resetVariables = () => {
       this.challengeFind = false;
       this.counterChild = 0;
+      this.finishChallenge = false;
+    }
+
+    var setFinishChallenge = () => {
+      this.finishChallenge = true;
+      this.choiceCompleted = true;
+      this.choiceSkipped = false;
     }
 
     var deleteCurrentChallenge = () => {
@@ -252,11 +299,14 @@ export class ChallengeViewWithFriendComponent implements OnInit {
               checkIfUserAndFriendHasAStreak();
               deleteCurrentChallenge();
               resetVariables();
+              setFinishChallenge();
             }
 
             // If the friend has not respond yet we set the users choice.
             else if (childData == "") {
               updateChallengeStatus();
+              setFinishChallenge();
+
             }
 
             // If the friend has not completed the challenge, we give points only to the user. 
@@ -271,7 +321,6 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   }
 
   sendChallengeSkipped() {
-
 
     var updateChallengeStatus = () => {
       this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).update({ "challengeStatus": "skip" });
@@ -318,7 +367,15 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     var resetVariables = () => {
       this.challengeFind = false;
       this.counterChild = 0;
+      this.finishChallenge = false;
     }
+
+    var setFinishChallenge = () => {
+      this.finishChallenge = true;
+      this.choiceSkipped = true;
+      this.choiceCompleted = false;
+    }
+
 
     var deleteCurrentChallenge = () => {
       this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).remove();
@@ -341,11 +398,13 @@ export class ChallengeViewWithFriendComponent implements OnInit {
               getTheFriendCurrentScore();
               deleteCurrentChallenge();
               resetVariables();
+              setFinishChallenge();
             }
 
             // If the friend has not respond yet we set the users choice.
             else if (childData == "") {
               updateChallengeStatus();
+              setFinishChallenge();
             }
 
             // If the friend has not completed the challenge, we give points only to the user. 
@@ -374,6 +433,9 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   selectChallenge(challengeName, challengerName) {
     this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
+
+    this.getChallengeStatus();
+
     var setDesc = (decription) => { this.challengeDescription = decription };
     this.db.database.ref("challenges/challengeWithFriend/" + challengeName).once("value")
       .then(function (snapshot) {

@@ -138,12 +138,23 @@
           </div>
         </div>
         <!-- Inside box: Buttons information and Buttons -->
-        <div style="flex-direction: column;  flex:2;">
-          <p style="display:flex; flex: 1" class="challengeButtonText">If you won the match, please click on the won button.
-            <br> if you lost the match, please click on the Lost button.</p>
+        <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
+          <p style="display:flex; flex: 1" class="challengeButtonText">After you've made the challenge,
+            <br>please press the button below how it went</p>
           <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
             <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41;" (click)="sendGameWon()">Won</button>
             <button class="resultButtons" style="background-color:red;border: 1px solid red;" (click)="SendGameLost()">Lost</button>
+          </div>
+        </div>
+        <div *ngIf="(finishChallenge)"  style="margin-bottom: 2%;">
+          <div *ngIf="(choiceWon)">
+            <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have won the challenge</p>
+          </div>
+          <div *ngIf="(choiceLost)">
+            <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have lost the challenge</p>
+          </div>
+          <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+            <button class="resultButtons" style="background-color:blue;border: 1px solid blue; width: 50%; " (click)="resetChoice()">Undo</button>
           </div>
         </div>
       </div>
