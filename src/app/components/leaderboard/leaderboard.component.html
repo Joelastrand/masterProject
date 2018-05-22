@@ -1,13 +1,14 @@
+<hr style="margin-top:3%;border-color:black;">
+<h3 style="text-align:center;font-family: italic; color:black;">Leaderboard</h3>
 <div class="mainSection">
-
   <div class="leaderboardBigBox">
-    <div class="card-header">
+    <div class="card-header headerColor">
       <h5>
         Daily Challenge
       </h5>
     </div>
     <div class="leaderboardBox">
-      <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+      <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox backgroundColor">
         <div style="flex:3;">
           <h6 class="boxText">{{user.username}}</h6>
           <p class="boxPText">Streak: {{user.score}} days</p>
@@ -20,14 +21,14 @@
   </div>
 
   <div class="leaderboardBigBox">
-    <div class="card-header">
+    <div class="card-header headerColor">
       <h5>
         Challenge a friend
       </h5>
     </div>
     <div>
       <div class="leaderboardBox">
-        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox backgroundColor">
           <div style="flex:3">
             <h6 class="boxText">{{user.username}}</h6>
             <p class="boxPText">Streak: {{user.score}} days</p>
@@ -41,14 +42,14 @@
 
   </div>
   <div class="leaderboardBigBox">
-    <div class="card-header">
+    <div class="card-header headerColor">
       <h5>
         Most points
       </h5>
     </div>
     <div>
-      <div class="leaderboardBox" >
-        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox">
+      <div class="leaderboardBox">
+        <div *ngFor="let user of leaderboardObservable | async" class="leaderboardUserBox backgroundColor">
           <div style="flex:3">
             <h6 class="boxText">{{user.username}}</h6>
             <p class="boxPText">Streak: {{user.score}} days</p>
@@ -61,3 +62,4 @@
     </div>
   </div>
 </div>
+<hr style="border-color:black;">

@@ -46,8 +46,8 @@ export class SetusernameComponent implements OnInit {
 
 		localStorage.setItem("localuserName", this.user.username);
 		this.goToHome();
-		this.toastr.info('Welcome ' + this.user.username + '!! Officise is an application with will improve ' +
-			' your health by getting your more physically active at the office. Try our games directly, Go to Challenge a friend and play one game! '
+		this.toastr.info('Welcome ' + this.user.username + '!! Officise is an application that improves ' +
+			' your health by getting you more physically active at the office. Try our games now with friends and have fun!'
 			, 'Officise');	
 	}
 

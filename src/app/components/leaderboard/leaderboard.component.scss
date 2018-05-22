@@ -3,11 +3,12 @@
   .mainSection{
     width:100%;
     display:flex;
+    margin-bottom:3%;
   }
 
   .leaderboardBigBox {
     flex:1;
-    border-style: solid;
+    border-style: none;
     border-width: 0.5px;
     color: black;
     margin: 5px;
@@ -16,8 +17,9 @@
   .card-header {
     min-height:36%;
     max-height:36%;
-    color:black; 
+    //color:black; 
     text-align:center;
+    color:white;
   }
   
   .leaderboardBox {
@@ -30,8 +32,7 @@
     border-width: 0.5px;
     color: black;
     text-align: center;
-    background-color: white;
-    background-color:#f5f5f0; 
+    //background-color:#f5f5f0; 
     display: flex;
     margin:2%;
   }
