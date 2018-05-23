@@ -151,7 +151,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (randomNumber == count /*String(key) == "Exercise Sequence"*/) {
+          if (/*randomNumber == count*/ String(key) == "Exercise Sequence") {
             setName(key);
             setChallengeParams(childData);
           }
@@ -178,7 +178,7 @@ export class DailychallengeComponent implements OnInit {
     //Checks if daily challenge has been made today
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/date").once("value")
       .then(function (snapshot) {
-        if (new Date(snapshot.val()).getTime() != new Date(date).getTime()) {
+        if (new Date(snapshot.val()).getTime() != new Date(date).getTime() + 1) { //ADD PLUS ONE WHEN TESTING
           challengeNotDoneToday();
         } else {
           challengeDoneToday();
@@ -290,14 +290,14 @@ export class DailychallengeComponent implements OnInit {
   }
 
   nextExerciseInSequence() {
-    var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
-    currentElement.style.background = 'green';
-    currentElement.style.border = '1px solid gray';
+    var currentElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex];
+    currentElement.style.background = '#3e8e41';
+    currentElement.style.border = '2px solid gray';
 
 
     if (this.sequenceList.length - 1 > this.exerciseIndex) {
-      var nextElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex + 1];
-      nextElement.style.border = 'solid 1px #5d8ffc';
+      var nextElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex + 1];
+      nextElement.style.border = 'solid 2px #1985A1';
       this.completedChallenges += 1;
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
@@ -305,32 +305,32 @@ export class DailychallengeComponent implements OnInit {
       if (this.completedChallenges >= 0) { //Fix this if we want a minimum finish challenge limit
         this.finishChallenge();
       }
-      currentElement.style.border = 'solid 1px #5d8ffc';
+      currentElement.style.border = 'solid 2px #1985A1';
     }
   }
   skipExercise() {
-    var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
-    currentElement.style.border = '1px solid gray';
-
+    var currentElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex];
+    currentElement.style.background = 'red';
+    currentElement.style.border = '2px solid gray';
     if (this.sequenceList.length - 1 > this.exerciseIndex) {
-      var nextElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex + 1];
-      nextElement.style.border = 'solid 1px #5d8ffc';
+      var nextElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex + 1];
+      nextElement.style.border = 'solid 2px #1985A1';
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
       if (this.completedChallenges >= 0) { //Fix this if we want a minimum finish challenge limit
         this.finishChallenge();
       }
-      currentElement.style.border = 'solid 1px #5d8ffc';
+      currentElement.style.border = 'solid 2px #1985A1';
     }
   }
 
   previousExerciseInSequence() {
 
     if (this.exerciseIndex > 0) {
-      var currentElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex];
-      currentElement.style.border = '1px solid gray';
-      var prevElement = <HTMLElement>document.getElementsByClassName("stepperItem")[this.exerciseIndex - 1];
-      prevElement.style.border = 'solid 1px #5d8ffc';
+      var currentElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex];
+      currentElement.style.border = '2px solid gray';
+      var prevElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex - 1];
+      prevElement.style.border = 'solid 2px #1985A1';
       this.exerciseIndex -= 1;
     }
 
@@ -368,8 +368,20 @@ export class DailychallengeComponent implements OnInit {
       this.challengeName = "Exercise Sequence";
       this.sequence = this.challengeParameters["Sequence"];
       var counter = 0;
+      var exerName, exerDesc = "";
+      var reps = 0;
       for (var key in this.challengeParameters["Exercises"]) {
-        var exerciseObject = { name: key, repeats: this.challengeParameters["Exercises"][key] };
+        for (var value in this.challengeParameters["Exercises"][key]) {
+          if (value == "name") {
+            exerName = this.challengeParameters["Exercises"][key][value];
+          } else if (value == "description") {
+            exerDesc = this.challengeParameters["Exercises"][key][value];
+          } else {
+            reps = this.challengeParameters["Exercises"][key][value];
+          }
+
+        }
+        var exerciseObject = { name: exerName, repeats: reps, desc: exerDesc};
         this.sequenceList.push(exerciseObject);
         counter++;
       }

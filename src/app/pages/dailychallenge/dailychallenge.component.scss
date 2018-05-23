@@ -8,6 +8,26 @@
     flex-direction: column;
   }
 
+.numberCircle  {
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    //padding: 8px;
+    background: #F6F6F6;
+    border: 2px solid #666;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align:center;
+    text-decoration:none;
+    margin: 3px;
+    font: 18px Arial, sans-serif;
+}
+
 .flexArea {
     height: 100%;
     display: flex;
