@@ -294,10 +294,18 @@ export class DailychallengeComponent implements OnInit {
     currentElement.style.background = '#3e8e41';
     currentElement.style.border = '2px solid gray';
 
+    currentElement.style.height = '26px';
+    currentElement.style.width = '26px';
+    currentElement.style['font-size'] = '18px';
+
 
     if (this.sequenceList.length - 1 > this.exerciseIndex) {
       var nextElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex + 1];
       nextElement.style.border = 'solid 2px #1985A1';
+      nextElement.style.height = '32px';
+      nextElement.style.width = '32px';
+      nextElement.style['font-size'] = '22px';
+
       this.completedChallenges += 1;
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
@@ -312,9 +320,19 @@ export class DailychallengeComponent implements OnInit {
     var currentElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex];
     currentElement.style.background = 'red';
     currentElement.style.border = '2px solid gray';
+
+    currentElement.style.height = '26px';
+    currentElement.style.width = '26px';
+    currentElement.style['font-size'] = '18px';
+
     if (this.sequenceList.length - 1 > this.exerciseIndex) {
       var nextElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex + 1];
       nextElement.style.border = 'solid 2px #1985A1';
+
+      nextElement.style.height = '32px';
+      nextElement.style.width = '32px';
+      nextElement.style['font-size'] = '22px';
+
       this.exerciseIndex += 1;
     } else if (this.sequenceList.length - 1 == this.exerciseIndex) {
       if (this.completedChallenges >= 0) { //Fix this if we want a minimum finish challenge limit
@@ -329,8 +347,17 @@ export class DailychallengeComponent implements OnInit {
     if (this.exerciseIndex > 0) {
       var currentElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex];
       currentElement.style.border = '2px solid gray';
+
+      currentElement.style.height = '26px';
+      currentElement.style.width = '26px';
+      currentElement.style['font-size'] = '18px';
+
       var prevElement = <HTMLElement>document.getElementsByClassName("numberCircle")[this.exerciseIndex - 1];
       prevElement.style.border = 'solid 2px #1985A1';
+      prevElement.style.height = '32px';
+      prevElement.style.width = '32px';
+      prevElement.style['font-size'] = '22px';
+      
       this.exerciseIndex -= 1;
     }
 
@@ -381,7 +408,7 @@ export class DailychallengeComponent implements OnInit {
           }
 
         }
-        var exerciseObject = { name: exerName, repeats: reps, desc: exerDesc};
+        var exerciseObject = { name: exerName, repeats: reps, desc: exerDesc };
         this.sequenceList.push(exerciseObject);
         counter++;
       }

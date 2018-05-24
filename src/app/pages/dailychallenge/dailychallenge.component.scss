@@ -12,7 +12,6 @@
     border-radius: 50%;
     width: 26px;
     height: 26px;
-    //padding: 8px;
     background: #F6F6F6;
     border: 2px solid #666;
     color: black;
@@ -147,6 +146,7 @@
     flex: 2;
     width: 100%;
     display: flex;
+    margin-top: 5%;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
@@ -159,6 +159,7 @@
 .currentExercise{
     flex: 1;
     width: 100%;
+    margin-top: 5%;
     display: flex;
     justify-content: center;
     align-content: flex-end;
@@ -194,7 +195,7 @@
     border-bottom: 2px solid rgba(148,182,255,1);
 }
 .sequenceChallengeStatusWindow {
-    flex: 3;
+    flex: 6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -271,12 +272,13 @@
     width:56px;
     height:56px;
     line-height:56px;
-    border: 2px solid white;
+    //border: 2px solid white;
     border-radius: 50%;
     color:white; 
     text-align:center;
     text-decoration:none;
-    background: linear-gradient(#66b669, #3e8e41);
+    box-shadow: 1px 1px 5px 1px #4C5C68;
+    //background: linear-gradient(#66b669, #3e8e41);
     font-size:20px;
     font-weight:bold;
 }
@@ -308,8 +310,8 @@
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
         .flexArea {
-            margin-top: 5%;
-            margin-bottom: 5%;
+            margin-top: 2%;
+            margin-bottom: 2%;
             width: 33%;
         }
 
@@ -324,8 +326,8 @@
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
         .flexArea {
-            margin-top: 10%;
-            margin-bottom: 10%;
+            margin-top: 5%;
+            margin-bottom: 5%;
             width: 70%;
         }
 
@@ -340,8 +342,8 @@
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
         .flexArea {
-            margin-top: 15%;
-            margin-bottom: 15%;
+            margin-top: 5%;
+            margin-bottom: 5%;
             width: 100%;
         }
 
