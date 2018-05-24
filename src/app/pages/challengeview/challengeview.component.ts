@@ -225,10 +225,15 @@ export class ChallengeviewComponent implements OnInit {
       this.db.object(`userChallenges/${username}/current/${challengerName}`).update({ "victoryStatus": "lost" });
       this.toastr.success('You have chosen to have lost', 'Challenge a friend');
     }
-    else if (challengeType == "amount") {
+    else if (challengeType == "amount" ) {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
-      this.toastr.success('You have send that you did ' + this.userAmount + ' ' +
+      this.toastr.success('You have sent that you did ' + this.userAmount + ' ' +
         this.shortName, 'Challenge a Friend');
+    }
+    else if (challengeType == "time" ) {
+      this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
+      this.toastr.success('You have sent that you did ' + this.shortName + ' in ' + 
+        this.userAmount + ' seconds', 'Challenge a Friend');
     }
 
   }
@@ -458,7 +463,6 @@ export class ChallengeviewComponent implements OnInit {
     }
     // opponent won
     else if (usersAmount < opponentAmount) {
-      console.log("User LOST:usersamount:" + usersAmount + " opponentAmount:" + opponentAmount);
 
       //Need a variable to determine who player that gets extra points.
       var lost = 2;
@@ -536,7 +540,6 @@ export class ChallengeviewComponent implements OnInit {
             // If both players hacve choose the same choice, we reset both options. 
             else {
               // Sets the user amount 
-              console.log("sendAmount:" + childData)
               setUserAmountAndSendBothPlayersAmount(childData);
             }
           }
@@ -714,7 +717,6 @@ export class ChallengeviewComponent implements OnInit {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
           if (key == "type") {
-            console.log(childData)
             setChallengeType(childData);
           }
         });
