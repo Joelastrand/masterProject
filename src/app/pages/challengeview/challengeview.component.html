@@ -1,164 +1,189 @@
 <div class="mainSection">
 
-  <div class="overViewArea" *ngIf="!selectedChallenge">
-
-    <div style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
-      <div class="titleBox">
-        <div style="display:flex;flex-direction: row;justify-content: center;">
-          <p style="flex:1"></p>
-          <h3 style="color: #F6F6F6; text-align: center; margin: 0; flex:3;">Challenge a Friend</h3>
-          <button (click)="toggleExplanationDialog()" class="infoButton" style="flex:1;color:white;">
-            <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-          </button>
-        </div>
-      </div>
-
-      <p-dialog [(visible)]="showExplanationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal" [responsive]="true"
-        [style]="{'background-color':' #3E5062'}">
-        <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
-          <h1 class="pDialogHeader">Challenge a Friend Description</h1>
-        </div>
-        <p class="pDialogText"> The winner of the challenge gets 200 points and the other gets 150 points. The winner also gets plus one victory
-          in the particular challenge. If you go to the statistics page you can see your points and how many victories you
-          have on each challenge.
-        </p>
-        <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
-          <button type="button" style="background-color: #3e8e41; border: none; height: 50%; width: 40%" pButton icon="" (click)="toggleExplanationDialog()"
-            label="Got it!"></button>
-        </div>
-      </p-dialog>
-
-      <div class="startNewChallengeHover" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
-        <div class="startNewChallenge" (click)="goToChallengeFriend()">
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">play_arrow</mat-icon>
-          </div>
-          <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
-            <h3 style="margin: 0; color: #F6F6F6; text-align: center">Start New Challenge</h3>
-          </div>
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-          </div>
-        </div>
-      </div>
-
-      <div *ngFor="let challenge of ListOfIncomingChallenges" class="challengeBox">
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
-
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">priority_high</mat-icon>
-          </div>
-          <div style="flex:4; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <h3 style="color: #F6F6F6; margin: 0">{{challenge.challenge}} challenge from {{challenge.challenger}}!</h3>
-          </div>
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <button (click)="acceptChallenge(challenge.challenger, challenge.challenge)" class="acceptButton">
-              <mat-icon style="color: white" aria-label="goBackArrow">check</mat-icon>
-            </button>
-          </div>
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <button (click)="declineChallenge(challenge.challenger)" class="declineButton">
-              <mat-icon style="color: white; " aria-label="goBackArrow">clear</mat-icon>
+    <div class="overViewArea" *ngIf="!selectedChallenge">
+  
+      <div style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
+        <div class="titleBox">
+          <div style="display:flex;flex-direction: row;justify-content: center;">
+            <p style="flex:1"></p>
+            <h3 style="color: #F6F6F6; text-align: center; margin: 0; flex:3;">Challenge a Friend</h3>
+            <button (click)="toggleExplanationDialog()" class="infoButton" style="flex:1;color:white;">
+              <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
             </button>
           </div>
         </div>
-      </div>
-
-      <div class="smallTitleDiv" *ngIf="ListOfCurrentChallenges.length > 0 || ListOfOutgoingChallenges.length > 0">
-        <h4>Active Challenges</h4>
-      </div>
-
-
-      <div *ngFor="let challenge of ListOfCurrentChallenges" class="challengeBoxHoverable" (click)="selectChallenge(challenge.challenge, challenge.challenger)">
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: #3f71de" aria-label="goBackArrow">insert_emoticon</mat-icon>
+  
+        <p-dialog [(visible)]="showExplanationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal" [responsive]="true"
+          [style]="{'background-color':' #3E5062'}">
+          <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
+            <h1 class="pDialogHeader">Challenge a Friend Description</h1>
           </div>
-          <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
-            <h3 style="color: #F6F6F6; margin: 0">{{challenge.challenge}} VS {{challenge.challenger}}!</h3>
+          <p class="pDialogText"> The winner of the challenge gets 200 points and the other gets 150 points. The winner also gets plus one victory
+            in the particular challenge. If you go to the statistics page you can see your points and how many victories you
+            have on each challenge.
+          </p>
+          <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
+            <button type="button" style="background-color: #3e8e41; border: none; height: 50%; width: 40%" pButton icon="" (click)="toggleExplanationDialog()"
+              label="Got it!"></button>
           </div>
-          <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: #3f71de; padding-left: 35px; " aria-label="goBackArrow">chevron_right</mat-icon>
-            <mat-icon class="material-icons md-60" style="color: #3f71de; " aria-label="goBackArrow">chevron_right</mat-icon>
-          </div>
-        </div>
-      </div>
-
-      <div *ngFor="let challenge of ListOfOutgoingChallenges" class="challengeBox" style="opacity: 0.8">
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
-          <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <svg width="48" fill="#3f71de" height="48" color="white" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1536 128q0 261-106.5 461.5t-266.5 306.5q160 106 266.5 306.5t106.5 461.5h96q14 0 23 9t9 23v64q0 14-9 23t-23 9h-1472q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h96q0-261 106.5-461.5t266.5-306.5q-160-106-266.5-306.5t-106.5-461.5h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h1472q14 0 23 9t9 23v64q0 14-9 23t-23 9h-96zm-128 0h-1024q0 206 85 384h854q85-178 85-384zm-57 1216q-54-141-145.5-241.5t-194.5-142.5h-230q-103 42-194.5 142.5t-145.5 241.5h910z"
-              />
-            </svg>
-          </div>
-          <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center;">
-            <h3 style="color: #F6F6F6; margin: 0">Waiting for response from {{challenge.challenger}}</h3>
-          </div>
-          <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-
+        </p-dialog>
+  
+        <div class="startNewChallengeHover" style="margin-top: auto; width: 100%; height: 100%; display: flex; justify-content: flex-start; flex-direction: column">
+          <div class="startNewChallenge" (click)="goToChallengeFriend()">
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">play_arrow</mat-icon>
+            </div>
+            <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
+              <h3 style="margin: 0; color: #F6F6F6; text-align: center">Start New Challenge</h3>
+            </div>
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+            </div>
           </div>
         </div>
+  
+        <div *ngFor="let challenge of ListOfIncomingChallenges" class="challengeBox">
+          <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
+  
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">priority_high</mat-icon>
+            </div>
+            <div style="flex:4; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <h3 style="color: #F6F6F6; margin: 0">{{challenge.challenge}} challenge from {{challenge.challenger}}!</h3>
+            </div>
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <button (click)="acceptChallenge(challenge.challenger, challenge.challenge)" class="acceptButton">
+                <mat-icon style="color: white" aria-label="goBackArrow">check</mat-icon>
+              </button>
+            </div>
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <button (click)="declineChallenge(challenge.challenger)" class="declineButton">
+                <mat-icon style="color: white; " aria-label="goBackArrow">clear</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="smallTitleDiv" *ngIf="ListOfCurrentChallenges.length > 0 || ListOfOutgoingChallenges.length > 0">
+          <h4>Active Challenges</h4>
+        </div>
+  
+  
+        <div *ngFor="let challenge of ListOfCurrentChallenges" class="challengeBoxHoverable" (click)="selectChallenge(challenge.challenge, challenge.challenger)">
+          <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <mat-icon class="material-icons md-48" style="color: #3f71de" aria-label="goBackArrow">insert_emoticon</mat-icon>
+            </div>
+            <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
+              <h3 style="color: #F6F6F6; margin: 0">{{challenge.challenge}} VS {{challenge.challenger}}!</h3>
+            </div>
+            <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <mat-icon class="material-icons md-48" style="color: #3f71de; padding-left: 35px; " aria-label="goBackArrow">chevron_right</mat-icon>
+              <mat-icon class="material-icons md-60" style="color: #3f71de; " aria-label="goBackArrow">chevron_right</mat-icon>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngFor="let challenge of ListOfOutgoingChallenges" class="challengeBox" style="opacity: 0.8">
+          <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
+            <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+              <svg width="48" fill="#3f71de" height="48" color="white" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1536 128q0 261-106.5 461.5t-266.5 306.5q160 106 266.5 306.5t106.5 461.5h96q14 0 23 9t9 23v64q0 14-9 23t-23 9h-1472q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h96q0-261 106.5-461.5t266.5-306.5q-160-106-266.5-306.5t-106.5-461.5h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h1472q14 0 23 9t9 23v64q0 14-9 23t-23 9h-96zm-128 0h-1024q0 206 85 384h854q85-178 85-384zm-57 1216q-54-141-145.5-241.5t-194.5-142.5h-230q-103 42-194.5 142.5t-145.5 241.5h910z"
+                />
+              </svg>
+            </div>
+            <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center;">
+              <h3 style="color: #F6F6F6; margin: 0">Waiting for response from {{challenge.challenger}}</h3>
+            </div>
+            <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+  
+            </div>
+          </div>
+        </div>
+  
       </div>
-
+      <div style="margin-top: 30%; margin-bottom: 20%; display: flex; height: 100%; justify-content: center; align-items:center;vertical-align: middle"
+        *ngIf="ListOfCurrentChallenges.length <= 0 && ListOfOutgoingChallenges.length <= 0">
+        <p style="height: 100%; margin: 0; color:#686668">No active challenges</p>
+      </div>
     </div>
-    <div style="margin-top: 30%; margin-bottom: 20%; display: flex; height: 100%; justify-content: center; align-items:center;vertical-align: middle"
-      *ngIf="ListOfCurrentChallenges.length <= 0 && ListOfOutgoingChallenges.length <= 0">
-      <p style="height: 100%; margin: 0; color:#686668">No active challenges</p>
+  
+    <!--HTML AFTER CHALLENGE HAS BEEN SELECTED-->
+  
+    <div class="flexArea challengeViewBox" *ngIf="selectedChallenge">
+      <div style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
+        <!-- Box header -->
+        <div class="titleBox" style="display:flex; flex: 1">
+          <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
+            <div style="flex:1; vertical-align: middle; display: flex">
+              <button (click)="returnToChallengeOverview()" class="backArrowButton">
+                <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
+              </button>
+            </div>
+            <div style="flex: 3; display: flex; align-items: center; justify-content: center; vertical-align: middle">
+              <h2 style="margin: 0; color: #F6F6F6">{{username}}
+                <i>vs</i> {{challengerName}}</h2>
+            </div>
+            <div style="flex:1">
+            </div>
+          </div>
+        </div>
+  
+        <div style="color:black; text-align:center;flex-direction: column; align-items:center; justify-content: flex-start; display:flex; flex: 6">
+          <!-- Inside box: Challenge Information and Image -->
+          <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center; display:flex; flex: 4">
+            <h3 style="display:flex; flex: 1">{{selectedChallenge}}</h3>
+            <p style="display:flex; flex: 3" class="challengeDescText">{{challengeDescription}}</p>
+            <div style="margin-bottom:10%; flex:4" class="centerImage">
+              <img style="height:100%; width:auto; "src="assets/challengeFriend/{{selectedChallenge}}.jpg" alt="Challenge image">
+            </div>
+          </div>
+          <!-- Inside box: Buttons information and Buttons -->
+  
+          <!-- Inside box: If challenge type is Won/Lost -->
+          <div *ngIf="(typeWonLost)">
+            <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
+              <p style="display:flex; flex: 1" class="challengeButtonText">After you've made the challenge,
+                <br>please press the button below how it went</p>
+              <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+                <button class="resultButtons greenButtons" (click)="sendGameWon()">Won</button>
+                <button class="resultButtons redButtons" (click)="SendGameLost()">Lost</button>
+              </div>
+            </div>
+            <div *ngIf="(finishChallenge)" style="margin-bottom: 2%;">
+              <div *ngIf="(choiceWon)">
+                <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have won the challenge</p>
+              </div>
+              <div *ngIf="(choiceLost)">
+                <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have lost the challenge</p>
+              </div>
+              <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+                <button class="resultButtons blueButtons" style="width: 50%; " (click)="resetChoice()">Undo</button>
+              </div>
+            </div>
+          </div>
+          <!-- Inside box: If challenge type is Time -->
+          <div *ngIf="(typeTime)">
+            <p style="display:flex; flex: 1" class="challengeButtonText">Time challenge</p>
+          </div>
+          <!-- Inside box: If challenge type is Time -->
+          <div *ngIf="(typeAmount)">
+            <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
+              <p style="display:flex; flex: 1" class="challengeButtonText">Please enter the number of {{shortName}} you succeded to do: </p>
+              <input type="number" placeholder="Enter Number" style="width:50%;" [(ngModel)]="userAmount" />
+              <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+                <button class="resultButtons greenButtons" style="width: 50%;margin-top:3%; margin-bottom:3%; " (click)="sendAmount()">Send</button>
+              </div>
+            </div>
+            <div *ngIf="finishChallenge" style="margin-bottom: 2%;">
+              <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you done {{userAmount}} {{shortName}}</p>
+              <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+                <button class="resultButtons blueButtons" style="width: 50%;margin-top:3%; margin-bottom:3%; " (click)="resetChoice()">Undo</button>
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+      </div>
     </div>
   </div>
-
-  <!--HTML AFTER CHALLENGE HAS BEEN SELECTED-->
-
-  <div class="flexArea challengeViewBox" *ngIf="selectedChallenge">
-    <div style="margin-top: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content: flex-start">
-      <!-- Box header -->
-      <div class="titleBox" style="display:flex; flex: 1">
-        <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; vertical-align: middle">
-          <div style="flex:1; vertical-align: middle; display: flex">
-            <button (click)="returnToChallengeOverview()" class="backArrowButton">
-              <mat-icon class="material-icons md-48" style="color: white" aria-label="goBackArrow">chevron_left</mat-icon>
-            </button>
-          </div>
-          <div style="flex: 3; display: flex; align-items: center; justify-content: center; vertical-align: middle">
-            <h2 style="margin: 0; color: #F6F6F6">{{username}}
-              <i>vs</i> {{challengerName}}</h2>
-          </div>
-          <div style="flex:1">
-          </div>
-        </div>
-      </div>
-
-      <div style="color:black; text-align:center;flex-direction: column; align-items:center; justify-content: flex-start; display:flex; flex: 6">
-        <!-- Inside box: Challenge Information and Image -->
-        <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center; display:flex; flex: 4">
-          <h3 style="display:flex; flex: 1">{{selectedChallenge}}</h3>
-          <p style="display:flex; flex: 3" class="challengeDescText">{{challengeDescription}}</p>
-          <div style="margin-bottom:10%;display:flex; flex: 5" class="centerImage">
-            <img src="assets/challengeFriend/{{selectedChallenge}}.jpg" alt="Challenge image">
-          </div>
-        </div>
-        <!-- Inside box: Buttons information and Buttons -->
-        <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
-          <p style="display:flex; flex: 1" class="challengeButtonText">After you've made the challenge,
-            <br>please press the button below how it went</p>
-          <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
-            <button class="resultButtons greenButtons"  (click)="sendGameWon()">Won</button>
-            <button class="resultButtons redButtons" (click)="SendGameLost()">Lost</button>
-          </div>
-        </div>
-        <div *ngIf="(finishChallenge)"  style="margin-bottom: 2%;">
-          <div *ngIf="(choiceWon)">
-            <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have won the challenge</p>
-          </div>
-          <div *ngIf="(choiceLost)">
-            <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have lost the challenge</p>
-          </div>
-          <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
-            <button class="resultButtons blueButtons" style="width: 50%; " (click)="resetChoice()">Undo</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
