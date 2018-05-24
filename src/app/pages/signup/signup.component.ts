@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
         this.errorMessage = "Please enter your email-address in the format yourname@example.com";
         break;
       case "The email address is already in use by another account.":
-        this.errorMessage = "The email address is already in use";
+        this.errorMessage = "Invalid email or password";
         break;
       default:
         this.errorMessage = "The passwords need to match and be a minimum of 6 characters";

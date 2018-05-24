@@ -266,10 +266,10 @@ export class DailychallengeComponent implements OnInit {
             streak = childSnapshot.val();
           }
           if (total == undefined) {
-            total = 1;
+            total = 0;
           }
           if (streak == 0) {
-            streak = 1;
+            streak = 0;
           }
         });
         setTotal(total);

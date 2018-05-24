@@ -47,17 +47,22 @@ export class LoginComponent implements OnInit {
   }
 
   translateErrorMessage(msg) {
-    switch (msg) {
-      case " First argument \"email\" must be a valid string.":
+   // console.log(msg);
+    this.errorMessage = "Invalid email or password";
+    /*switch (msg) {
+      case "First argument \"email\" must be a valid string.":
         this.errorMessage = "Please enter your email-address in the format yourname@example.com";
         break;
       case "There is no user record corresponding to this identifier. The user may have been deleted.":
         this.errorMessage = "There is no user registered with that email-address";
         break;
-      default:
-        this.errorMessage = "Invalid password";
+      case "The email address is badly formatted.":
+        this.errorMessage = "Please enter your email-address in the format yourname@example.com";
+      break;
+      default:*/
+        
 
-    }
+    //}
   }
 
   async login(user: User) {

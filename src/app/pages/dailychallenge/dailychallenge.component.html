@@ -130,9 +130,9 @@
 
         </div>
 
-        <!--Components for timer type of challenges-->
+        <!--Components for timer type of challenges [maxPercent]=maxTimerValue-->
         <div class="timerChallengeStatusWindow" [@timer]="timer">
-            <circle-progress [percent]=timerValue [maxPercent]=maxTimerValue [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+            <circle-progress [percent]=timerValue  [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
                 [outerStrokeColor]="'#78C000'" [renderOnClick]="false" [innerStrokeColor]="'#C7E596'" [animation]="false"></circle-progress>
 
             <button *ngIf="timerOn == false && !challengeFinished" mat-icon-button class="playButton" (click)="initiateChallenge()">
