@@ -30,7 +30,8 @@ export class ChallengeviewComponent implements OnInit {
   opponentCurrentVictories: number = 0;
   challengeFind: boolean = false;
   counterChild: number = 1;
-  showExplanationDialog: boolean = false;
+  showExplanationDialog: boolean = false; 
+  RulesAndDescriptionDialog: boolean = false;
   finishChallenge: boolean = false;
   choiceWon: boolean = false;
   choiceLost: boolean = false;
@@ -54,6 +55,10 @@ export class ChallengeviewComponent implements OnInit {
 
   toggleExplanationDialog() {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
+  }
+
+  toggleRulesAndDescriptionDialog() {
+    this.RulesAndDescriptionDialog == false ? this.RulesAndDescriptionDialog = true : this.RulesAndDescriptionDialog = false;
   }
 
 

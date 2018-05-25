@@ -210,9 +210,12 @@
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
         .flexArea {
-            margin-top: 15%;
-            margin-bottom: 15%;
+            //margin-top: 15%;
+            //margin-bottom: 15%;
             width: 100%;
+        }
+        .titleBox {
+            height: 80px;
         }
 
         .mainSection {

@@ -13,13 +13,7 @@
         </div>
       </div>
 
-      <!--
-      <div style="margin-bottom:5%;" class="challengeExplanationDivs">
-        <button (click)="toggleExplanationDialog()" class="infoButton">
-          <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-        </button>
-      </div>
-      -->
+
       <p-dialog [(visible)]="showExplanationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal" [responsive]="true"
         [style]="{'background-color':' #3E5062'}">
         <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
@@ -136,21 +130,41 @@
         </div>
       </div>
 
-      <div style="color:black; text-align:center;flex-direction: column; align-items:center; justify-content: flex-start; display:flex; flex: 6">
+      <div style="color:black; text-align:center;flex-direction: column; align-items:center; justify-content: flex-start; display:flex;flex:6;width: 100%;">
         <!-- Inside box: Challenge Information and Image -->
-        <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center; display:flex; flex: 4">
+        <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center; display:flex; flex:4; width:100%;">
           <h3 style="display:flex; flex: 1">{{selectedChallenge}}</h3>
-          <p style="display:flex; flex: 3" class="challengeDescText">{{challengeDescription}}</p>
-          <div style="margin-bottom:10%;display:flex; flex: 5" class="centerImage">
-            <img src="assets/challengeWithFriend/{{selectedChallenge}}.jpeg" alt="Challenge image">
+          <div style="display:flex;flex-direction: row;justify-content: center;flex:3; width:100%;">
+            <p class="giveFlexMiddle"></p>
+            <p class="RulesAndDescriptionText">Rules and description</p>
+            <button (click)="toggleRulesAndDescriptionDialog()" class="infoButton RulesAndDescriptionButton" style="color:black">
+              <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+            </button>
+            <p class="giveFlexMiddle"></p>
+          </div>
+          <div style="margin-bottom:10%; flex:4" class="centerImage">
+            <img style="height:100%; width:auto; " src="assets/challengeWithFriend/{{selectedChallenge}}.jpeg" alt="Challenge image">
           </div>
         </div>
+
+
+        <p-dialog [(visible)]="RulesAndDescriptionDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
+          [responsive]="true" [style]="{'background-color':' #3E5062'}">
+          <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
+            <h1 class="pDialogHeader">Challenge Rules and Description</h1>
+          </div>
+          <p style="display:flex; flex: 3" class="pDialogText">{{challengeDescription}}</p>
+          <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
+            <button type="button" style="background-color: #3e8e41; border: none; height: 50%; width: 40%" pButton icon="" (click)="toggleRulesAndDescriptionDialog()"
+              label="Got it!"></button>
+          </div>
+        </p-dialog>
         <!-- Inside box: Buttons information and Buttons -->
         <div style="flex-direction: column;  flex:2;">
           <div *ngIf="!(finishChallenge)">
             <p style="display:flex; flex: 1" class="challengeButtonText">Select the button below depending on whether
               <br>you completed the challenge or not.</p>
-            <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+            <div style="margin-bottom:5%; flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
               <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41;" (click)="sendChallengeCompleted()">Completed</button>
               <button class="resultButtons" style="background-color:red;border: 1px solid red;" (click)="sendChallengeSkipped()">Skipped</button>
             </div>
@@ -162,7 +176,7 @@
             <div *ngIf="(choiceSkipped)">
               <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have skipped the challenge</p>
             </div>
-            <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
+            <div style="margin-bottom:5%; flex:6; text-align:center; align-items:center; justify-content: flex-start;">
               <button class="resultButtons blueButtons" style=" width: 50%; " (click)="resetChoice()">Undo</button>
             </div>
           </div>

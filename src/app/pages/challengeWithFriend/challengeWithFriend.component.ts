@@ -23,6 +23,7 @@ export class ChallengeWithFriendComponent implements OnInit {
   showDropdown: boolean = false;
   users;
   ListOfChallengesObservable: Observable<any[]>;
+  
 
   userForm: FormGroup;
 
@@ -44,6 +45,7 @@ export class ChallengeWithFriendComponent implements OnInit {
     this.getListOfChallenges();
     this.auth.getUsers().subscribe(users => this.users = users);
   }
+
 
   showDialog() {
     //this.display = true;

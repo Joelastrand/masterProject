@@ -33,6 +33,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   finishChallenge: boolean = false;
   choiceCompleted: boolean = false;
   choiceSkipped: boolean = false;
+  RulesAndDescriptionDialog: boolean = false;
 
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
@@ -44,6 +45,10 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
   toggleExplanationDialog() {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
+  }
+  
+  toggleRulesAndDescriptionDialog() {
+    this.RulesAndDescriptionDialog == false ? this.RulesAndDescriptionDialog = true : this.RulesAndDescriptionDialog = false;
   }
 
   resetChoice() {
