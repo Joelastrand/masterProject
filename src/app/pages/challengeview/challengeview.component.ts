@@ -30,7 +30,7 @@ export class ChallengeviewComponent implements OnInit {
   opponentCurrentVictories: number = 0;
   challengeFind: boolean = false;
   counterChild: number = 1;
-  showExplanationDialog: boolean = false; 
+  showExplanationDialog: boolean = false;
   RulesAndDescriptionDialog: boolean = false;
   finishChallenge: boolean = false;
   choiceWon: boolean = false;
@@ -44,7 +44,6 @@ export class ChallengeviewComponent implements OnInit {
   userAmount: number;
   opponentAmount: number;
   challengeType: string;
-
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -230,14 +229,14 @@ export class ChallengeviewComponent implements OnInit {
       this.db.object(`userChallenges/${username}/current/${challengerName}`).update({ "victoryStatus": "lost" });
       this.toastr.success('You have chosen to have lost', 'Challenge a friend');
     }
-    else if (challengeType == "amount" ) {
+    else if (challengeType == "amount") {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
       this.toastr.success('You have sent that you did ' + this.userAmount + ' ' +
         this.shortName, 'Challenge a Friend');
     }
-    else if (challengeType == "time" ) {
+    else if (challengeType == "time") {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
-      this.toastr.success('You have sent that you did ' + this.shortName + ' in ' + 
+      this.toastr.success('You have sent that you did ' + this.shortName + ' in ' +
         this.userAmount + ' seconds', 'Challenge a Friend');
     }
 
@@ -495,62 +494,68 @@ export class ChallengeviewComponent implements OnInit {
   sendAmount() {
     //this.finishChallenge = true;
 
-    var userFirstToSetChallengeStatus = () => {
-      /* Need to send the magic number 3, because in updateChallengeStatus() we determine
-       which player who is the winner depending of numbers.
-       Number 1 is the user, number 2 is the opponent. 
-      In this type of challenge we don't know which the winner is yet, therefore number 3. */
-      this.updateChallengeStatus(this.username, this.challengerName, 3, this.challengeType);
-      // Needed for change the layout at the html page. 
-      this.finishChallenge = true;
+    //Check so the user only uses numeric and not letters. 
+    if (isNaN(this.userAmount)) {
+      this.toastr.error('Wrong input, please enter only numbers! ', 'Submit');
     }
+    else {
 
-    var setUserAmountAndSendBothPlayersAmount = (opponentsAmount) => {
-      this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
-      // Need finishChallenge for change the layout at the html page. 
-      this.finishChallenge = true;
-      this.comparisonPlayersAmounts(this.userAmount, opponentsAmount);
-    }
+      var userFirstToSetChallengeStatus = () => {
+        /* Need to send the magic number 3, because in updateChallengeStatus() we determine
+         which player who is the winner depending of numbers.
+         Number 1 is the user, number 2 is the opponent. 
+        In this type of challenge we don't know which the winner is yet, therefore number 3. */
+        this.updateChallengeStatus(this.username, this.challengerName, 3, this.challengeType);
+        // Needed for change the layout at the html page. 
+        this.finishChallenge = true;
+      }
 
-    var getWhichTypeChallengeIs = (challengeTypeFromFirebase) => {
-      this.challengeType = challengeTypeFromFirebase;
-    }
+      var setUserAmountAndSendBothPlayersAmount = (opponentsAmount) => {
+        this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
+        // Need finishChallenge for change the layout at the html page. 
+        this.finishChallenge = true;
+        this.comparisonPlayersAmounts(this.userAmount, opponentsAmount);
+      }
 
-    this.db.database.ref("challenges/challengeFriend/" + this.selectedChallenge).once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
+      var getWhichTypeChallengeIs = (challengeTypeFromFirebase) => {
+        this.challengeType = challengeTypeFromFirebase;
+      }
 
-          if (key == "type") {
-            getWhichTypeChallengeIs(childData);
-          }
-        });
-      });
+      this.db.database.ref("challenges/challengeFriend/" + this.selectedChallenge).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
 
-    this.db.database.ref("userChallenges/" + this.challengerName + "/current/" + this.username).once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-
-          if (key == "amount") {
-
-            // If the user has choice that he/she won and the opponent has choice he/she lost we can
-            // give points to the winner. 
-            if (childData == "") {
-              userFirstToSetChallengeStatus();
+            if (key == "type") {
+              getWhichTypeChallengeIs(childData);
             }
-
-            // If both players hacve choose the same choice, we reset both options. 
-            else {
-              // Sets the user amount 
-              setUserAmountAndSendBothPlayersAmount(childData);
-            }
-          }
+          });
         });
-      });
 
+      this.db.database.ref("userChallenges/" + this.challengerName + "/current/" + this.username).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+
+            if (key == "amount") {
+
+              // If the user has choice that he/she won and the opponent has choice he/she lost we can
+              // give points to the winner. 
+              if (childData == "") {
+                userFirstToSetChallengeStatus();
+              }
+
+              // If both players hacve choose the same choice, we reset both options. 
+              else {
+                // Sets the user amount 
+                setUserAmountAndSendBothPlayersAmount(childData);
+              }
+            }
+          });
+        });
+    }
   }
   /****************** SendGameLost ************** */
   SendGameLost() {

@@ -186,10 +186,20 @@
         <div *ngIf="(typeTime)">
           <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">Please enter how many seconds of {{shortName}} you succeded to do: </p>
-            <input type="number" placeholder="Enter Number" style="width:50%;" [(ngModel)]="userAmount" />
+
+            <form (ngSubmit)="sendAmount()">
+              <input dir="ltr" type="text" title="Enter numbers only." pattern="[\d]{1,3}" id="uid" name="1" placeholder="Enter number"
+                required="'required'" class="required placeholder" maxlength="3" autocomplete="off" [(ngModel)]="userAmount"
+              />
+              <input class="greenButtons" type="submit" value="Submit" />
+            </form>
+
+            <!--
+            <input type="text" pattern="[\d]{4}" maxlength="4" required="'required'" placeholder="Enter Number" style="width:50%;" [(ngModel)]="userAmount" />
             <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
               <button class="resultButtons greenButtons" style="width: 50%;margin-top:3%; margin-bottom:3%; " (click)="sendAmount()">Send</button>
             </div>
+            -->
           </div>
           <div *ngIf="finishChallenge" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you have done {{shortName}} in {{userAmount}} seconds</p>
@@ -202,10 +212,12 @@
         <div *ngIf="(typeAmount)">
           <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">Please enter the number of {{shortName}} you succeded to do: </p>
-            <input type="number" placeholder="Enter Number" style="width:50%;" [(ngModel)]="userAmount" />
-            <div style=" flex: 6; text-align:center; align-items:center; justify-content: flex-start;">
-              <button class="resultButtons greenButtons" style="width: 50%;margin-top:3%; margin-bottom:3%; " (click)="sendAmount()">Send</button>
-            </div>
+            <form (ngSubmit)="sendAmount()">
+              <input dir="ltr" type="text" title="Enter numbers only." pattern="[\d]{1,3}" id="uid" name="1" placeholder="Enter number"
+                required="'required'" class="required placeholder" maxlength="3" autocomplete="off" [(ngModel)]="userAmount"
+              />
+              <input class="greenButtons" type="submit" value="Submit" />
+            </form>
           </div>
           <div *ngIf="finishChallenge" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">You have chosen that you done {{userAmount}} {{shortName}}</p>
