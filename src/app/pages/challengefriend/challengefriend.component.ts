@@ -175,11 +175,6 @@ export class ChallengefriendComponent implements OnInit {
 
     if (senderName != receiverName) {
 
-
-
-
-
-
       var setChallengeType = (challengeType) => {
         if (challengeType == "won/lost") {
 

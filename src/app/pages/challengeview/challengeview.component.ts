@@ -36,9 +36,12 @@ export class ChallengeviewComponent implements OnInit {
   choiceWon: boolean = false;
   choiceLost: boolean = false;
 
+  // Showing the date,time,location 
   challengeDate: string = "";
   challengeTime: string = "";
   challengeLocation: string = "";
+  ChallengeInformationDialog: boolean = false;
+
 
   // Decide which type the challenge is 
   typeWonLost: boolean = false;
@@ -65,6 +68,41 @@ export class ChallengeviewComponent implements OnInit {
   toggleRulesAndDescriptionDialog() {
     this.RulesAndDescriptionDialog == false ? this.RulesAndDescriptionDialog = true : this.RulesAndDescriptionDialog = false;
   }
+
+  toggleChallengeInformationDialog() {
+    this.ChallengeInformationDialog == false ? this.ChallengeInformationDialog = true : this.ChallengeInformationDialog = false;
+  }
+
+
+  /**************** Change challenge information about time/date/location ********************/
+  sendChallenge() {    
+    this.db.object(`userChallenges/${this.username}/outgoing/${this.challengerName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
+    this.db.object(`userChallenges/${this.username}/outgoing/${this.challengerName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //update outgoing for sender
+    this.db.object(`userChallenges/${this.challengerName}/incoming/${this.username}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
+    this.db.object(`userChallenges/${this.challengerName}/incoming/${this.username}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //Update incoming for receiver
+    this.deleteCurrentChallenge(this.username, this.challengerName);
+    this.toastr.success('You have reschedule the challenge ', 'Challenge a friend');
+
+  }
+  
+  changeChallengeInformation () {
+    var dateFormat = /[\d/]/;
+    var timeFormat = /[\d:]/;
+    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime)  || (!this.challengeLocation)) {
+      this.toastr.error('Wrong input', 'Submit');
+    }
+    /*
+    if (!(timeFormat.test(this.challengeTime))) 
+    {
+      this.toastr.error('Wrong input at time, please enter only numbers and : ', 'Submit');
+    }
+    */
+    else {
+      this.toggleChallengeInformationDialog();
+      this.sendChallenge(); 
+    }
+  }
+
   /**************** Get challenge information about time/date/location ********************/
   getChallengesInformation() {
 
