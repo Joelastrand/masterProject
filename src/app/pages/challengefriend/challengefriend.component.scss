@@ -1,3 +1,44 @@
+#location:invalid {
+    color: red;
+}
+
+#date:invalid {
+    color: red;
+}
+
+#time:invalid {
+    color: red;
+}
+
+.challengeInfoSection {
+    color:black;
+    text-align: center;
+    flex: 2;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    width: 100%;
+}
+
+.sendChallengeText {
+    flex: 2;
+    color: black;
+}
+
+.sendChallengeButtonSection {
+    flex:3;
+    width: 100%;
+}
+
+.resultButtons {
+    border-radius: 5px;
+    padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color:white; 
+    width: 33%;
+}
+
 .mainSection {
     flex-flow: column;
     align-items: center;
@@ -158,8 +199,8 @@
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
         .flexArea {
-            margin-top: 5%;
-            margin-bottom: 5%;
+            margin-top: 2%;
+            margin-bottom: 2%;
             width: 40%;
         }
 
@@ -179,10 +220,24 @@
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+
+        .challengeInfoSection {
+            flex: 3;
+        }
+        
+        .sendChallengeText {
+            flex: 1;
+        }
+        
+        .sendChallengeButtonSection {
+            flex:2;
+
+        }
+
         .flexArea {
-            margin-top: 5%;
-            margin-bottom: 5%;
-            width: 70%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            width: 60%;
         }
 
         .mainSection {
@@ -201,6 +256,20 @@
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+
+        .challengeInfoSection {
+            flex: 2;
+        }
+        
+        .sendChallengeText {
+            flex: 2;
+        }
+        
+        .sendChallengeButtonSection {
+            flex:3;
+
+        }
+
         .flexArea {
             //margin-top: 15%;
             margin-bottom: 15%;

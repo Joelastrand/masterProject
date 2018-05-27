@@ -36,6 +36,10 @@ export class ChallengeviewComponent implements OnInit {
   choiceWon: boolean = false;
   choiceLost: boolean = false;
 
+  challengeDate: string = "";
+  challengeTime: string = "";
+  challengeLocation: string = "";
+
   // Decide which type the challenge is 
   typeWonLost: boolean = false;
   typeTime: boolean = false;
@@ -50,6 +54,8 @@ export class ChallengeviewComponent implements OnInit {
     window.scrollTo(0, 0);
     this.username = localStorage.getItem("localuserName");
     this.getUserChallenges();
+    //this.getChallengesInformation();
+
   }
 
   toggleExplanationDialog() {
@@ -59,7 +65,38 @@ export class ChallengeviewComponent implements OnInit {
   toggleRulesAndDescriptionDialog() {
     this.RulesAndDescriptionDialog == false ? this.RulesAndDescriptionDialog = true : this.RulesAndDescriptionDialog = false;
   }
+  /**************** Get challenge information about time/date/location ********************/
+  getChallengesInformation() {
 
+    var getTime = (time) => {
+      this.challengeTime = time;
+    }
+
+    var getDate = (date) => {
+      this.challengeDate = date;
+    }
+
+    var getLocation = (location) => {
+      this.challengeLocation = location;
+    }
+
+    this.db.database.ref("userChallenges/" + this.username + "/current/" + this.challengerName + "/challengeInformation").once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "time") {
+            getTime(childData);
+          }
+          else if (key == "date") {
+            getDate(childData);
+          }
+          else if (key == "location") {
+            getLocation(childData);
+          }
+        });
+      });
+  }
 
   /**************** Undo button ********************/
   resetChoice() {
@@ -704,12 +741,15 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   /********* Selected challenge. Important functions  ***********/
-  acceptChallenge(challengerName, challenge) {
+  acceptChallenge(challengerName, challenge, time, date, location) {
 
     var setChallengeType = (challengeType) => {
       if (challengeType == "won/lost") {
         this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "victoryStatus": "" });
         this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "victoryStatus": "" });
+
+        this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+        this.db.object(`userChallenges/${this.username}/current/${challengerName}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
       }
       else if (challengeType == "amount") {
         this.db.object(`userChallenges/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
@@ -747,6 +787,7 @@ export class ChallengeviewComponent implements OnInit {
 
     this.getChallengeStatus();
     this.setChallengeType();
+    this.getChallengesInformation();
 
     var setDesc = (decription) => { this.challengeDescription = decription };
     this.db.database.ref("challenges/challengeFriend/" + challengeName).once("value")
@@ -785,7 +826,7 @@ export class ChallengeviewComponent implements OnInit {
         snap.forEach((childSnap) => {
           var key = childSnap.key;
           var childData = childSnap.val();
-          var challengeObject = { challenger: key, challenge: childData["challenge"] };
+          var challengeObject = { challenger: key, challenge: childData["challenge"], date: childData["date"], time: childData["time"], location: childData["location"] };
           if (snap.key == "incoming") {
             addIncomingToList(challengeObject);
           } else if (snap.key == "outgoing") {
