@@ -1,3 +1,32 @@
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color:black;
+    height: 1px;
+}
+
+.sectionChallengeInformation {
+    display:flex;flex-direction: row;
+    align-items:center;
+    justify-content:center; 
+    margin-bottom:5%;  
+    width: 100%;
+}
+
+.rescheduleButton{
+    width: 20%;
+    height:100%;
+    padding: 0px; 
+    font-size:60%;
+    background-color:#1985A1;
+    border: 1px solid #1985A1;
+    color:white;
+    border-radius: 5px;
+    font-family: 'Nunito', sans-serif;
+}
+
 #uid:valid {
     //color: green;
 }
@@ -24,7 +53,7 @@
 }
 .pDialogHeader{
     margin: 0; 
-    color: #F6F6F6;
+    color:black;
     text-align: center;
 }
 .pDialogText{
@@ -309,7 +338,16 @@ img {
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
 
-        
+        .sectionChallengeInformation {
+            margin-bottom:0%;  
+        }
+
+        .rescheduleButton{
+            width: 20%;
+            height:18%;
+            font-size:60%;
+            //margin-top: 3%;
+        }
         .RulesAndDescriptionText { 
             flex:8;
         }
@@ -355,9 +393,38 @@ img {
             font-size: 0.8em;
         }
     }
+    
+    
+    /*---------------------------Medium Desktop --------------------------------*/
   
+    @media only screen and (max-width: 1400px) and (min-width:501px) {
+        .rescheduleButton{
+            width: 20%;
+            height:80%;
+            font-size:60%;
+            //margin:5%;
+        }
+
+        .sectionChallengeInformation {
+            margin-bottom:5%;  
+        }
+
+    
+    }
+
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+            
+        .sectionChallengeInformation {
+            margin-bottom:5%;  
+        }
+
+        .rescheduleButton{
+            width: 20%;
+            height:18%;
+            font-size:60%;
+            //margin-top: 3%;
+        }
         .giveFlexMiddle{
             flex:2;
         }
@@ -406,6 +473,27 @@ img {
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+        .pDialogHeader{
+            font-size: 140%;
+        }
+
+        .changeChallengeInformationText {
+            font-size: 20px;
+        }
+        .infoButton {
+            padding-bottom: 2%;
+        }
+
+        .sectionChallengeInformation { 
+            margin-bottom:0;  
+        }
+
+        .rescheduleButton{
+            width: 20%;
+            height:100%;
+            font-size:60%;
+        }
+        
 
         .titleBox {
             height: 80px;
@@ -418,9 +506,6 @@ img {
             flex:2;
         }
         
-        .pDialogHeader{
-            font-size: 110%;
-        }
         .pDialogText{
             font-size: 70%;
         }

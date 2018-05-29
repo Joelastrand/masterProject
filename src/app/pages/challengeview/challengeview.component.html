@@ -135,40 +135,35 @@
           <h3 style="display:flex; flex: 1">{{selectedChallenge}}</h3>
           <div style="display:flex;flex-direction: row;justify-content: center;flex:1; width:100%;">
             <p class="giveFlexMiddle"></p>
-            <p class="RulesAndDescriptionText">Rules and description</p>
-            <button (click)="toggleRulesAndDescriptionDialog()" class="infoButton RulesAndDescriptionButton" style="color:black">
+            <p>Rules and description</p>
+            <button (click)="toggleRulesAndDescriptionDialog()" class="infoButton" style="color:black;margin-left:2%;">
               <mat-icon class="material-icons md-30" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
             </button>
             <p class="giveFlexMiddle"></p>
           </div>
-          <hr style="color:black;">
 
-          <div *ngIf="(typeWonLost)" style="display:flex;flex-direction: row; flex:3;align-items:center;justify-content:center; width: 100%;">
-            <hr style="color:black;">
-            <p style="margin:2%;" class="challengeButtonText">Time: {{challengeTime}}</p>
-            <p style="margin:2%;" class="challengeButtonText">Date: {{challengeDate}}</p>
-            <p style="margin:2%;" class="challengeButtonText">Where to meet: {{challengeLocation}}</p>
-            <button class="resultButtons blueButtons" style="width: 20%;height:33%;padding: 0px;" (click)="toggleChallengeInformationDialog()">Change</button>
+          <div *ngIf="(typeWonLost)" style="display:flex;flex-direction: column; flex:4;align-items:center;justify-content:center; width: 100%;">
             <hr>
-            <!--<div style="display:flex;flex-direction: row; flex:1;align-items:center;justify-content:center; width: 100%;">
+            <div class="sectionChallengeInformation">
+              <p style="margin:2%;" class="challengeButtonText">Time: {{challengeTime}}</p>
+              <p style="margin:2%;" class="challengeButtonText">Date: {{challengeDate}}</p>
+              <p style="margin:2%;" class="challengeButtonText">Where to meet: {{challengeLocation}}</p>
             </div>
-            <div style="display:flex; flex:1;align-items:center;justify-content:center; width: 100%;">
-              <button class="resultButtons blueButtons" style="width: 35%;height:60%;padding: 0px;" (click)="toggleChallengeInformationDialog()">Change</button>
-            </div> -->
+            <button class="rescheduleButton" (click)="toggleChallengeInformationDialog()">Reschedule</button>
+            <hr>
+
           </div>
 
           <div style="margin-bottom:10%; flex:4" class="centerImage">
             <img style="height:100%; width:auto; " src="assets/challengeFriend/{{selectedChallenge}}.jpg" alt="Challenge image">
           </div>
         </div>
-
+        <!--
         <p-dialog [(visible)]="ChallengeInformationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
           [responsive]="true" [style]="{'background-color':' white','text-align': 'center'}">
           <div style="border-bottom: solid 2px white; margin-bottom: 10%">
-            <h1 style="color:black;"class="pDialogHeader">Challenge information</h1>
-            <hr>
+            <h1 style="color:black;" class="pDialogHeader">Challenge information</h1>
           </div>
-
           <form (ngSubmit)="changeChallengeInformation()">
             <h3>Set Date</h3>
             <input style="margin:1%; width: 50%;" dir="ltr" type="text" title="Enter in format day/month." pattern="[\d/]{1,5}" id="date"
@@ -189,7 +184,7 @@
             <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41; color:white;" (click)="changeChallengeInformation()">Submit</button>
           </div>
         </p-dialog>
-
+-->
 
         <p-dialog [(visible)]="RulesAndDescriptionDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
           [responsive]="true" [style]="{'background-color':' #3E5062'}">
@@ -275,5 +270,33 @@
 
       </div>
     </div>
+
+    <p-dialog [(visible)]="ChallengeInformationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
+      [responsive]="true" [style]="{'background-color':' white','text-align': 'center', 'width' : '5%'}">
+      <div style="border-bottom: solid 2px white;">
+        <h1 class="pDialogHeader">Challenge information</h1>
+        <hr>
+      </div>
+
+      <form (ngSubmit)="changeChallengeInformation()">
+        <h3 class="changeChallengeInformationText">Set Date</h3>
+        <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter in format day/month." pattern="[\d/]{1,5}" id="date"
+          name="1" placeholder="Example: 26/05" required="'required'" class="required placeholder" maxlength="5" autocomplete="off"
+          [(ngModel)]="challengeDate" />
+        <h3 class="changeChallengeInformationText">Set Time</h3>
+        <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter in hh:mm" pattern="[\d:]{1,5}" id="time" name="2"
+          placeholder="Example: 11:15" required="'required'" class="required placeholder" maxlength="5" autocomplete="off"
+          [(ngModel)]="challengeTime" />
+        <h3 class="changeChallengeInformationText">Set location</h3>
+        <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter location" pattern="[\da-zA-Z-.! ]{1,30}" id="location"
+          name="3" placeholder="Example: At the reception" required="'required'" class="required placeholder" maxlength="30"
+          autocomplete="off" [(ngModel)]="challengeLocation" />
+      </form>
+      <p style="display:flex; flex: 3" class="pDialogText">{{challengeDescription}}</p>
+      <div style="margin-bottom:5%; flex: 2; text-align:center; align-items:center; justify-content: flex-start;">
+        <button class="resultButtons blueButtons" (click)="toggleChallengeInformationDialog()">Back</button>
+        <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41; color:white;" (click)="changeChallengeInformation()">Submit</button>
+      </div>
+    </p-dialog>
   </div>
 </div>
