@@ -16,7 +16,7 @@
       <p-dialog [(visible)]="showExplanationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal" [responsive]="true"
         [style]="{'background-color':' #3E5062'}">
         <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
-          <h1 class="pDialogHeader">Challenge a Friend Description</h1>
+          <h1 class="pDialogHeader" style="color:white;">Challenge a Friend Description</h1>
         </div>
         <p class="pDialogText"> The winner of the challenge gets 200 points and the other gets 150 points. The winner also gets plus one victory
           in the particular challenge. If you go to the statistics page you can see your points and how many victories you
@@ -162,7 +162,7 @@
         <p-dialog [(visible)]="RulesAndDescriptionDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
           [responsive]="true" [style]="{'background-color':' #3E5062'}">
           <div style="border-bottom: solid 2px gray; margin-bottom: 10%">
-            <h1 class="pDialogHeader">Challenge Rules and Description</h1>
+            <h1 class="pDialogHeader" style="color:white;">Challenge Rules and Description</h1>
           </div>
           <p style="display:flex; flex: 3" class="pDialogText">{{challengeDescription}}</p>
           <div style="margin-top: 15%; width: 100%; display: flex; align-items:center; justify-content: center">
@@ -196,7 +196,7 @@
           </div>
         </div>
         <!-- Inside box: If challenge type is Time -->
-        <div *ngIf="(typeTime)">
+        <div *ngIf="(typeTime)" style="margin-bottom:5%;">
           <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">Please enter how many seconds of {{shortName}} you succeded to do: </p>
 
@@ -222,7 +222,7 @@
           </div>
         </div>
         <!-- Inside box: If challenge type is Time -->
-        <div *ngIf="(typeAmount)">
+        <div *ngIf="(typeAmount)" style="margin-bottom:5%;">
           <div *ngIf="!(finishChallenge)" style="margin-bottom: 2%;">
             <p style="display:flex; flex: 1" class="challengeButtonText">Please enter the number of {{shortName}} you succeded to do: </p>
             <form (ngSubmit)="sendAmount()">
