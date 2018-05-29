@@ -28,6 +28,19 @@
     width: 40%
 }
 
+.progress-wrapper {
+    position: relative;
+    margin: 20px auto;
+    font-size: 40px;
+  }
+  
+  .current {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+  }
+
 .infoButton {
     width:25px;
     height:25px;
@@ -73,7 +86,7 @@
     flex:5; 
     flex-direction: row; 
     vertical-align: middle; 
-    justify-content: center; 
+    //justify-content: space-between; 
     width:100%;
 }
 .flexItem {

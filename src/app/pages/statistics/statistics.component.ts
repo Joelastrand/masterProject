@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 export class StatisticsComponent implements OnInit {
   username: string = "";
   userScore: number = 0;
+  totalScore: number = 0;
   dailyChallengeTotal: number = 0;
   dailyChallengeStreak: number = 0;
   challengeFriendObservable: Observable<any[]>;
@@ -22,8 +23,11 @@ export class StatisticsComponent implements OnInit {
   showExplanationDailyChallenge: boolean = false;
   showExplanationChallengeAFriendDialog: boolean = false;
   showExplanationScoreDialog: boolean = false;
-  challengeFriendListEmpty: boolean = false; 
-  challengeWithFriendListEmpty: boolean = false; 
+  challengeFriendListEmpty: boolean = false;
+  challengeWithFriendListEmpty: boolean = false;
+  max: number = 5000;
+  semicircle: boolean = false;
+  radius: number = 150;
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
 
@@ -39,35 +43,48 @@ export class StatisticsComponent implements OnInit {
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
 
-  
+  getOverlayStyle() {
+    let isSemi = this.semicircle;
+    let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+
+    return {
+      'top': isSemi ? 'auto' : '50%',
+      'bottom': isSemi ? '5%' : 'auto',
+      'left': '50%',
+      'transform': transform,
+      '-moz-transform': transform,
+      '-webkit-transform': transform,
+      'font-size': this.radius / 3.5 + 'px'
+    };
+  }
 
   checkIfChallengeAFriendIsEmpty() {
     var setChallengeFriendListEmpty = () => {
-      this.challengeFriendListEmpty = true; 
+      this.challengeFriendListEmpty = true;
     }
 
     this.db.database.ref("scores/" + this.username + "/challengeFriend").once("value")
-    .then(function (snapshot) {
-      let numberOfChild = snapshot.numChildren();
-      if(numberOfChild == 1) {
-        setChallengeFriendListEmpty();
-      }
-    });
+      .then(function (snapshot) {
+        let numberOfChild = snapshot.numChildren();
+        if (numberOfChild == 1) {
+          setChallengeFriendListEmpty();
+        }
+      });
   }
 
-  
+
   checkIfChallengeWithAFriendIsEmpty() {
     var setChallengeWithFriendListEmpty = () => {
-      this.challengeWithFriendListEmpty = true; 
+      this.challengeWithFriendListEmpty = true;
     }
 
     this.db.database.ref("scores/" + this.username + "/challengeWithFriend").once("value")
-    .then(function (snapshot) {
-      let numberOfChild = snapshot.numChildren();
-      if(numberOfChild == 1) {
-        setChallengeWithFriendListEmpty();
-      }
-    });
+      .then(function (snapshot) {
+        let numberOfChild = snapshot.numChildren();
+        if (numberOfChild == 1) {
+          setChallengeWithFriendListEmpty();
+        }
+      });
   }
 
   toggleExplanationScore() {
@@ -121,6 +138,9 @@ export class StatisticsComponent implements OnInit {
     var setUserScoreToVariable = (userScore) => {
       this.userScore = userScore;
     }
+    var setUserTotalScoreToVariable = (totalScore) => {
+      this.totalScore = totalScore;
+    }
 
     this.db.database.ref("scores/" + this.username + "/points").once("value")
       .then(function (snapshot) {
@@ -129,6 +149,8 @@ export class StatisticsComponent implements OnInit {
           var childData = childSnapshot.val();
           if (key == "score") {
             setUserScoreToVariable(childData);
+          } else {
+            setUserTotalScoreToVariable(childData);
           }
         });
       });

@@ -57,6 +57,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SimpleTimer } from 'ng2-simple-timer';
 import { ToastrModule } from 'ngx-toastr';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 // Our components
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -114,7 +115,7 @@ export const FIREBASE_CONFIG = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
-
+   
     // PrimeNG components
     ButtonModule,
     GalleriaModule,
@@ -125,8 +126,9 @@ export const FIREBASE_CONFIG = {
     // Material components
     MaterialModule,
     MatToolbarModule,
-
+     
     //Other components
+    RoundProgressModule,
     NgCircleProgressModule.forRoot({
       //Default settings for progress circle
       radius: 100,
@@ -135,6 +137,7 @@ export const FIREBASE_CONFIG = {
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
+      title: "hej"
     }),
     ToastrModule.forRoot({
       closeButton: true,

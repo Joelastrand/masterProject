@@ -231,6 +231,13 @@ export class DailychallengeComponent implements OnInit {
       this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
     }
 
+    var updateUsersTotalPoints = (currentTotal) => {
+      //this.userCurrentScore = currentScore;
+      //this.userCurrentScore = this.userCurrentScore + 250;
+      let newTotal = currentTotal + 250;
+      this.db.object(`scores/${this.username}/points`).update({ "totalScore": newTotal });
+    }
+
     this.db.database.ref("scores/" + this.username + "/points").once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
@@ -241,6 +248,11 @@ export class DailychallengeComponent implements OnInit {
               childData = 0;
             }
             updateUsersPoints(childData);
+          } else {
+            if (childData == undefined) {
+              childData = 0;
+            }
+            updateUsersTotalPoints(childData);
           }
         });
       });
