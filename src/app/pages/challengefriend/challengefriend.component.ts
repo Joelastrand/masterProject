@@ -15,24 +15,27 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChallengefriendComponent implements OnInit {
 
-  challengeLocation: string = ""; 
-  challengeDate: string = ""; 
+  challengeLocation: string = "";
+  challengeDate: string = "";
   challengeTime: string = "";
-  selectedChallenge: string = ""; 
+  selectedChallenge: string = "";
   username: string = "";
+  otherPlayersName: string = "";
   usernameExists: boolean;
   listOfChallenges = [];
   display: boolean = false;
   showDropdown: boolean = false;
   challengeTypeWonLost: boolean = false;
+  playersAlreadyHasAChallenge: boolean = false;
   users;
   ListOfChallengesObservable: Observable<any[]>;
   ChallengeInformationDialog: boolean = false;
   userForm: FormGroup;
+  counterChild: number = 0;
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router, private fb: FormBuilder) {
     this.initForm();
-    this.setTimeVariables(); 
+    this.setTimeVariables();
   }
 
   initForm(): FormGroup {
@@ -47,17 +50,16 @@ export class ChallengefriendComponent implements OnInit {
 
   setTimeVariables() {
     var d = new Date();
-    var hours; 
-    var minutes; 
-    this.challengeDate = (d.getDate()) + "/"  + (d.getMonth() + 1);
+    var hours;
+    var minutes;
+    this.challengeDate = (d.getDate()) + "/" + (d.getMonth() + 1);
     hours = (d.getHours() + 1);
     minutes = d.getMinutes();
-    if(minutes<10)
-    {
-      this.challengeTime = hours.toString() + ":0"+minutes.toString(); 
+    if (minutes < 10) {
+      this.challengeTime = hours.toString() + ":0" + minutes.toString();
     }
     else {
-      this.challengeTime = hours.toString() + ":"+minutes.toString(); 
+      this.challengeTime = hours.toString() + ":" + minutes.toString();
     }
     this.challengeLocation = "At the reception"
   }
@@ -87,10 +89,10 @@ export class ChallengefriendComponent implements OnInit {
 
 
 
-  changeChallengeInformation () {
+  changeChallengeInformation() {
     var dateFormat = /[\d/]/;
     var timeFormat = /[\d:]/;
-    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime)  || (!this.challengeLocation)) {
+    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime) || (!this.challengeLocation)) {
       this.toastr.error('Wrong input', 'Submit');
     }
     /*
@@ -104,7 +106,7 @@ export class ChallengefriendComponent implements OnInit {
       this.toggleChallengeInformationDialog();
     }
   }
-  
+
   getSearchValue() {
     return this.userForm.value.search;
   }
@@ -128,18 +130,57 @@ export class ChallengefriendComponent implements OnInit {
   }
 
   selectUser(val) {
-    this.username = val;
-    this.checkUsername();
-    this.userForm.patchValue({ "search": val });
-    this.closeDropdown();
-    
+    let currentUsername = localStorage.getItem("localuserName");
+
+    // Need to check if the user already has a challenge against the player he/she challenge.
+    var checkIfPlayerExistInList = (opponentName,numberOfChild) => {
+
+      // Need to loop through all players the user plays against.
+      this.counterChild = this.counterChild + 1;
+
+      // Find the opponent in the user challenge list
+      if (val == opponentName) {
+      
+        this.playersAlreadyHasAChallenge = true;
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. You already have a challenge against this player, if you send this challenge and he/she accept the challenge the previous challenge between you will be overwritten.', 'Challenge a friend');
+        this.username = val;
+        this.checkUsername();
+        this.userForm.patchValue({ "search": val });
+        this.closeDropdown();  
+      }
+
+      // The user does not play against the opponent. 
+      else if (this.playersAlreadyHasAChallenge == false && numberOfChild == this.counterChild) {
+        this.username = val;
+        this.checkUsername();
+        this.userForm.patchValue({ "search": val });
+        this.closeDropdown();
+        this.counterChild= 0;
+      }
+    }
+
+    this.db.database.ref("userChallenges/" + currentUsername + "/current").once("value")
+      .then(function (snapshot) {
+        let numberOfChild = snapshot.numChildren();
+
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          checkIfPlayerExistInList(key,numberOfChild);
+        });
+      });
+
+    // If the user tries to play against herself/himself
+    if (currentUsername == val) {
+      this.toastr.error('ehmm, you can not challenge yourself..Try again against a friend!', 'Challenge a friend');
+    }
   }
-  
+
   goToChallengeOverview() {
     this.display = false;
     this.router.navigateByUrl('/challengeview');
   }
-  
+
 
   async checkUsername() {
     this.username = this.username.toLowerCase();
@@ -147,6 +188,7 @@ export class ChallengefriendComponent implements OnInit {
       this.usernameExists = username.$value
     });
   }
+
 
   selectChallenge(name) {
     this.selectedChallenge = name;
@@ -180,10 +222,10 @@ export class ChallengefriendComponent implements OnInit {
         if (challengeType == "won/lost") {
 
           this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
-          this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //update outgoing for sender
-    
+          this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //update outgoing for sender
+
           this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
-          this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //Update incoming for receiver
+          this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //Update incoming for receiver
         }
         else if (challengeType == "amount") {
           this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
@@ -194,7 +236,7 @@ export class ChallengefriendComponent implements OnInit {
           this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
         }
       }
-  
+
       this.db.database.ref("challenges/challengeFriend/" + this.selectedChallenge).once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
@@ -208,7 +250,7 @@ export class ChallengefriendComponent implements OnInit {
       /*  
       this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
       this.db.object(`userChallenges/${senderName}/outgoing/${receiverName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //update outgoing for sender
-
+  
       this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
       this.db.object(`userChallenges/${receiverName}/incoming/${senderName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //Update incoming for receiver
         */
