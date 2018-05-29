@@ -1,20 +1,25 @@
 <div class="mainContent">
-    <div class="headingDiv">
-        <h3 style="margin: 0; color: black">Step 2/2</h3>
-        <h4 style="color: gray">Choose a username. This will act as your display name on leaderboards etc. Only lower case is accepted.</h4>
-    </div>
+  <div class="headingDiv">
+    <h3 style="margin: 0; color: black">Step 2/2</h3>
+    <h4 style="color: gray">Choose a username. This will act as your display name on leaderboards etc. Only lower case is accepted.</h4>
+  </div>
   <div id="setusername_div" class="main-div">
     <h2>Username...</h2>
     <input style="margin-bottom: 1.4%; text-transform: lowercase" type="text" placeholder="Username..." id="username_field" [(ngModel)]="user.username"
       (keyup)="checkUsername()" />
-    <p class="username_available" *ngIf="usernameAvailable && user.username">
+    <p class="username_available" *ngIf="usernameAvailable && user.username && !noSpacesInUsername">
       {{user.username}} is available
     </p>
     <p class="username_taken" *ngIf="!usernameAvailable && user.username">
       {{user.username}} has already been taken
     </p>
-    <button *ngIf="usernameAvailable && user.username" ng-disabled="!usernameAvailable" style="margin-top: 1.4%" (click)="updateUsername()">Continue</button>
-    <button *ngIf="!usernameAvailable || !user.username" disabled=true style="margin-top: 1.4%; opacity: 0.6" (click)="updateUsername()">Continue</button>
+    <p class="username_taken" *ngIf="noSpacesInUsername  && user.username">
+        No spaces allowed in the username
+    </p>
+    <button *ngIf="usernameAvailable && user.username && !noSpacesInUsername" ng-disabled="!usernameAvailable" style="margin-top: 1.4%"
+      (click)="updateUsername()">Continue</button>
+    <button *ngIf="!usernameAvailable || !user.username || noSpacesInUsername" disabled=true style="margin-top: 1.4%; opacity: 0.6"
+      (click)="updateUsername()">Continue</button>
   </div>
 
 </div>

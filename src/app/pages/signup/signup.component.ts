@@ -44,14 +44,16 @@ export class SignupComponent implements OnInit {
         this.errorMessage = "Invalid email or password";
         break;
       default:
-        this.errorMessage = "The passwords need to match and be a minimum of 6 characters";
+        this.errorMessage = "The passwords need to match and be a minimum of 6 characters.Spaces is not allowed. ";
     }
   }
 
 
   async register(user: User) {
+    // Format for testing that the password is not contain of any spaces.
+    var passwordFormat = /^\S*$/;
     try {
-      if (user.password != this.retypedPassword || user.password.length < 6 || this.retypedPassword.length < 6) {
+      if (!(passwordFormat.test(user.password)) || user.password != this.retypedPassword || user.password.length < 6 || this.retypedPassword.length < 6) {
         user.password = "";
         this.retypedPassword = "";
       }

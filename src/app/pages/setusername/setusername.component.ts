@@ -17,6 +17,7 @@ export class SetusernameComponent implements OnInit {
 	usernameCandidate: string;
 	user = {} as User;
 	usernameAvailable: boolean = false;
+	noSpacesInUsername: boolean = false;
 	result: any;
 	inputField = document.getElementById("username_field");
 
@@ -28,8 +29,19 @@ export class SetusernameComponent implements OnInit {
 		this.router.navigateByUrl('/home');
 	}
 
+	checkNoSpacesInUsername(username) {
+		var passwordFormat = /^\S*$/;
+
+		if (!(passwordFormat.test(username))) {
+			this.noSpacesInUsername = true;
+		}
+		else {
+			this.noSpacesInUsername = false;
+		}
+	}
 
 	async checkUsername() {
+		this.checkNoSpacesInUsername(this.user.username);
 		this.user.username = this.user.username.toLowerCase();
 		const res = await this.auth.checkUsername(this.user.username).subscribe(username => {
 			this.usernameAvailable = !username.$value
@@ -49,7 +61,7 @@ export class SetusernameComponent implements OnInit {
 		this.goToHome();
 		this.toastr.info('Welcome ' + this.user.username + '!! Officise is an application that improves ' +
 			' your health by getting you more physically active at the office. Try our games now with friends and have fun!'
-			, 'Officise');	
+			, 'Officise');
 	}
 
 }
