@@ -36,21 +36,109 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   RulesAndDescriptionDialog: boolean = false;
 
 
+  // Showing the date,time,location 
+  challengeDate: string = "";
+  challengeTime: string = "";
+  challengeLocation: string = "";
+  ChallengeInformationDialog: boolean = false;
+  typeWonLost: boolean = false;
+
+
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.username = localStorage.getItem("localuserName");
     this.getUserChallenges();
   }
 
+  /**************** Toggles functions ********************/
+
   toggleExplanationDialog() {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;
   }
-  
+
   toggleRulesAndDescriptionDialog() {
     this.RulesAndDescriptionDialog == false ? this.RulesAndDescriptionDialog = true : this.RulesAndDescriptionDialog = false;
   }
 
+  toggleChallengeInformationDialog() {
+    this.ChallengeInformationDialog == false ? this.ChallengeInformationDialog = true : this.ChallengeInformationDialog = false;
+  }
+
+
+  /**************** Change challenge information about time/date/location ********************/
+
+  // Deletes challenges from current when both players has finished the challenge.
+  deleteCurrentChallenge(username, challengerName) {
+    this.db.object(`userChallengesWithFriend/${username}/current/${challengerName}`).remove();
+    this.db.object(`userChallengesWithFriend/${challengerName}/current/${username}`).remove();
+    this.router.navigateByUrl('/');
+  }
+
+  sendChallenge() {
+    this.db.object(`userChallengesWithFriend/${this.username}/outgoing/${this.challengerName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
+    this.db.object(`userChallengesWithFriend/${this.username}/outgoing/${this.challengerName}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //update outgoing for sender
+    this.db.object(`userChallengesWithFriend/${this.challengerName}/incoming/${this.username}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
+    this.db.object(`userChallengesWithFriend/${this.challengerName}/incoming/${this.username}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //Update incoming for receiver
+
+    this.deleteCurrentChallenge(this.username, this.challengerName);
+    this.toastr.success('You have reschedule the challenge ', 'Challenge with a friend');
+
+  }
+
+  changeChallengeInformation() {
+    var dateFormat = /[\d/]/;
+    var timeFormat = /[\d:]/;
+    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime) || (!this.challengeLocation)) {
+      this.toastr.error('Wrong input', 'Submit');
+    }
+    /*
+    if (!(timeFormat.test(this.challengeTime))) 
+    {
+      this.toastr.error('Wrong input at time, please enter only numbers and : ', 'Submit');
+    }
+    */
+    else {
+      this.toggleChallengeInformationDialog();
+      this.sendChallenge();
+    }
+  }
+
+  /**************** Get challenge information about time/date/location ********************/
+  getChallengesInformation() {
+
+    var getTime = (time) => {
+      this.challengeTime = time;
+    }
+
+    var getDate = (date) => {
+      this.challengeDate = date;
+    }
+
+    var getLocation = (location) => {
+      this.challengeLocation = location;
+    }
+
+    this.db.database.ref("userChallenges/" + this.username + "/current/" + this.challengerName + "/challengeInformation").once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "time") {
+            getTime(childData);
+          }
+          else if (key == "date") {
+            getDate(childData);
+          }
+          else if (key == "location") {
+            getLocation(childData);
+          }
+        });
+      });
+  }
+
+  /**************** START Undo button ********************/
   resetChoice() {
     this.finishChallenge = false;
     this.choiceSkipped = false;
@@ -88,7 +176,26 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         });
       });
   }
+  /**************** END Undo button ********************/
+  setchallengeType() {
+    var setType = (challengeType) => {
+      if (challengeType == "won/lost") {
+        this.typeWonLost = true;
+      }
+    };
 
+    this.db.database.ref("challenges/challengeWithFriend/" + this.selectedChallenge).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "type") {
+            setType(childData);
+          }
+        });
+      });
+
+  }
 
   sendChallengeCompleted() {
     var giveTheUserPoints = () => {
@@ -283,9 +390,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     }
 
     var deleteCurrentChallenge = () => {
-      this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).remove();
-      this.db.object(`userChallengesWithFriend/${this.challengerName}/current/${this.username}`).remove();
-      this.router.navigateByUrl('/');
+      this.deleteCurrentChallenge(this.username,this.challengerName); 
     }
 
     // Checks which choice the friend has chosen 
@@ -383,9 +488,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
 
     var deleteCurrentChallenge = () => {
-      this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).remove();
-      this.db.object(`userChallengesWithFriend/${this.challengerName}/current/${this.username}`).remove();
-      this.router.navigateByUrl('/');
+      this.deleteCurrentChallenge(this.username,this.challengerName); 
     }
 
     // Checks which choice the friend has chosen 
@@ -439,7 +542,11 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     this.challengerName = challengerName;
     this.selectedChallenge = challengeName;
 
+    // Funtctions that needs to change the html page layout. 
     this.getChallengeStatus();
+    this.setchallengeType();
+    this.getChallengesInformation();
+
 
     var setDesc = (decription) => { this.challengeDescription = decription };
     this.db.database.ref("challenges/challengeWithFriend/" + challengeName).once("value")

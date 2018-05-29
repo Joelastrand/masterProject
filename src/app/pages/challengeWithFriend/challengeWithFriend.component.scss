@@ -6,7 +6,38 @@
     //height: 100%;
     display: flex;
     flex-direction: column;
-  }
+}
+
+#location:invalid {
+    color: red;
+}
+
+#date:invalid {
+    color: red;
+}
+
+#time:invalid {
+    color: red;
+}
+
+.challengeInfoSection {
+    color:black;
+    text-align: center;
+    flex: 2;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    width: 100%;
+}
+
+.resultButtons {
+    border-radius: 5px;
+    padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color:white; 
+    width: 33%;
+}
 
 .icons {
     width:28px;
@@ -29,7 +60,7 @@
 
 .titleBox {
     width: 100%;
-    height: 15%;
+    height: 80px;
     
     display: flex;
     justify-content: center;
@@ -187,6 +218,11 @@
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+
+        .challengeInfoSection {
+            flex: 3;
+        }
+        
         .flexArea {
             margin-top: 5%;
             margin-bottom: 5%;
@@ -209,6 +245,11 @@
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
+
+        .challengeInfoSection {
+            flex: 2;
+        }        
+
         .flexArea {
             //margin-top: 15%;
             //margin-bottom: 15%;

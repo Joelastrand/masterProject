@@ -30,7 +30,16 @@ hr {
 #uid:valid {
     //color: green;
 }
-#uid:invalid {
+
+#location:invalid {
+    color: red;
+}
+
+#date:invalid {
+    color: red;
+}
+
+#time:invalid {
     color: red;
 }
 
@@ -395,9 +404,9 @@ img {
     }
     
     
-    /*---------------------------Medium Desktop --------------------------------*/
+    /*---------------------------Medium/Large Desktop --------------------------------*/
   
-    @media only screen and (max-width: 1400px) and (min-width:501px) {
+    @media only screen and (max-width: 1400px) and (min-width:1001px) {
         .rescheduleButton{
             width: 20%;
             height:80%;
@@ -408,8 +417,6 @@ img {
         .sectionChallengeInformation {
             margin-bottom:5%;  
         }
-
-    
     }
 
     /*---------------------------Medium Desktop --------------------------------*/

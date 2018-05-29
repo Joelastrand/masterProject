@@ -60,6 +60,7 @@ export class ChallengeviewComponent implements OnInit {
     //this.getChallengesInformation();
 
   }
+  /**************** Toggles funct ********************/
 
   toggleExplanationDialog() {
     this.showExplanationDialog == false ? this.showExplanationDialog = true : this.showExplanationDialog = false;

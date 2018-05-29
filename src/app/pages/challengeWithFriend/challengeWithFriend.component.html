@@ -50,6 +50,16 @@
         </div>
 
         <div style="flex: 1; display: flex; flex-direction: column; width: 80%">
+          <div *ngIf="challengeTypeWonLost">
+            <div class="challengeInfoSection">
+              <h3>Challenge information:</h3>
+              <p>Time: {{challengeTime}}</p>
+              <p>Date: {{challengeDate}} </p>
+              <p>Where to meet: {{challengeLocation}}</p>
+              <button class="resultButtons blueButtons" style="width: 35%;height:15%;padding: 0px;" (click)="toggleChallengeInformationDialog()">Change</button>
+            </div>
+          </div>
+
           <h2 style="color: black; margin-top: 10%">Send challenge to user...</h2>
           <div style="position: relative" [formGroup]='userForm'>
             <input [(ngModel)]="username" (keyup)="checkUsername()" clickOutside (clickOutside)="closeDropdown()" id="search" formControlName='search'
@@ -68,6 +78,32 @@
         </div>
 
       </div>
+      <p-dialog [(visible)]="ChallengeInformationDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false modal="modal"
+        [responsive]="true" [style]="{'background-color':' white','text-align': 'center'}">
+        <div style="border-bottom: solid 2px white; margin-bottom: 10%">
+          <h1 class="pDialogHeader" style="color:black;">Challenge information</h1>
+          <hr>
+        </div>
 
+        <form (ngSubmit)="changeChallengeInformation()">
+          <h3 class="changeChallengeInformationText">Set Date</h3>
+          <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter in format day/month." pattern="[\d/]{1,5}" id="date"
+            name="1" placeholder="Example: 26/05" required="'required'" class="required placeholder" maxlength="5" autocomplete="off"
+            [(ngModel)]="challengeDate" />
+          <h3 class="changeChallengeInformationText">Set Time</h3>
+          <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter in hh:mm" pattern="[\d:]{1,5}" id="time" name="2"
+            placeholder="Example: 11:15" required="'required'" class="required placeholder" maxlength="5" autocomplete="off"
+            [(ngModel)]="challengeTime" />
+          <h3 class="changeChallengeInformationText">Set location</h3>
+          <input style="margin:1%; width: 100%;" dir="ltr" type="text" title="Enter location" pattern="[\da-zA-Z-.! ]{1,30}" id="location"
+            name="3" placeholder="Example: At the reception" required="'required'" class="required placeholder" maxlength="30"
+            autocomplete="off" [(ngModel)]="challengeLocation" />
+        </form>
+        <p style="display:flex; flex: 3" class="pDialogText">{{challengeDescription}}</p>
+        <div style="margin-bottom:5%; flex: 2; text-align:center; align-items:center; justify-content: flex-start;">
+          <button class="resultButtons blueButtons" (click)="toggleChallengeInformationDialog()">Back</button>
+          <button class="resultButtons" style="background-color:#3e8e41;border: 1px solid #3e8e41; color:white;" (click)="changeChallengeInformation()">Submit</button>
+        </div>
+      </p-dialog>
     </div>
   </div>

@@ -2,6 +2,59 @@
     flex:4;
 }
 
+#location:invalid {
+    color: red;
+}
+
+#date:invalid {
+    color: red;
+}
+
+#time:invalid {
+    color: red;
+}
+
+.insideBox{
+    color:black; 
+    text-align:center;
+    flex-direction: column; 
+    align-items:center; 
+    justify-content: flex-start;
+    display:flex; 
+    flex: 6;
+    width: 100%;
+}
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color:black;
+    height: 1px;
+}
+
+.sectionChallengeInformation {
+    display:flex;flex-direction: row;
+    align-items:center;
+    justify-content:center; 
+    margin-bottom:5%;  
+    width: 100%;
+}
+
+.rescheduleButton{
+    width: 20%;
+    height:100%;
+    padding: 0px; 
+    font-size:60%;
+    background-color:#1985A1;
+    border: 1px solid #1985A1;
+    color:white;
+    border-radius: 5px;
+    font-family: 'Nunito', sans-serif;
+}
+
+
+
 .RulesAndDescriptionButton{
     flex:3;
     color:black;
@@ -303,6 +356,17 @@ img {
     /*---------------------------Large Desktop --------------------------------*/
     @media only screen and (min-width: 1001px) {
 
+        .rescheduleButton{
+            width: 20%;
+            height:18%;
+            font-size:60%;
+            //margin-top: 3%;
+        }
+
+        .sectionChallengeInformation {
+            margin-bottom:0%;  
+        }
+
         .RulesAndDescriptionText { 
             flex:8;
         }
@@ -348,9 +412,39 @@ img {
             font-size: 0.8em;
         }
     }
+
+    /*---------------------------Medium/Large Desktop --------------------------------*/
+  
+    @media only screen and (max-width: 1400px) and (min-width:1001px) {
+        .rescheduleButton{
+            width: 20%;
+            height:100%;
+            font-size:60%;
+            //margin:5%;
+        }
+
+        .insideBox{ 
+            flex: 8;
+        }
+
+        .sectionChallengeInformation {
+            margin-bottom:2%;  
+        }
+    }
   
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
+
+        .sectionChallengeInformation {
+            margin-bottom:5%;  
+        }
+
+        .rescheduleButton{
+            width: 20%;
+            height:18%;
+            font-size:60%;
+            //margin-top: 3%;
+        }
 
         .giveFlexMiddle{
             flex:2;
@@ -397,10 +491,36 @@ img {
             width: 35%;
         }
     }
-    
+
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
 
+        
+        .insideBox{ 
+            flex: 5;
+        }
+
+        .pDialogHeader{
+            font-size: 140%;
+        }
+
+        .changeChallengeInformationText {
+            font-size: 20px;
+        }
+        .infoButton {
+            padding-bottom: 2%;
+        }
+
+        .sectionChallengeInformation { 
+            margin-bottom:5%;  
+        }
+
+        .rescheduleButton{
+            width: 20%;
+            height:100%;
+            font-size:60%;
+        }
+        
         .titleBox {
             height: 80px;
         }
@@ -477,4 +597,3 @@ img {
 
     }
     /*-------------------------------------------------------------------------*/
-    

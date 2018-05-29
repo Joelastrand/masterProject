@@ -14,11 +14,11 @@ import { ToastrService } from 'ngx-toastr';
   providers: [AuthService, AngularFireDatabase],
 })
 export class ChallengefriendComponent implements OnInit {
-  
+
+  challengeLocation: string = ""; 
   challengeDate: string = ""; 
   challengeTime: string = "";
   selectedChallenge: string = ""; 
-  challengeLocation: string = ""; 
   username: string = "";
   usernameExists: boolean;
   listOfChallenges = [];
@@ -104,6 +104,7 @@ export class ChallengefriendComponent implements OnInit {
       this.toggleChallengeInformationDialog();
     }
   }
+  
   getSearchValue() {
     return this.userForm.value.search;
   }
