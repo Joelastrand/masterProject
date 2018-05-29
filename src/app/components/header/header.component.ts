@@ -4,7 +4,7 @@ import { MatMenuTrigger } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   challengeCounterChallengeAFriend: number = 0; 
   challengeCounterChallengeWithAFriend: number = 0; 
 
-  constructor(private db: AngularFireDatabase,private router: Router, private authService: AuthService) {
+  constructor(private toastr: ToastrService, private db: AngularFireDatabase,private router: Router, private authService: AuthService) {
 
   }
 
@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
     this.username = localStorage.getItem("localuserName");
     this.getUserChallengeAFriend();
     this.getUserChallengeWithAFriend();
+    this.getInboxMessages();
   }
 
   logout() {
@@ -106,6 +107,42 @@ export class HeaderComponent implements OnInit {
           return false;
         });
         return false;
+      });
+    });
+  }
+
+
+
+  getInboxMessages() {
+    var displayMessage = (msg, info) => {
+      this.toastr.info(msg, info);
+    }
+    var removeMessage = (msgName) => {  
+      this.db.object(`inbox/${this.username}/${msgName}`).remove();
+    }
+    let query = "inbox/"+this.username;
+    var message = "";
+    var info = "";
+    var msgName = ""; 
+    this.db.database.ref(query).on("value", (snapshot) => {
+      snapshot.forEach((snap) => {
+          msgName = snap.key;
+          if(snap.key != "placeholder") {
+            snap.forEach((childSnap) => {   
+              var key = childSnap.key;
+              var childData = childSnap.val();
+              if(key == "message") {
+                message = childData;
+              } else {
+                info = childData;
+              }
+              return false;
+            });
+
+            displayMessage(message, info);
+            removeMessage(msgName);
+          } 
+          return false;
       });
     });
   }
