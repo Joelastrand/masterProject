@@ -300,14 +300,14 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.userCurrentScore = currentScore
         this.userCurrentScore = this.userCurrentScore + challengePoints;
         this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
-        this.toastr.success('Execellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
+        this.toastr.success('Excellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
       }
 
       if (whichUser == 1 && OnlyUserCompleted == 1) {
         this.userCurrentScore = currentScore
         this.userCurrentScore = this.userCurrentScore + 200;
         this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
-        this.toastr.success('Awesome work to completed the challenge! However your friend failed to completed:( But no worries, you get 200 points for the challenge anyway.', 'Challenge With a Friend');
+        this.toastr.success('Awesome work in completing the challenge! However, your friend failed to complete it. But no worries, you get 200 points for the challenge anyway.', 'Challenge With a Friend');
 
       }
 

@@ -72,8 +72,8 @@
     </div>
 
     <div style="width: 100%; display: flex; flex-direction: row; ">
-        <div style="width: 70%; flex: 2; text-align: center; font-size: 1.6em; color: #bbb;font-weight: 100; line-height: 1">Achievements</div>
-        <div style="flex: 1; text-align: center; font-size: 1.6em; color: #bbb;font-weight: 100; line-height: 1">Progress on Weekly Goal</div>
+        <div style="width: 70%; flex: 2; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
+        <div style="flex: 1; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Progress on Weekly Goal</div>
     </div>
 
     <div style="flex: 2; display: flex; flex-direction: row; justify-content: center; vertical-align: center;">
@@ -85,7 +85,7 @@
               <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
 
                 <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-                    <img height="48" width="48" src="../../assets/{{listOfAchievements[i].imgName}}.svg" alt="he">
+                    <img height="48" width="48" src="../../assets/achievementIcons/{{listOfAchievements[i].imgName}}.svg" alt="he">
                 </div>
                 <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center;">
                   <h6 style="color: #F6F6F6; margin: 0; font-weight: bold;">{{achievement.name}}</h6>
@@ -95,6 +95,8 @@
                   <!--Add progress bar?-->
                 </div>
 
+
+              
               </div>
             </div>
             <div class="achievementBoxLocked" *ngIf="!achievement.completed">
