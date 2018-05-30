@@ -17,24 +17,27 @@ export class ChallengeWithFriendComponent implements OnInit {
 
   selectedChallenge: string = "";
   username: string = "";
-  currentUsername: string = "";
   usernameExists: boolean;
   listOfChallenges = [];
   display: boolean = false;
   showDropdown: boolean = false;
   users;
   ListOfChallengesObservable: Observable<any[]>;
+
+  // Warning the user if they already has a challenge together. 
   playersAlreadyHasACurrentChallenge: boolean = false;
   playersAlreadyHasAOutgoingChallenge: boolean = false;
+  playersAlreadyHasAIncomingChallenge: boolean = false;
+  counterChild: number = 0;
+  numberOfChild: number = 0;
+  currentUsername: string = "";
+
 
   challengeLocation: string = "";
   challengeDate: string = "";
   challengeTime: string = "";
   challengeTypeWonLost: boolean = false;
   ChallengeInformationDialog: boolean = false;
-  counterChild: number = 0;
-  numberOfChild: number = 0;
-
   userForm: FormGroup;
 
   constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router, private fb: FormBuilder) {
@@ -139,11 +142,12 @@ export class ChallengeWithFriendComponent implements OnInit {
     this.showDropdown = true;
   }
 
-  /**Check so the user don't send to himself or warning of user already 
-   * playing against opponent *************/
+  /*********************************************
+    Check so the user don't send to himself or warning of user already 
+     playing against opponent*/
 
   canSendChallenge(userInput) {
-    if (!(this.playersAlreadyHasACurrentChallenge) && !(this.playersAlreadyHasAOutgoingChallenge)) {
+    if (!(this.playersAlreadyHasACurrentChallenge) && !(this.playersAlreadyHasAOutgoingChallenge) && !(this.playersAlreadyHasAIncomingChallenge)) {
       this.username = userInput;
       this.checkUsername();
       this.userForm.patchValue({ "search": userInput });
@@ -152,66 +156,38 @@ export class ChallengeWithFriendComponent implements OnInit {
       this.numberOfChild = 0;
       this.playersAlreadyHasACurrentChallenge = false;
       this.playersAlreadyHasAOutgoingChallenge = false;
+      this.playersAlreadyHasAIncomingChallenge = false;
     }
 
     else {
       this.playersAlreadyHasACurrentChallenge = false;
       this.playersAlreadyHasAOutgoingChallenge = false;
+      this.playersAlreadyHasAIncomingChallenge = false;
     }
   }
 
-  checkIfPlayerExistOutgoingChallengeList(opponentName, numberOfChild, userInput) {
-    // Need to loop through all players the user plays against.
-    this.counterChild = this.counterChild + 1;
-    // Find the opponent in the user challenge list
-    if (userInput == opponentName) {
 
-      this.playersAlreadyHasAOutgoingChallenge = true;
-      this.toastr.warning('You can only play 1 challenge at a time to the same player. You already have sent a challenge against this player, if you send this challenge the previous challenge you have sent is going to be overwritten.', 'Challenge with a friend');
-      this.username = userInput;
-      this.checkUsername();
-      this.userForm.patchValue({ "search": userInput });
-      this.closeDropdown();
-      this.counterChild = 0;
-      this.numberOfChild = 0;
-      this.canSendChallenge(userInput);
-
-    }
-    else if (this.playersAlreadyHasAOutgoingChallenge == false && this.numberOfChild == this.counterChild) {
-      this.canSendChallenge(userInput);
-      this.counterChild = 0;
-      this.numberOfChild = 0;
-    }
-
-  }
-
-  getOutgoingChallengeListChildren(userInput) {
-
-    var sendToCheckOutgoingChallengeList = (key, localNumberOfChild) => {
-      this.numberOfChild = (localNumberOfChild);
-      this.checkIfPlayerExistOutgoingChallengeList(key, this.numberOfChild, userInput);
-
-    }
-    this.db.database.ref("userChallengesWithFriend/" + this.currentUsername + "/outgoing").once("value")
-      .then(function (snapshot) {
-        let numberOfChild = snapshot.numChildren();
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-          sendToCheckOutgoingChallengeList(key, numberOfChild);
-        });
-      });
-  }
-
-  checkIfPlayerExistInCurrentChallengeList(opponentName, numberOfChild, userInput) {
+  checkIfPlayerExistInChallengeList(opponentName, numberOfChild, userInput, whichList) {
     // Need to loop through all players the user plays against.
     this.counterChild = this.counterChild + 1;
     this.currentUsername = localStorage.getItem("localuserName");
 
     // Find the opponent in the user challenge list
     if (userInput == opponentName) {
-      this.playersAlreadyHasACurrentChallenge = true;
-      this.toastr.warning('You can only play 1 challenge at a time to the same player. You already have a current challenge against this player, if you send this challenge and he/she accept the challenge the previous challenge between you will be overwritten.', 'Challenge with a friend');
+
+      if (whichList == "/current") {
+        this.playersAlreadyHasACurrentChallenge = true;
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. You already have a current challenge against this player, if you send this challenge it is going to be overwritten.', 'Challenge with a friend');
+      }
+      else if (whichList == "/outgoing") {
+        this.playersAlreadyHasAOutgoingChallenge = true;
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the previous challenge you have sent is going to be overwritten.', 'Challenge with a friend');
+
+      }
+      else if (whichList == "/incoming") {
+        this.playersAlreadyHasAIncomingChallenge = true;
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the incoming challenge you have is going to be overwritten.', 'Challenge with a friend');
+      }
       this.username = userInput;
       this.checkUsername();
       this.userForm.patchValue({ "search": userInput });
@@ -226,7 +202,8 @@ export class ChallengeWithFriendComponent implements OnInit {
       // Need to reset the counter to next loop.
       this.counterChild = 0;
       this.numberOfChild = 0;
-      this.getOutgoingChallengeListChildren(userInput);
+      //this.getOutgoingChallengeListChildren(userInput);
+      this.canSendChallenge(userInput);
     }
   }
 
@@ -234,42 +211,34 @@ export class ChallengeWithFriendComponent implements OnInit {
     this.currentUsername = localStorage.getItem("localuserName");
 
     // Need to check if the user already has a challenge against the player he/she challenge.
-    var sendToCheckIfPlayerExistInList = (opponentName, localNumberOfChild) => {
+    var sendToCheckIfPlayerExistInList = (opponentName, localNumberOfChild, whichList) => {
       this.numberOfChild = (localNumberOfChild);
-      this.checkIfPlayerExistInCurrentChallengeList(opponentName, this.numberOfChild, val)
+      this.checkIfPlayerExistInChallengeList(opponentName, this.numberOfChild, val, whichList)
     }
 
     var setNotEmptyList = () => {
       emptyList = false;
     }
 
+
     var emptyList = true;
 
-    // Checking current challenge list
-    this.db.database.ref("userChallengesWithFriend/" + this.currentUsername + "/current").once("value")
-      .then(function (snapshot) {
-
-        setNotEmptyList();
-        let numberOfChild = snapshot.numChildren();
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-          sendToCheckIfPlayerExistInList(key, numberOfChild);
+    var getNumberOfChildrenInList = (whichList) => {
+      this.db.database.ref("userChallengesWithFriend/" + this.currentUsername + whichList).once("value")
+        .then(function (snapshot) {
+          setNotEmptyList();
+          let numberOfChild = snapshot.numChildren();
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            sendToCheckIfPlayerExistInList(key, numberOfChild, whichList);
+          });
         });
-      });
+    }
 
-    // Checking outgoing challenge list
-    this.db.database.ref("userChallengesWithFriend/" + this.currentUsername + "/outgoing").once("value")
-      .then(function (snapshot) {
-        let numberOfChild = snapshot.numChildren();
-        setNotEmptyList();
-
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-          sendToCheckIfPlayerExistInList(key, numberOfChild);
-        });
-      });
+    getNumberOfChildrenInList("/current");
+    getNumberOfChildrenInList("/outgoing");
+    getNumberOfChildrenInList("/incoming");
 
     // If the user does not have any challenge yet.
     if (emptyList) {
