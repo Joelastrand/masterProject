@@ -177,16 +177,16 @@ export class ChallengeWithFriendComponent implements OnInit {
 
       if (whichList == "/current") {
         this.playersAlreadyHasACurrentChallenge = true;
-        this.toastr.warning('You can only play 1 challenge at a time to the same player. You already have a current challenge against this player, if you send this challenge it is going to be overwritten.', 'Challenge with a friend');
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the previous challenge is going to be overwritten.', 'Challenge with a friend');
       }
       else if (whichList == "/outgoing") {
         this.playersAlreadyHasAOutgoingChallenge = true;
-        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the previous challenge you have sent is going to be overwritten.', 'Challenge with a friend');
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the previous challenge is going to be overwritten.', 'Challenge with a friend');
 
       }
       else if (whichList == "/incoming") {
         this.playersAlreadyHasAIncomingChallenge = true;
-        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the incoming challenge you have is going to be overwritten.', 'Challenge with a friend');
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. If you send this challenge the previous challenge is going to be overwritten.', 'Challenge with a friend');
       }
       this.username = userInput;
       this.checkUsername();
