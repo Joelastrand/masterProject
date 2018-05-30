@@ -76,20 +76,20 @@ export class ChallengeviewComponent implements OnInit {
 
 
   /**************** Change challenge information about time/date/location ********************/
-  sendChallenge() {    
+  sendChallenge() {
     this.db.object(`userChallenges/${this.username}/outgoing/${this.challengerName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
-    this.db.object(`userChallenges/${this.username}/outgoing/${this.challengerName}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //update outgoing for sender
+    this.db.object(`userChallenges/${this.username}/outgoing/${this.challengerName}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //update outgoing for sender
     this.db.object(`userChallenges/${this.challengerName}/incoming/${this.username}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
-    this.db.object(`userChallenges/${this.challengerName}/incoming/${this.username}`).update({"time": this.challengeTime,"date": this.challengeDate,"location": this.challengeLocation}); //Update incoming for receiver
+    this.db.object(`userChallenges/${this.challengerName}/incoming/${this.username}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //Update incoming for receiver
     this.deleteCurrentChallenge(this.username, this.challengerName);
     this.toastr.success('You have reschedule the challenge ', 'Challenge a friend');
 
   }
-  
-  changeChallengeInformation () {
+
+  changeChallengeInformation() {
     var dateFormat = /[\d/]/;
     var timeFormat = /[\d:]/;
-    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime)  || (!this.challengeLocation)) {
+    if (!(dateFormat.test(this.challengeDate)) || (!(timeFormat.test(this.challengeTime))) || (!this.challengeTime) || (!this.challengeLocation)) {
       this.toastr.error('Wrong input', 'Submit');
     }
     /*
@@ -100,7 +100,7 @@ export class ChallengeviewComponent implements OnInit {
     */
     else {
       this.toggleChallengeInformationDialog();
-      this.sendChallenge(); 
+      this.sendChallenge();
     }
   }
 
@@ -437,7 +437,7 @@ export class ChallengeviewComponent implements OnInit {
   }
 
 
-  updateBothPlayersCurrentScore(playerName, currentScore, whichUser, winner) {
+  updateBothPlayersCurrentScore(playerName, totScore, currentScore, whichUser, winner) {
 
     var amountOfPoints = 0;
 
@@ -457,25 +457,33 @@ export class ChallengeviewComponent implements OnInit {
     // The user
     if (whichUser == 1) {
       this.userCurrentScore = currentScore
+      let newTot = totScore + amountOfPoints;
       this.userCurrentScore = this.userCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.userCurrentScore });
+      this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
     }
 
     //The opponent 
     else if (whichUser == 2) {
       this.opponentCurrentScore = currentScore
+      let newTot = totScore + amountOfPoints;
       this.opponentCurrentScore = this.opponentCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.opponentCurrentScore });
+      this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
     }
 
     if (winner == 1) {
       this.toastr.success('Congratulations to the victory! You got 200 points and plus one victory in the challenge ' + this.selectedChallenge, 'Challenge a friend');
+      this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Defeat", "message": "You lost in " + this.selectedChallenge + " vs " + this.username });
+      //console.log(this.challengerName);
     }
     else if (winner == 2) {
       this.toastr.success('You have unfortunately lost but gain 150 points for playing', 'Challenge a friend');
+      console.log(this.challengerName);
     }
     else if (winner == 3) {
-      this.toastr.success('How exciting!! It was a draw, both get 200 points but no one wins. ', 'Challenge a friend');
+      this.toastr.success('How exciting! It was a draw, both get 200 points but no one wins. ', 'Challenge a friend');
+      console.log(this.challengerName);
     }
   }
 
@@ -484,48 +492,68 @@ export class ChallengeviewComponent implements OnInit {
   getBothPlayersScore(username, challengerName, winner) {
 
     // User is marked as number 1
-    var getUserScore = (childData) => {
-      var score = childData;
+    var getUserScore = (tot, curr) => {
+      var score = curr;
+      var totScore = tot;
       var user = 1;
-      this.updateBothPlayersCurrentScore(username, score, user, winner);
+      this.updateBothPlayersCurrentScore(username, tot, score, user, winner);
     }
     // opponent is marked as number 2
-    var getOpponentScore = (childData) => {
-      var score = childData;
+    var getOpponentScore = (tot, curr) => {
+      var score = curr;
+      var totScore = tot;
       var opponent = 2;
-      this.updateBothPlayersCurrentScore(challengerName, score, opponent, winner);
+      this.updateBothPlayersCurrentScore(challengerName, tot, score, opponent, winner);
     }
 
 
-
+    var totScore, currScore = 0;
     // For the user
     this.db.database.ref("scores/" + username + "/points").once("value")
       .then(function (snapshot) {
+        totScore = currScore = 0;
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
           if (key == "score") {
             if (childData == undefined) {
-              childData = 0;
+              currScore = 0;
+            } else {
+              currScore = childData;
             }
-            getUserScore(childData);
+          } else if (key == "totalScore") {
+            if (childData == undefined) {
+              totScore = 0;
+            } else {
+              totScore = childData;
+            }
           }
-        });
-      });
 
+        });
+        getUserScore(totScore, currScore);
+      });
     // For the opponent
     this.db.database.ref("scores/" + challengerName + "/points").once("value")
       .then(function (snapshot) {
+        totScore = currScore = 0;
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
           if (key == "score") {
             if (childData == undefined) {
-              childData = 0;
+              currScore = 0;
+            } else {
+              currScore = childData;
             }
-            getOpponentScore(childData);
+          } else if (key == "totalScore") {
+            if (childData == undefined) {
+              totScore = 0;
+            } else {
+              totScore = childData;
+            }
           }
         });
+        getOpponentScore(totScore, currScore);
       });
   }
 
