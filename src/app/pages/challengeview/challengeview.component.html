@@ -72,14 +72,14 @@
       <div *ngFor="let challenge of ListOfCurrentChallenges" class="challengeBoxHoverable" (click)="selectChallenge(challenge.challenge, challenge.challenger)">
         <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
           <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: #3f71de" aria-label="goBackArrow">insert_emoticon</mat-icon>
+            <mat-icon class="material-icons md-48" style="color: #2e61ba" aria-label="goBackArrow">insert_emoticon</mat-icon>
           </div>
           <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center">
             <h3 style="color: #F6F6F6; margin: 0">{{challenge.challenge}} VS {{challenge.challenger}}!</h3>
           </div>
           <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <mat-icon class="material-icons md-48" style="color: #3f71de; padding-left: 35px; " aria-label="goBackArrow">chevron_right</mat-icon>
-            <mat-icon class="material-icons md-60" style="color: #3f71de; " aria-label="goBackArrow">chevron_right</mat-icon>
+            <mat-icon class="material-icons md-48" style="color: #2e61ba; padding-left: 35px; " aria-label="goBackArrow">chevron_right</mat-icon>
+            <mat-icon class="material-icons md-60" style="color: #2e61ba; " aria-label="goBackArrow">chevron_right</mat-icon>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <div *ngFor="let challenge of ListOfOutgoingChallenges" class="challengeBox" style="opacity: 0.8">
         <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
           <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <svg width="48" fill="#3f71de" height="48" color="white" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+            <svg width="48" fill="#2e61ba" height="48" color="white" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
               <path d="M1536 128q0 261-106.5 461.5t-266.5 306.5q160 106 266.5 306.5t106.5 461.5h96q14 0 23 9t9 23v64q0 14-9 23t-23 9h-1472q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h96q0-261 106.5-461.5t266.5-306.5q-160-106-266.5-306.5t-106.5-461.5h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h1472q14 0 23 9t9 23v64q0 14-9 23t-23 9h-96zm-128 0h-1024q0 206 85 384h854q85-178 85-384zm-57 1216q-54-141-145.5-241.5t-194.5-142.5h-230q-103 42-194.5 142.5t-145.5 241.5h910z"
               />
             </svg>

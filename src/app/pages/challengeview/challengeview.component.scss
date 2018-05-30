@@ -178,7 +178,7 @@ img {
     flex-flow: column; 
     //background: linear-gradient(#526476, #3E5062) ;
     background: linear-gradient(#526476, #058FAF) ;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid #526476;
   
 }
 
@@ -204,8 +204,9 @@ img {
     display: flex;
     justify-content: center;
     flex-flow: row;
-    background: linear-gradient(#71a3ff , #5d8ffc); //+20 från original färgen
-    border-bottom: 2px solid rgba(148,182,255,1);
+    //background: linear-gradient(#526476, #0f99b9); //+20 från original färgen
+    background:linear-gradient( #19a3c3,#058FAF);
+    border-bottom: 2px solid  #19a3c3;
 
 }
 
@@ -220,8 +221,8 @@ img {
     display: flex;
     justify-content: center;
     flex-flow: row;
-    background: linear-gradient(#6CB1C3 , #1985A1);
-    border-bottom: 2px solid rgba(25,133,161,1);
+    background: linear-gradient(#19a3c3, #058FAF); 
+    border-bottom: 2px solid #19a3c3;
 }
 
   .mainSection button:hover {
@@ -291,9 +292,9 @@ img {
     align-items: center;
     margin-top: 15%;
     height: 40px;
-    background-color: #5d8ffc;
+    background:linear-gradient( #19a3c3,#058FAF);
     border-radius: 0 20px 0 0;
-    border-bottom: 2px solid rgba(148,182,255,1);
+    border-bottom: 2px solid  #19a3c3;
     width: 30%;
 }
 .smallTitleDiv h4 {

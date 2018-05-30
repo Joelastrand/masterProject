@@ -186,9 +186,10 @@ img {
     display: flex;
     justify-content: center;
     flex-flow: column; 
-    //background: linear-gradient(#526476, #3E5062) ;
-    background: linear-gradient(#526476, #086788) ;
-    border-bottom: 2px solid gray;
+    //background: linear-gradient(#526476, #086788) ;
+    //border-bottom: 2px solid #4C5C68;
+    background: linear-gradient(#526476, #058FAF) ;
+    border-bottom: 2px solid #526476;
   
 }
 
@@ -214,8 +215,10 @@ img {
     display: flex;
     justify-content: center;
     flex-flow: row;
-    background: linear-gradient(#71a3ff , #5d8ffc); //+20 från original färgen
-    border-bottom: 2px solid rgba(148,182,255,1);
+    //background: linear-gradient(#1c7b9c, #058FAF); //+20 från original färgen
+    //border-bottom: 2px solid linear-gradient(#1c7b9c, #058FAF);
+    background:linear-gradient( #19a3c3,#058FAF);
+    border-bottom: 2px solid  #19a3c3;
 }
 
 .challengeBoxHoverable :hover {
@@ -229,8 +232,10 @@ img {
     display: flex;
     justify-content: center;
     flex-flow: row;
-    background: linear-gradient(#71a3ff , #5d8ffc); //+20 från original färgen
-    border-bottom: 2px solid rgba(148,182,255,1);
+    //background: linear-gradient(#1c7b9c, #058FAF); //+20 från original färgen
+    //border-bottom: 2px solid #1c7b9c;
+    background: linear-gradient(#19a3c3, #058FAF); 
+    border-bottom: 2px solid #19a3c3;
 }
 
   .mainSection button:hover {
@@ -300,9 +305,11 @@ img {
     align-items: center;
     margin-top: 15%;
     height: 40px;
-    background-color: #5d8ffc;
+    //background:linear-gradient(#1c7b9c, #058FAF);
+    //border-bottom: 2px solid linear-gradient(#1c7b9c, #058FAF);
+    background:linear-gradient( #19a3c3,#058FAF);
+    border-bottom: 2px solid  #19a3c3;
     border-radius: 0 20px 0 0;
-    border-bottom: 2px solid rgba(148,182,255,1);
     width: 30%;
 }
 .smallTitleDiv h4 {
