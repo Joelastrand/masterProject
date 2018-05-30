@@ -303,7 +303,6 @@ export class ChallengeWithFriendComponent implements OnInit {
     if (senderName != receiverName) {
       var setChallengeType = (challengeType) => {
         if (challengeType == "won/lost") {
-
           this.db.object(`userChallengesWithFriend/${senderName}/outgoing/${receiverName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //update outgoing for sender
           this.db.object(`userChallengesWithFriend/${senderName}/outgoing/${receiverName}`).update({ "time": this.challengeTime, "date": this.challengeDate, "location": this.challengeLocation }); //update outgoing for sender
 

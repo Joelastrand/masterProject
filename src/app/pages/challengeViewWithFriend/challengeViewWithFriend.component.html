@@ -54,7 +54,7 @@
             <h3 style="color: #F6F6F6;">{{challenge.challenge}} challenge from {{challenge.challenger}}!</h3>
           </div>
           <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-            <button (click)="acceptChallenge(challenge.challenger, challenge.challenge)" class="acceptButton">
+            <button (click)="acceptChallenge(challenge.challenger, challenge.challenge,challenge.time,challenge.date,challenge.location)" class="acceptButton">
               <mat-icon style="color: white" aria-label="goBackArrow">check</mat-icon>
             </button>
           </div>

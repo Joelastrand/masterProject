@@ -120,7 +120,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       this.challengeLocation = location;
     }
 
-    this.db.database.ref("userChallenges/" + this.username + "/current/" + this.challengerName + "/challengeInformation").once("value")
+    this.db.database.ref("userChallengesWithFriend/" + this.username + "/current/" + this.challengerName + "/challengeInformation").once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
@@ -390,7 +390,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     }
 
     var deleteCurrentChallenge = () => {
-      this.deleteCurrentChallenge(this.username,this.challengerName); 
+      this.deleteCurrentChallenge(this.username, this.challengerName);
     }
 
     // Checks which choice the friend has chosen 
@@ -488,7 +488,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
 
     var deleteCurrentChallenge = () => {
-      this.deleteCurrentChallenge(this.username,this.challengerName); 
+      this.deleteCurrentChallenge(this.username, this.challengerName);
     }
 
     // Checks which choice the friend has chosen 
@@ -526,11 +526,45 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       });
   }
 
-  acceptChallenge(challengerName, challenge) {
+  acceptChallenge(challengerName, challenge, time, date, location) {
+    var setChallengeType = (challengeType) => {
+
+      if (challengeType == "won/lost") {
+        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
+        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
+
+        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+      }
+      else if (challengeType == "amount") {
+        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+      }
+      else if (challengeType == "time") {
+        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+      }
+    }
+
+    this.db.database.ref("challenges/challengeWithFriend/" + challenge).once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "type") {
+            setChallengeType(childData);
+          }
+        });
+      });
+    this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
+    this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
+
+    /*
     this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
     this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
     this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
     this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
+    */
   }
 
   declineChallenge(challengerName) {
@@ -585,7 +619,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         snap.forEach((childSnap) => {
           var key = childSnap.key;
           var childData = childSnap.val();
-          var challengeObject = { challenger: key, challenge: childData["challenge"] };
+          var challengeObject = { challenger: key, challenge: childData["challenge"], date: childData["date"], time: childData["time"], location: childData["location"] };
           if (snap.key == "incoming") {
             addIncomingToList(challengeObject);
           } else if (snap.key == "outgoing") {
