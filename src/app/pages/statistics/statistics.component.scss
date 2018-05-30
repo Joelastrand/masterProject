@@ -13,6 +13,39 @@
     margin-bottom: 10%;
 }
 
+
+ .achievementBoxLocked {
+    width: 100%;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    background:linear-gradient(#D4D3D5, #BBB9BC);
+
+   
+    border-bottom: 2px solid #D4D3D5;
+}
+
+.achievementBoxUnlocked {
+    width: 100%;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+  
+    background:linear-gradient( #78C000,   #64ac00);
+    //background:linear-gradient( #66b669 ,#52a255);
+    //background:linear-gradient( #ABD2DC ,#57A6BA);    //BLÅ
+    border-bottom: 2px solid #64ac00;
+}
+
+ .achievementArea {
+     width: 70%;
+    overflow-y: auto;
+}
+
+
+
 .gotItButton{
     margin-top: 15%; 
     width: 100%; 
@@ -78,7 +111,9 @@
     align-items: center; 
     vertical-align: middle; 
     justify-content: center;
-    height:100%;
+    //height:100%;
+    min-height: 1200px;
+    height: auto !important;
 }
 
 .userStatistics{
@@ -107,6 +142,12 @@
     font-size: 25px !important;
 }
 
+
+::ng-deep .mat-icon.material-icons.md-48.mat-icon {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 48px !important;
+}
   /*---------------------------Large Desktop --------------------------------*/
   @media only screen and (min-width: 1001px) {
 

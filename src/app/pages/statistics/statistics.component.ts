@@ -25,9 +25,10 @@ export class StatisticsComponent implements OnInit {
   showExplanationScoreDialog: boolean = false;
   challengeFriendListEmpty: boolean = false;
   challengeWithFriendListEmpty: boolean = false;
+  listOfAchievements = [];
   max: number = 5000;
   semicircle: boolean = false;
-  radius: number = 150;
+  radius: number = 170;
 
   constructor(private db: AngularFireDatabase, public auth: AuthService) { }
 
@@ -39,6 +40,7 @@ export class StatisticsComponent implements OnInit {
     this.getUserDailyChallenge();
     this.checkIfChallengeAFriendIsEmpty();
     this.checkIfChallengeWithAFriendIsEmpty();
+    this.getListOfAchievements();
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/' + this.username + '/challengeFriend');
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
@@ -48,7 +50,7 @@ export class StatisticsComponent implements OnInit {
     let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
 
     return {
-      'top': isSemi ? 'auto' : '50%',
+      'top': isSemi ? 'auto' : '30%',
       'bottom': isSemi ? '5%' : 'auto',
       'left': '50%',
       'transform': transform,
@@ -85,6 +87,30 @@ export class StatisticsComponent implements OnInit {
           setChallengeWithFriendListEmpty();
         }
       });
+  }
+
+  getListOfAchievements() {
+    let query = "achievements";
+    
+    var addAchievementToList = (achievement) => {
+      this.listOfAchievements.push(achievement);
+    }
+    
+    this.db.database.ref(query).once("value")
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        /*childSnapshot.forEach(function(achievement){
+          let achievementObject = {};
+        });
+        var key = childSnapshot.key;*/
+        var childData = childSnapshot.val();
+        childData["imgName"]= childSnapshot.key;
+        addAchievementToList(childData);
+       // 
+    
+    
+      });
+    });
   }
 
   toggleExplanationScore() {
