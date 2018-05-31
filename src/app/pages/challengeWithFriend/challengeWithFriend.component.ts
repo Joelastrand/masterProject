@@ -318,7 +318,6 @@ export class ChallengeWithFriendComponent implements OnInit {
           this.db.object(`userChallengesWithFriend/${receiverName}/incoming/${senderName}`).update({ "accepted": false, "challenge": this.selectedChallenge }); //Update incoming for receiver
         }
       }
-
       this.db.database.ref("challenges/challengeWithFriend/" + this.selectedChallenge).once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
