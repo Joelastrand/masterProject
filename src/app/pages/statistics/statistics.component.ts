@@ -41,6 +41,7 @@ export class StatisticsComponent implements OnInit {
     this.checkIfChallengeAFriendIsEmpty();
     this.checkIfChallengeWithAFriendIsEmpty();
     this.getListOfAchievements();
+    this.updateCompletedAchievements();
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/' + this.username + '/challengeFriend');
     this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
@@ -89,6 +90,30 @@ export class StatisticsComponent implements OnInit {
       });
   }
 
+  updateCompletedAchievements() {
+    let query = "scores/" + this.username + "/achievements";
+
+    var completedAchievement = (achievementName) => {
+      this.listOfAchievements.forEach(function(element) {
+        if(element.imgName == achievementName) {
+          element.completed = true;         
+        }
+      });
+    }
+
+
+    this.db.database.ref(query).on("value", function (snapshot) {
+      var listOfCompleted = [];
+      snapshot.forEach(function (childSnapshot) {
+        
+        var key = childSnapshot.key;
+        completedAchievement(key);
+        return false;
+      });
+
+    });
+  }
+
   getListOfAchievements() {
     let query = "achievements";
     
@@ -99,18 +124,12 @@ export class StatisticsComponent implements OnInit {
     this.db.database.ref(query).once("value")
     .then(function (snapshot) {
       snapshot.forEach(function (childSnapshot) {
-        /*childSnapshot.forEach(function(achievement){
-          let achievementObject = {};
-        });
-        var key = childSnapshot.key;*/
         var childData = childSnapshot.val();
         childData["imgName"]= childSnapshot.key;
         addAchievementToList(childData);
-       // 
-    
-    
       });
     });
+    
   }
 
   toggleExplanationScore() {
