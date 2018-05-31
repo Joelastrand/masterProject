@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../auth.service";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { AchievementCheckerService } from "../../achievement-checker.service";
 
 @Component({
   selector: 'app-challengeViewWithFriend',
   templateUrl: './challengeViewWithFriend.component.html',
   styleUrls: ['./challengeViewWithFriend.component.scss'],
-  providers: [AuthService, AngularFireDatabase]
+  providers: [AchievementCheckerService, AngularFireDatabase]
 
 })
 export class ChallengeViewWithFriendComponent implements OnInit {
@@ -23,8 +22,16 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   challengerName: string = "";
   challengeDescription: string = "";
   challengeObject: Observable<String>;
+
+  //userCurrentScore: number = 0;
+  userCurrentTotalScore: number = 0;
+  userCurrentWeeklyScore: number = 0;
+
+
+  //opponentCurrentScore: number = 0;
   userCurrentScore: number = 0;
   opponentCurrentScore: number = 0;
+
   userAndFriendCurrentStreak: number = 0;
   opponentCurrentVictories: number = 0;
   challengeFind: boolean = false;
@@ -44,7 +51,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
   typeWonLost: boolean = false;
 
 
-  constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
+  constructor(private toastr: ToastrService, private db: AngularFireDatabase, public achievementService: AchievementCheckerService, private router: Router) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -176,7 +183,23 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         });
       });
   }
-  /**************** END Undo button ********************/
+  /******************************** ********************/
+
+
+  /****************General functions ***************** */
+  setFinishChallenge() {
+    this.finishChallenge = true;
+    this.choiceCompleted = true;
+    this.choiceSkipped = false;
+  }
+
+
+  resetVariables() {
+    this.challengeFind = false;
+    this.counterChild = 0;
+    this.finishChallenge = false;
+  }
+
   setchallengeType() {
     var setType = (challengeType) => {
       if (challengeType == "won/lost") {
@@ -197,10 +220,12 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
   }
 
+  /**************************************************** */
+
   sendChallengeCompleted() {
     var giveTheUserPoints = () => {
       // Give the optional parameter a value so we can update only the user.
-      getUserAndFriendCurrentScore(1);
+      getUserAndFriendScores(1);
     }
 
     var updateChallengeStatus = () => {
@@ -291,102 +316,139 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         });
     }
 
-    // Function that sets the user and the friend current score to a variable and
-    // updating both with 350 points.
-    var updateUserAndFriendCurrentScore = (currentScore, whichUser, challengePoints, OnlyUserCompleted = 0) => {
 
+    // Function that sets the user and the friend current total score and weekly score and
+    // updating both with 400,300 or 200 points.
+    var updateUserAndFriendCurrentScore = (totalScore, currentScore, whichUser, challengePoints, OnlyUserCompleted = 0) => {
+      console.log("updateUserAndFriendCurrentScore");
       // The user
       if (whichUser == 1 && OnlyUserCompleted == 0) {
+        console.log("test");
         this.userCurrentScore = currentScore
+        var newTotalScore = totalScore + challengePoints;
         this.userCurrentScore = this.userCurrentScore + challengePoints;
+
         this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
+        this.db.object(`scores/${this.username}/points`).update({ "totalScore": newTotalScore });
+
         this.toastr.success('Excellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
       }
 
+      // If only the user completes the challenge
       if (whichUser == 1 && OnlyUserCompleted == 1) {
+
         this.userCurrentScore = currentScore
+        var newTotalScore = totalScore + 200;
         this.userCurrentScore = this.userCurrentScore + 200;
+
         this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
+        this.db.object(`scores/${this.username}/points`).update({ "totalScore": newTotalScore });
+
         this.toastr.success('Awesome work in completing the challenge! However, your friend failed to complete it. But no worries, you get 200 points for the challenge anyway.', 'Challenge With a Friend');
 
       }
 
-      // The Friend
+      // The opponent
       else if (whichUser == 2 && OnlyUserCompleted == 0) {
+
         this.opponentCurrentScore = currentScore
+        var newTotalScore = totalScore + challengePoints;
         this.opponentCurrentScore = this.opponentCurrentScore + challengePoints;
         this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
+        this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": newTotalScore });
+
       }
 
     }
 
-    var getChallengeLevelBeforeUpdate = (score, whichUser, OnlyUserCompleted) => {
+    var getChallengeLevelBeforeUpdate = (totalScore, currentScore, whichUser, OnlyUserCompleted) => {
+
+      var challengePoints = 0;
       this.db.database.ref("challenges/challengeWithFriend/" + this.selectedChallenge).once("value")
         .then(function (snapshot) {
+          challengePoints = 0;
+
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
+
             if (key == "level") {
               if (childData == "hard") {
-                childData = 400;
+                challengePoints = 400;
               }
               else if (childData == "medium") {
-                childData = 300;
+                challengePoints = 300;
               }
               else {
-                childData = 200;
+                challengePoints = 200;
               }
-              updateUserAndFriendCurrentScore(score, whichUser, childData, OnlyUserCompleted);
-              //updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
+              updateUserAndFriendCurrentScore(totalScore, currentScore, whichUser, challengePoints, OnlyUserCompleted);
             }
           });
         });
     }
 
-    // Function that get the user and the friend current score and send 
-    //it to updateUserAndFriendCurrentScore. 
-    var getUserAndFriendCurrentScore = (OnlyUserCompleted = 0) => {
+    // Function that get the user and the friend current total score and send 
+    //it to getUserAndFriendCurrentWeeklyScore. 
+    var getUserAndFriendScores = (OnlyUserCompleted = 0) => {
+
+      var totalScore, currentScore = 0;
       // For the user
       this.db.database.ref("scores/" + this.username + "/points").once("value")
         .then(function (snapshot) {
+          totalScore = currentScore = 0;
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
             if (key == "score") {
               if (childData == undefined) {
-                childData = 0;
+                currentScore = 0;
+              } else {
+                currentScore = childData;
               }
-              getChallengeLevelBeforeUpdate(childData, 1, OnlyUserCompleted);
-              //updateUserAndFriendCurrentScore(childData, 1, OnlyUserCompleted);
+            } else if (key == "totalScore") {
+              if (childData == undefined) {
+                totalScore = 0;
+              } else {
+                totalScore = childData;
+              }
             }
           });
+          //User is number 1
+          getChallengeLevelBeforeUpdate(totalScore, currentScore, 1, OnlyUserCompleted);
         });
       // For the opponent
       this.db.database.ref("scores/" + this.challengerName + "/points").once("value")
         .then(function (snapshot) {
+          totalScore = currentScore = 0;
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
             if (key == "score") {
               if (childData == undefined) {
-                childData = 0;
+                currentScore = 0;
+              } else {
+                currentScore = childData;
               }
-              getChallengeLevelBeforeUpdate(childData, 2, OnlyUserCompleted);
+            } else if (key == "totalScore") {
+              if (childData == undefined) {
+                totalScore = 0;
+              } else {
+                totalScore = childData;
+              }
             }
           });
+          //Opponent is number 2
+          getChallengeLevelBeforeUpdate(totalScore, currentScore, 2, OnlyUserCompleted);
         });
     }
 
     var resetVariables = () => {
-      this.challengeFind = false;
-      this.counterChild = 0;
-      this.finishChallenge = false;
+      this.resetVariables();
     }
 
     var setFinishChallenge = () => {
-      this.finishChallenge = true;
-      this.choiceCompleted = true;
-      this.choiceSkipped = false;
+      this.setFinishChallenge();
     }
 
     var deleteCurrentChallenge = () => {
@@ -405,7 +467,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
             // If both user and the friend has chosen that they have completed the task we update
             // both scores and set a streak.  
             if (childData == "completed") {
-              getUserAndFriendCurrentScore();
+              getUserAndFriendScores();
               checkIfUserAndFriendHasAStreak();
               deleteCurrentChallenge();
               resetVariables();
@@ -440,197 +502,200 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     // Function that set the friend current score to a variable and
     // updating both with 200 points.
-    var updateFriendCurrentScore = (currentScore) => {
-      {
-        this.opponentCurrentScore = currentScore
-        this.opponentCurrentScore = this.opponentCurrentScore + 200;
-        this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
-        this.toastr.success('Too bad that you passed the challenge. At least your friend gets 200 points for complete the challenge.', 'Challenge With a Friend');
+    var updateFriendTotalScoreAndCurrentScore = (opponentCurrentScore, opponentTotalScore) => {
+
+      this.userCurrentScore = opponentCurrentScore
+      var newTotalScore = opponentTotalScore + 200;
+      this.userCurrentScore = this.userCurrentScore + 200;
+
+      this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.userCurrentScore });
+      this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": newTotalScore });
+
+      this.toastr.success('Too bad that you passed the challenge. At least your friend gets 200 points for complete the challenge.', 'Challenge With a Friend');
+    }
+      // Function that get the the friend current total score and send 
+      // it to updateUserAndFriendCurrentScore. 
+      var getTheFriendCurrentScores = () => {
+
+        var totalScore, currentScore = 0;
+
+        // For the opponent
+        this.db.database.ref("scores/" + this.challengerName + "/points").once("value")
+          .then(function (snapshot) {
+            totalScore = currentScore = 0;
+            snapshot.forEach(function (childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              if (key == "score") {
+                if (childData == undefined) {
+                  currentScore = 0;
+                } else {
+                  currentScore = childData;
+                }
+              } else if (key == "totalScore") {
+                if (childData == undefined) {
+                  totalScore = 0;
+                } else {
+                  totalScore = childData;
+                }
+              }
+            });
+            updateFriendTotalScoreAndCurrentScore(currentScore, totalScore);
+          });
+
       }
 
-    }
+      var bothSkippedTheChallenge = () => {
+        this.toastr.success('Both you and your friend skipped the challenge. Maybe it was the not right challenge for you guys, try another challenge.', 'Challenge With a Friend');
+      }
 
-    // Function that get the the friend current score and send 
-    // it to updateUserAndFriendCurrentScore. 
-    var getTheFriendCurrentScore = () => {
+      var resetVariables = () => {
+        this.resetVariables();
+      }
 
-      // For the opponent
-      this.db.database.ref("scores/" + this.challengerName + "/points").once("value")
+      var setFinishChallenge = () => {
+        this.setFinishChallenge();
+      }
+
+
+      var deleteCurrentChallenge = () => {
+        this.deleteCurrentChallenge(this.username, this.challengerName);
+      }
+
+      // Checks which choice the friend has chosen 
+      this.db.database.ref("userChallengesWithFriend/" + this.challengerName + "/current/" + this.username).once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
-            if (key == "score") {
-              if (childData == undefined) {
-                childData = 0;
+
+            if (key == "challengeStatus") {
+
+              // If the friend has completed the task we update
+              // the friend score.  
+              if (childData == "completed") {
+                getTheFriendCurrentScores();
+                deleteCurrentChallenge();
+                resetVariables();
+                setFinishChallenge();
               }
-              updateFriendCurrentScore(childData);
+
+              // If the friend has not respond yet we set the users choice.
+              else if (childData == "") {
+                updateChallengeStatus();
+                setFinishChallenge();
+              }
+
+              // If the friend has not completed the challenge, we give points only to the user. 
+              else {
+                bothSkippedTheChallenge();
+                deleteCurrentChallenge();
+                resetVariables();
+              }
             }
           });
         });
     }
 
-    var bothSkippedTheChallenge = () => {
-      this.toastr.success('Both you and your friend skipped the challenge. Maybe it was the not right challenge for you guys, try another challenge.', 'Challenge With a Friend');
-    }
+    acceptChallenge(challengerName, challenge, time, date, location) {
+      var setChallengeType = (challengeType) => {
 
-    var resetVariables = () => {
-      this.challengeFind = false;
-      this.counterChild = 0;
-      this.finishChallenge = false;
-    }
+        if (challengeType == "won/lost") {
+          this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
+          this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
 
-    var setFinishChallenge = () => {
-      this.finishChallenge = true;
-      this.choiceSkipped = true;
-      this.choiceCompleted = false;
-    }
-
-
-    var deleteCurrentChallenge = () => {
-      this.deleteCurrentChallenge(this.username, this.challengerName);
-    }
-
-    // Checks which choice the friend has chosen 
-    this.db.database.ref("userChallengesWithFriend/" + this.challengerName + "/current/" + this.username).once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-
-          if (key == "challengeStatus") {
-
-            // If the friend has completed the task we update
-            // the friend score.  
-            if (childData == "completed") {
-              getTheFriendCurrentScore();
-              deleteCurrentChallenge();
-              resetVariables();
-              setFinishChallenge();
-            }
-
-            // If the friend has not respond yet we set the users choice.
-            else if (childData == "") {
-              updateChallengeStatus();
-              setFinishChallenge();
-            }
-
-            // If the friend has not completed the challenge, we give points only to the user. 
-            else {
-              bothSkippedTheChallenge();
-              deleteCurrentChallenge();
-              resetVariables();
-            }
-          }
-        });
-      });
-  }
-
-  acceptChallenge(challengerName, challenge, time, date, location) {
-    var setChallengeType = (challengeType) => {
-
-      if (challengeType == "won/lost") {
-        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
-        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
-
-        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
-        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+          this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+          this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "challengeInformation": { "time": time, "date": date, "location": location } });
+        }
+        else if (challengeType == "amount") {
+          this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+          this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+        }
+        else if (challengeType == "time") {
+          this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+          this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
+        }
       }
-      else if (challengeType == "amount") {
-        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
-        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
-      }
-      else if (challengeType == "time") {
-        this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
-        this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "amount": "" });
-      }
+
+      this.db.database.ref("challenges/challengeWithFriend/" + challenge).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "type") {
+              setChallengeType(childData);
+            }
+          });
+        });
+      this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
+      this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
+
     }
 
-    this.db.database.ref("challenges/challengeWithFriend/" + challenge).once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-          if (key == "type") {
-            setChallengeType(childData);
-          }
+    declineChallenge(challengerName) {
+      this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
+      this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
+    }
+
+    selectChallenge(challengeName, challengerName) {
+      this.challengerName = challengerName;
+      this.selectedChallenge = challengeName;
+
+      // Funtctions that needs to change the html page layout. 
+      this.getChallengeStatus();
+      this.setchallengeType();
+      this.getChallengesInformation();
+
+
+      var setDesc = (decription) => { this.challengeDescription = decription };
+      this.db.database.ref("challenges/challengeWithFriend/" + challengeName).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "challengeInfo") {
+              setDesc(childData);
+            }
+          });
         });
-      });
-    this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
-    this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
+    }
 
-    /*
-    this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
-    this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
-    this.db.object(`userChallengesWithFriend/${challengerName}/current/${this.username}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
-    this.db.object(`userChallengesWithFriend/${this.username}/current/${challengerName}`).update({ "accepted": true, "challenge": challenge, "challengeStatus": "" });
-    */
-  }
+    returnToChallengeWithFriendOverview() {
+      this.selectedChallenge = "";
+    }
 
-  declineChallenge(challengerName) {
-    this.db.object(`userChallengesWithFriend/${this.username}/incoming/${challengerName}`).remove();
-    this.db.object(`userChallengesWithFriend/${challengerName}/outgoing/${this.username}`).remove();
-  }
+    goToChallengeWithFriend() {
+      this.router.navigateByUrl('/challengeWithFriend');
+    }
 
-  selectChallenge(challengeName, challengerName) {
-    this.challengerName = challengerName;
-    this.selectedChallenge = challengeName;
+    //Updates the user's challenge overview in realtime, could perhaps be more elegant...
+    getUserChallenges() {
+      var addIncomingToList = (challenge) => { this.ListOfIncomingChallenges.push(challenge) };
+      var addOutgoingToList = (challenge) => { this.ListOfOutgoingChallenges.push(challenge) };
+      var addCurrentToList = (challenge) => { this.ListOfCurrentChallenges.push(challenge) };
 
-    // Funtctions that needs to change the html page layout. 
-    this.getChallengeStatus();
-    this.setchallengeType();
-    this.getChallengesInformation();
-
-
-    var setDesc = (decription) => { this.challengeDescription = decription };
-    this.db.database.ref("challenges/challengeWithFriend/" + challengeName).once("value")
-      .then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var key = childSnapshot.key;
-          var childData = childSnapshot.val();
-          if (key == "challengeInfo") {
-            setDesc(childData);
-          }
-        });
-      });
-  }
-
-  returnToChallengeWithFriendOverview() {
-    this.selectedChallenge = "";
-  }
-
-  goToChallengeWithFriend() {
-    this.router.navigateByUrl('/challengeWithFriend');
-  }
-
-  //Updates the user's challenge overview in realtime, could perhaps be more elegant...
-  getUserChallenges() {
-    var addIncomingToList = (challenge) => { this.ListOfIncomingChallenges.push(challenge) };
-    var addOutgoingToList = (challenge) => { this.ListOfOutgoingChallenges.push(challenge) };
-    var addCurrentToList = (challenge) => { this.ListOfCurrentChallenges.push(challenge) };
-
-    let query = "userChallengesWithFriend/" + this.username;
-    let currentList = "";
-    this.db.database.ref(query).on("value", (snapshot) => {
-      this.ListOfIncomingChallenges = [];
-      this.ListOfOutgoingChallenges = [];
-      this.ListOfCurrentChallenges = [];
-      snapshot.forEach((snap) => {
-        snap.forEach((childSnap) => {
-          var key = childSnap.key;
-          var childData = childSnap.val();
-          var challengeObject = { challenger: key, challenge: childData["challenge"], date: childData["date"], time: childData["time"], location: childData["location"] };
-          if (snap.key == "incoming") {
-            addIncomingToList(challengeObject);
-          } else if (snap.key == "outgoing") {
-            addOutgoingToList(challengeObject);
-          } else {
-            addCurrentToList(challengeObject);
-          }
+      let query = "userChallengesWithFriend/" + this.username;
+      let currentList = "";
+      this.db.database.ref(query).on("value", (snapshot) => {
+        this.ListOfIncomingChallenges = [];
+        this.ListOfOutgoingChallenges = [];
+        this.ListOfCurrentChallenges = [];
+        snapshot.forEach((snap) => {
+          snap.forEach((childSnap) => {
+            var key = childSnap.key;
+            var childData = childSnap.val();
+            var challengeObject = { challenger: key, challenge: childData["challenge"], date: childData["date"], time: childData["time"], location: childData["location"] };
+            if (snap.key == "incoming") {
+              addIncomingToList(challengeObject);
+            } else if (snap.key == "outgoing") {
+              addOutgoingToList(challengeObject);
+            } else {
+              addCurrentToList(challengeObject);
+            }
+            return false;
+          });
           return false;
         });
-        return false;
       });
-    });
+    }
   }
-}
