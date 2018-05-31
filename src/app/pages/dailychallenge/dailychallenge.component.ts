@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from "../../auth.service";
+import { AchievementCheckerService } from "../../achievement-checker.service";
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +20,7 @@ import { forEach } from '@firebase/util';
   selector: 'app-dailychallenge',
   templateUrl: './dailychallenge.component.html',
   styleUrls: ['./dailychallenge.component.scss'],
-  providers: [AuthService, AngularFireDatabase],
+  providers: [AuthService,AchievementCheckerService, AngularFireDatabase],
   animations: [
     trigger('timer', [
       state('true', style({
@@ -100,9 +101,10 @@ export class DailychallengeComponent implements OnInit {
   numberOfChallenges = [];
   challengeParameters = {};
   username: string;
+  usertotalScore = 0;
   userCurrentScore: number = 0;
 
-  constructor(private toastr: ToastrService, private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
+  constructor(private achievementChecker:AchievementCheckerService ,private toastr: ToastrService, private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
 
 
@@ -216,6 +218,8 @@ export class DailychallengeComponent implements OnInit {
     this.updateDailyChallenge();
     this.getUserCurrentScore();
     this.showFinishChallengeDialog();
+    this.achievementChecker.checkDailyStatus(this.username, (this.dailyChallengeStreak+1));
+    this.achievementChecker.checkPointStatus(this.username, this.usertotalScore, this.userCurrentScore);
     this.dealyedNagivation();
 
 
@@ -235,6 +239,7 @@ export class DailychallengeComponent implements OnInit {
       //this.userCurrentScore = currentScore;
       //this.userCurrentScore = this.userCurrentScore + 250;
       let newTotal = currentTotal + 250;
+      this.usertotalScore = newTotal;
       this.db.object(`scores/${this.username}/points`).update({ "totalScore": newTotal });
     }
 

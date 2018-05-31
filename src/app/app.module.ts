@@ -64,6 +64,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { AchievementCheckerService } from './achievement-checker.service';
 
 
 
@@ -151,7 +152,8 @@ export const FIREBASE_CONFIG = {
     DataService,
     UserService,
     AuthService,
-    SimpleTimer
+    SimpleTimer,
+    AchievementCheckerService
   ],
   bootstrap: [AppComponent]
 
