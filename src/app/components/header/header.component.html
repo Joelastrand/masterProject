@@ -49,10 +49,14 @@
             <span>Statistics</span>
           </button>
         </div>
-        <button mat-menu-item (click)="goToSettings()">
+        <button mat-menu-item (click)="goToHealthInformation()">
+          <i class="material-icons">announcement</i>
+          <span>Health Information</span>
+        </button>
+        <!-- <button mat-menu-item (click)="goToSettings()">
           <i class="material-icons">settings</i>
           <span>Settings</span>
-        </button>
+        </button> -->
       </mat-menu>
     </div>
 
@@ -73,7 +77,7 @@
     <!-- The user is logged out -->
     <div *ngIf="isLoggedOut() == true" style="flex:1; flex-flow:row;" class="everyDiv">
       <div style="display:flex;flex:3; justify-content:flex-end;margin:2%;">
-        <button  class="button greenButtons" (click)="goToCreateAccount()" mat-raised-button>Register</button>
+        <button class="button greenButtons" (click)="goToCreateAccount()" mat-raised-button>Register</button>
       </div>
       <div style="flex:1;" class="logInButton">
         <button class="button blueButtons" (click)="goToLogIn()" mat-raised-button>Log In</button>
@@ -82,8 +86,8 @@
     <!-- The user is logged in -->
     <div style="display:flex; flex-direction:column; ">
       <div *ngIf="isLoggedOut() == false" style="display:flex;align-self:flex-end; flex-direction:row;flex:3;" class="everyDiv">
-        <h5 (click)="goToSettings()" class="everyDiv" style=" cursor:pointer; color:white; margin-right:4%; margin-top:3%;">{{ printUsername }}</h5>
-        <i (click)="goToSettings()" style="cursor:pointer; margin-right:10%;" class="material-icons">person</i>
+        <h5 (click)="goToSettings()" class="everyDiv" style="color:white; margin-right:4%; margin-top:3%;">{{ printUsername }}</h5>
+        <i (click)="goToSettings()" style=" margin-right:10%;" class="material-icons">person</i>
         <div style="flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
         </div>
         <button class="logOutButton" style="cursor:pointer;" (click)="logout()">Logout</button>

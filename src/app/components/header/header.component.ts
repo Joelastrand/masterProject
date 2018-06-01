@@ -81,10 +81,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/challengeview');
   }
   goToSettings() {
+    /* TODO implement bettet settings page 
     this.router.navigateByUrl('/settings');
+    */ 
   }
   goToStatistics() {
     this.router.navigateByUrl('/statistics');
+  }
+
+  goToHealthInformation() {
+    this.router.navigateByUrl('/health');
   }
 
    //Updates the user's challenge overview in realtime, could perhaps be more elegant...

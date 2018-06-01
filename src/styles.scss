@@ -7,6 +7,47 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/dist/css/bootstrap.css";
 
+/* Color and background */ 
+.globalMainSectionBackground {
+    height: 100%;
+    width: 100%; 
+    margin: auto; 
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/Background/9.jpg);
+    //background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/Background/8.jpg);
+    top:0; 
+    background-size:cover; 
+}
+
+.globalBackgroundLoginSignUp{
+    width: 100%; 
+    margin: auto; 
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/Background/9.jpg);
+    //background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/assets/Background/8.jpg);
+    top:0; 
+    background-size:cover; 
+}
+
+
+ .globalFlexDivColor {
+    //background-color:#A2A0A3;
+    background-color:#DCDCDD;
+    //color:white;
+}
+
+.footerColor {
+    background-color:#4C5C68;
+}
+
+
+.globalBackgroundColor {
+    //background-color: #DCDCDD; 
+    background-color:#F6F6F6;
+}
+
+/*******************************/ 
+
+/* Components */ 
+
 .blueButtons {
     background-color:#1985A1;
     border: 1px solid #1985A1;
@@ -28,24 +69,11 @@
     background-color:#4C5C68;
 }
 
-.flexDivColor {
-    background-color:#A2A0A3;
-    color:white;
-}
-
-.footerColor {
-    background-color:#4C5C68;
-}
-
-.backgroundColor {
-    background-color: #DCDCDD; 
-}
-
 html {
     height: 100%;
 }
 body {
-  background: #DCDCDD;
+  background-color:#F6F6F6;
   //padding: 3em;
   font-family: 'Raleway', 'Arial';
   color: #fff;
