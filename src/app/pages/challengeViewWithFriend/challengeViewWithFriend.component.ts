@@ -356,6 +356,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
         this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": this.opponentTotalScore });
 
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "You and "+ this.username+ " have both completed!"});
         this.achievementChecker.checkPointStatus(this.challengerName, this.opponentTotalScore, this.opponentCurrentScore);
       }
     }
