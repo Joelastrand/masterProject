@@ -71,12 +71,16 @@
       </div>
     </div>
 
-    <div style="width: 100%; display: flex; flex-direction: row; ">
+    <div class="achievementProgressTitles">
         <div style="width: 70%; flex: 2; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
         <div style="flex: 1; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Progress on Weekly Goal</div>
     </div>
-
-    <div style="flex: 2; display: flex; flex-direction: row; justify-content: center; vertical-align: center;">
+    <div class="mobileAchievementTitle">
+      <div style="margin-top: 5%; width: 100%;text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
+  </div>
+<!--style="flex: 2; display: flex; flex-direction: row; justify-content: center; vertical-align: center;"-->
+    <div class="achievementProgressArea">
+      
       <div style="flex:2; display: flex; justify-content: center; align-content: center; margin-top: 2.5%">
         
         <div class="achievementArea">
@@ -91,7 +95,7 @@
                   <h6 style="color: #F6F6F6; margin: 0; font-weight: bold;">{{achievement.name}}</h6>
                   <h6 style="color: #F6F6F6; margin: 0">{{achievement.description}}</h6>
                 </div>
-                <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+                <div class="progressBar">
                   <!--Add progress bar?-->
                 </div>
 
@@ -109,7 +113,7 @@
                   <h6 style="color: #F6F6F6; margin: 0; font-weight: bold;">{{achievement.name}}</h6>
                   <h6 style="color: #F6F6F6; margin: 0">{{achievement.description}}</h6>
                 </div>
-                <div style="flex:1; flex-direction: row; align-items: center; vertical-align: middle; display: flex; justify-content: center">
+                <div class="progressBar">
                   <!--Add progress bar?-->
                 </div>
 
@@ -124,18 +128,16 @@
 
 
       <div class="progress-wrapper" style="flex:1;">
-        <!--<div class="current" style="text-align: center; font-size: 0.6em; width: 100%; top: 5%; left: 50%; bottom: auto; transform: translateY(-50%) translateX(-50%);">Progress on Weekly Goal</div>-->
+        <div class="progressMobileTitle">Progress on Weekly Goal</div>
         <div class="current" [ngStyle]="getOverlayStyle()">{{ userScore }}/{{ max }}</div>
-        <round-progress [radius]="radius" [current]="userScore" [max]="max" [color]="'#78C000'" style="top: 30%; left: 50%; bottom: auto; transform: translateY(-50%) translateX(-50%);">
+        <round-progress [radius]="radius" [current]="userScore" [max]="max" [color]="'#78C000'" class="progressCircle">
 
 
         </round-progress>
       </div>
-      <!-- <circle-progress [percent]=timerValue [title]="hej" [titleFormat]=formatTitle(timerValue) [showUnits]="false" [maxPercent]="15000"
-        [radius]="100" [showTitle]="true" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [renderOnClick]="false"
-        [innerStrokeColor]="'#C7E596'" [animation]="false">
-      </circle-progress>-->
+  
     </div>
+  
     <!-- Different information boxes.-->
     <p-dialog styleClass="pDialog" [(visible)]="showExplanationScoreDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false
       modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">

@@ -51,7 +51,7 @@ export class StatisticsComponent implements OnInit {
     let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
 
     return {
-      'top': isSemi ? 'auto' : '30%',
+      //'top': isSemi ? 'auto' : '30%',
       'bottom': isSemi ? '5%' : 'auto',
       'left': '50%',
       'transform': transform,
@@ -94,15 +94,27 @@ export class StatisticsComponent implements OnInit {
     let query = "scores/" + this.username + "/achievements";
 
     var completedAchievement = (achievementName) => {
-      this.listOfAchievements.forEach(function(element) {
-        if(element.imgName == achievementName) {
-          element.completed = true;         
+      this.listOfAchievements.forEach(function (element) {
+        if (element.imgName == achievementName) {
+          element.completed = true;
         }
       });
     }
 
 
-    this.db.database.ref(query).on("value", function (snapshot) {
+
+    this.db.database.ref(query).once("value")
+      .then(function (snapshot) {
+        var listOfCompleted = [];
+        snapshot.forEach(function (childSnapshot) {
+
+          var key = childSnapshot.key;
+          completedAchievement(key);
+          return false;
+        });
+      });
+
+    /*this.db.database.ref(query).on("value", function (snapshot) {
       var listOfCompleted = [];
       snapshot.forEach(function (childSnapshot) {
         
@@ -110,26 +122,26 @@ export class StatisticsComponent implements OnInit {
         completedAchievement(key);
         return false;
       });
+    });*/
 
-    });
   }
 
   getListOfAchievements() {
     let query = "achievements";
-    
+
     var addAchievementToList = (achievement) => {
       this.listOfAchievements.push(achievement);
     }
-    
+
     this.db.database.ref(query).once("value")
-    .then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var childData = childSnapshot.val();
-        childData["imgName"]= childSnapshot.key;
-        addAchievementToList(childData);
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var childData = childSnapshot.val();
+          childData["imgName"] = childSnapshot.key;
+          addAchievementToList(childData);
+        });
       });
-    });
-    
+
   }
 
   toggleExplanationScore() {

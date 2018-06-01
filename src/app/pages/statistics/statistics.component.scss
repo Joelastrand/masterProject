@@ -13,6 +13,13 @@
     margin-bottom: 10%;
 }
 
+.achievementProgressArea {
+    flex: 2; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    vertical-align: center;
+}
 
  .achievementBoxLocked {
     width: 100%;
@@ -26,6 +33,14 @@
     border-bottom: 2px solid #D4D3D5;
 }
 
+.progressBar {
+    flex:1; 
+    flex-direction: row; 
+    align-items: center; 
+    vertical-align: middle; 
+    display: flex; 
+    justify-content: center
+}
 .achievementBoxUnlocked {
     width: 100%;
     height: 68px;
@@ -38,7 +53,11 @@
     //background:linear-gradient( #ABD2DC ,#57A6BA);    //BLÅ
     border-bottom: 2px solid #64ac00;
 }
-
+.achievementProgressTitles {
+    width: 100%; 
+    display: flex;
+    flex-direction: row; 
+}
  .achievementArea {
      width: 70%;
      height: 612px;
@@ -70,6 +89,13 @@
     margin: 20px auto;
     font-size: 40px;
   }
+
+  .progressCircle{
+    top: 30%; 
+    left: 50%; 
+    bottom: auto; 
+    transform: translateY(-50%) translateX(-50%);
+  }
   
   .current {
     position: absolute;
@@ -77,6 +103,21 @@
     font-weight: 100;
     line-height: 1;
   }
+
+.progressMobileTitle {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+    color: #3C3C3D;
+    text-align: center;
+    font-size: 0.6em; 
+    width: 100%;
+     top: 5%; 
+     left: 50%; 
+     bottom: auto; 
+     transform: translateY(-50%) translateX(-50%);
+}
 
 .infoButton {
     width:25px;
@@ -154,13 +195,45 @@
 }
   /*---------------------------Large Desktop --------------------------------*/
   @media only screen and (min-width: 1001px) {
+    .userStatistics{
+        flex-direction: row; 
+    }
+    .current {
+        top: 30%;
+    }
 
+    .achievementProgressArea {
+        flex-direction: row;
+        
+    }
+    .progressMobileTitle {
+        display: none;
+    }
+    .mobileAchievementTitle {
+        display: none;
+    }
 }
 
 /*---------------------------Medium Desktop --------------------------------*/
 @media only screen and (max-width: 1000px) and (min-width:501px) {
 
+    .userStatistics{
+        flex-direction: row; 
+    }
+    .current {
+        top: 30%;
+    }
 
+    .achievementProgressArea {
+        flex-direction: row;
+        
+    }
+    .progressMobileTitle {
+        display: none;
+    }
+    .mobileAchievementTitle {
+        display: none;
+    }
 }
 
 /*---------------------------Mobile Desktop --------------------------------*/
@@ -169,6 +242,31 @@
         flex-direction: column; 
     }
 
+    .progressBar {
+        display: none;
+    }
+
+    .achievementProgressTitles {
+        display: none;
+    }
+    .achievementProgressArea {
+        flex-direction: column;
+        
+    }
+    .achievementArea {
+        width: 90%;
+    }
+    .progressCircle {
+        top: 50%;
+        position: absolute;
+    }
+    .progress-wrapper {
+        height: 500px;
+        width: 100%
+    }
+    .current {
+        top: 50%;
+    }
     .flexItem {
         //margin-top:5%;
         flex:1
