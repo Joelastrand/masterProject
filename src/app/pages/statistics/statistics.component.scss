@@ -55,6 +55,7 @@
 }
 .achievementProgressTitles {
     width: 100%; 
+    margin-top: 5%;
     display: flex;
     flex-direction: row; 
 }
@@ -68,6 +69,9 @@
 }
 
 
+.flexItem h4 {
+    font-size: 1.3rem;
+}
 
 .gotItButton{
     margin-top: 15%; 
@@ -119,6 +123,19 @@
      transform: translateY(-50%) translateX(-50%);
 }
 
+.infoBoxes {
+    width: 70%; 
+    min-height: 40%; 
+    border: 1px solid #57A6BA; 
+    border-top: none;  
+    display:flex; 
+    flex-direction: column; 
+    justify-content: center;
+     vertical-align: middle; 
+     align-items: center; 
+     box-shadow: 7px 7px 30px -10px rgba(0,0,0,1);
+}
+
 .infoButton {
     width:25px;
     height:25px;
@@ -164,13 +181,13 @@
 .userStatistics{
     display:flex; 
     flex:5; 
+    margin-top: 2%;
     flex-direction: row; 
     vertical-align: middle; 
-    //justify-content: space-between; 
     width:100%;
 }
 .flexItem {
-    flex:1;
+    flex:2;
     text-align: center;
 }
 
@@ -244,6 +261,14 @@
 
     .progressBar {
         display: none;
+    }
+    
+    .flexItem {
+        margin-top: 5%;
+    }
+    
+    .infoBoxes {
+        min-height: 135px;
     }
 
     .achievementProgressTitles {

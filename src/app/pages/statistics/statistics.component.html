@@ -4,67 +4,91 @@
 
     <div style="flex: 1; width: 100%; min-height: 100%; display: flex; flex-direction: column;justify-content: center;">
       <div style="width:100%; text-align:center; justify-content: center; ">
-        <h1 style="flex:1">Statistics</h1>
+        <h1 style="flex:1; margin-bottom: 2%; margin-top: 2%; font-size: 2.7em; color: #3C3C3D; font-weight: 100; line-height: 1">Statistics</h1>
         <hr>
       </div>
 
       <!-- Show the users different statistics -->
       <div class="userStatistics">
+
         <div class="flexItem">
-          <div style="display:flex;flex-direction: row;justify-content: center;">
-            <button (click)="toggleExplanationScore()" class="infoButton" style="margin-right:2%;">
-              <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-            </button>
-            <h4>Total Score:</h4>
+          <div style="width: 100%; height: 100%; align-items: center; display:flex; flex-direction: column;">
+            <div style="background: #ABD2DC; align-items: center; height: 15%; border: 1px solid #57A6BA; border-radius: 15px 15px 0px 0px; width: 70%; display:flex; flex-direction: row; justify-content: center;">
+              <button (click)="toggleExplanationScore()" class="infoButton" style="margin-right:2%;">
+                <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+              </button>
+              <h4 style="margin:0; padding: 0; color: #3C3C3D;">Total Score</h4>
+            </div>
+            <div class="infoBoxes" style="flex-direction: row;">
+              <h6 style="font-size: 1.8em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{totalScore}}</h6>
+            </div>
           </div>
-          <h6>{{totalScore}} points</h6>
         </div>
 
-        <div class="flexItemBig">
-          <div style="display:flex;flex-direction: row;justify-content: center;">
-            <button (click)="toggleExplanationDailyChallenge()" class="infoButton" style="margin-right:2%;">
-              <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-            </button>
-            <h4>Daily challenge:</h4>
+        <div class="flexItem">
+          <div style="width: 100%; height: 100%; align-items: center; display:flex; flex-direction: column;">
+            <div style="background: #ABD2DC; align-items: center; height: 15%; border: 1px solid #57A6BA; border-radius: 15px 15px 0px 0px; width: 70%; display:flex; flex-direction: row; justify-content: center;">
+              <button (click)="toggleExplanationDailyChallenge()" class="infoButton" style="margin-right:2%;">
+                <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+              </button>
+              <h4 style="margin:0; padding: 0; color: #3C3C3D;">Daily Challenge</h4>
+            </div>
+            <div class="infoBoxes">
+              <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{dailyChallengeStreak}} days in row </h6>
+              <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; margin-top: 4%;">{{dailyChallengeTotal}} in total </h6>
+            </div>
           </div>
-          <h6>{{dailyChallengeStreak}} days in row </h6>
-          <h6>{{dailyChallengeTotal}} in total </h6>
+        </div>
+        <div class="flexItem">
+          <div style="width: 100%; height: 100%; align-items: center; display:flex; flex-direction: column;">
+            <div style="background: #ABD2DC; align-items: center; height: 15%; border: 1px solid #57A6BA; border-radius: 15px 15px 0px 0px; width: 70%; display:flex; flex-direction: row; justify-content: center;">
+              <button (click)="toggleExplanationChallengeAFriendDialog()" class="infoButton" style="margin-right:2%;">
+                <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+              </button>
+              <h4 style="margin:0; padding: 0; color: #3C3C3D;">Challenge a Friend</h4>
+            </div>
+            <div class="infoBoxes">
+              <div style="margin-top: 2%; margin-bottom: 2%;">
+                  <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Victories</h6>
+              </div>
+              <div *ngFor="let challenge of challengeFriendObservable | async" style="width: 100%; margin-top: 2%">
+                <div *ngIf="!(challenge.name == start)" style="display: flex; width: 100%;">
+                  <h6 style="text-align:left; flex: 3; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; margin-bottom: 2%; margin-left: 2%; padding: 0">{{challenge.name}}</h6>
+                  <h6 style="flex: 1; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{challenge.victories}}</h6>
+                </div>
+
+                <div *ngIf="(challengeFriendListEmpty)">
+                  <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">No victories yet</h6>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="flexItemBig">
-
-          <div style="display:flex;flex-direction: row;justify-content: center;">
-            <button (click)="toggleExplanationChallengeAFriendDialog()" class="infoButton" style="margin-right:2%;">
-              <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-            </button>
-            <h4>Challenge a Friend:</h4>
-          </div>
-
-          <div *ngFor="let challenge of challengeFriendObservable | async">
-            <div *ngIf="!(challenge.name == start)">
-              <h6>{{challenge.name}} : {{challenge.victories}} wins</h6>
+        <div class="flexItem">
+          <div style="width: 100%; height: 100%; align-items: center; display:flex; flex-direction: column;">
+            <div style="background: #ABD2DC; align-items: center; height: 15%; border: 1px solid #57A6BA; border-radius: 15px 15px 0px 0px; width: 70%; display:flex; flex-direction: row; justify-content: center;">
+              <button (click)="toggleExplanationChallengeWithAFriendDialog()" class="infoButton" style="margin-right:2%;">
+                <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
+              </button>
+              <h4 style="margin:0; padding: 0; color: #3C3C3D;">Challenge With a Friend</h4>
             </div>
-            <div *ngIf="(challengeFriendListEmpty)">
-              <h6>No victories yet</h6>
-            </div>
+            <div class="infoBoxes">
+                <div style="margin-top: 2%; margin-bottom: 2%;">
+                    <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Streaks</h6>
+                </div>
+              <div *ngFor="let friend of challengeWithFriendObservable | async" style="width: 100%; margin-top: 2%">
+                <div *ngIf="!(friend.name == start)" style="display: flex; width: 100%;">
+                  <h6 style="text-align:left; flex: 3; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; margin-bottom: 2%; margin-left: 2%; padding: 0">{{friend.name}} </h6>
+                  <h6 style="flex: 1; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{friend.streak}}</h6>
+                </div>
 
-          </div>
+                <div *ngIf="(challengeWithFriendListEmpty)">
+                  <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">No streaks yet</h6>
+                </div>
 
-        </div>
-
-        <div class="flexItemBig">
-          <div style="display:flex;flex-direction: row;justify-content: center;">
-            <button (click)="toggleExplanationChallengeWithAFriendDialog()" class="infoButton" style="margin-right:2%;">
-              <mat-icon class="material-icons md-25" style="vertical-align:middle" aria-label="info">info_outline</mat-icon>
-            </button>
-            <h4>Challenge With a Friend:</h4>
-          </div>
-          <div *ngFor="let friend of challengeWithFriendObservable | async">
-            <div *ngIf="!(friend.name == start)">
-              <h6>{{friend.name}} : {{friend.streak}} days in row.</h6>
-            </div>
-            <div *ngIf="(challengeWithFriendListEmpty)">
-              <h6>No streaks yet</h6>
+              </div>
             </div>
           </div>
         </div>
@@ -72,24 +96,24 @@
     </div>
 
     <div class="achievementProgressTitles">
-        <div style="width: 70%; flex: 2; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
-        <div style="flex: 1; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Progress on Weekly Goal</div>
+      <div style="width: 70%; flex: 2; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
+      <div style="flex: 1; text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Progress on Weekly Goal</div>
     </div>
     <div class="mobileAchievementTitle">
       <div style="margin-top: 5%; width: 100%;text-align: center; font-size: 1.6em; color: #3C3C3D;font-weight: 100; line-height: 1">Achievements</div>
-  </div>
-<!--style="flex: 2; display: flex; flex-direction: row; justify-content: center; vertical-align: center;"-->
+    </div>
+    <!--style="flex: 2; display: flex; flex-direction: row; justify-content: center; vertical-align: center;"-->
     <div class="achievementProgressArea">
-      
+
       <div style="flex:2; display: flex; justify-content: center; align-content: center; margin-top: 2.5%">
-        
+
         <div class="achievementArea">
           <div *ngFor="let achievement of listOfAchievements;  let i = index">
             <div class="achievementBoxUnlocked" *ngIf="achievement.completed">
               <div style=" width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: center;">
 
                 <div style="flex:1; flex-direction: column; align-items: center; vertical-align: middle; display: flex; justify-content: center">
-                    <img height="48" width="48" src="../../assets/achievementIcons/{{listOfAchievements[i].imgName}}.svg" alt="he">
+                  <img height="48" width="48" src="../../assets/achievementIcons/{{listOfAchievements[i].imgName}}.svg" alt="he">
                 </div>
                 <div style="flex:4; flex-direction: column; align-items: left; vertical-align: middle; display: flex; justify-content: center;">
                   <h6 style="color: #F6F6F6; margin: 0; font-weight: bold;">{{achievement.name}}</h6>
@@ -100,7 +124,7 @@
                 </div>
 
 
-              
+
               </div>
             </div>
             <div class="achievementBoxLocked" *ngIf="!achievement.completed">
@@ -135,9 +159,9 @@
 
         </round-progress>
       </div>
-  
+
     </div>
-  
+
     <!-- Different information boxes.-->
     <p-dialog styleClass="pDialog" [(visible)]="showExplanationScoreDialog" [draggable]=false [closeOnEscape]=false [showHeader]=false
       modal="modal" [responsive]="true" [style]="{'background-color':' #3E5062'}">
