@@ -1,4 +1,16 @@
 /*---------------------------General --------------------------------*/
+.errorText{
+  text-align: left;
+  color:red; 
+  font-size:14px; 
+  padding:0;
+  margin-top:4%; 
+  margin-bottom:4%
+}
+.makeSpaceToHeader{
+  height:5%;
+}
+
 .mainContent {
   //background: #EFEFEF;
   padding: 0px;
@@ -40,7 +52,7 @@ input, button {
   align-items: stretch;
   margin: 0px auto;
   background-color: white;
-  margin-top: 5%;
+  //margin-top: 5%;
   padding: 2%;
 }
 
@@ -97,11 +109,8 @@ input, button {
   cursor: pointer;
 }
 
-
-
  /*---------------------------Large Desktop --------------------------------*/
-
- @media only screen and (min-width: 1001px) {
+ @media only screen and (min-width: 1301px) {
 
   .mainContent {
     font-size: 1.3em;
@@ -113,12 +122,43 @@ input, button {
     font-size: 1.1em;
   }
   .headingDiv h3{
+    margin-top: 5%;
     font-size: 1.4em;
   }
-  .main-div h4{
-    font-size: 0.9em;
+  .main-div h2 {
+    font-size: 1.0em;
   }
-  .main-div h3{
+  .main-div {
+    width: 50%;
+  }
+  .headingDiv {
+    width: 50%;
+  }
+  .secondary-div {
+    width: 50%;
+  }
+}
+
+ @media only screen and (max-width: 1300px) and (min-width: 1001px) {
+
+  .errorText{
+    margin-top:1%; 
+    margin-bottom:1%
+  }
+
+  .makeSpaceToHeader{
+    height:2%;
+  }
+  .mainContent {
+    font-size: 1.3em;
+  }
+  input, button { 
+    font-size: 1.0em;
+  }
+  .headingDiv h4{
+    font-size: 1.1em;
+  }
+  .headingDiv h3{
     margin-top: 5%;
     font-size: 1.4em;
   }

@@ -1,8 +1,10 @@
 
   /*--------------------------- General --------------------------------*/
-  
+  .makeSpaceToHeader{
+    height:5%;
+  }  
   .mainContent {
-    background: #EFEFEF;
+    //background: #EFEFEF;
     padding: 0px;
     min-height: 100%;
     margin: 0px;
@@ -40,7 +42,7 @@
     align-items: stretch;
     margin: 0px auto;
     background-color: white;
-    margin-top: 5%;
+    //margin-top: 5%;
     padding: 2%;
   }
   
