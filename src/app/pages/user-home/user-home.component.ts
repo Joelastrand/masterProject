@@ -13,6 +13,11 @@ export class UserHomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0,0);
+  }
+
+  goDown() {
+    window.scrollTo(0, 1000);
   }
 
   redirectToDailyChallenge() {

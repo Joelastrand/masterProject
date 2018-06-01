@@ -64,7 +64,10 @@
 .button:hover{
   color:#036A81; 
   border: solid #036A81 3px; 
+  background-color:#036A81; 
+  cursor: pointer;
 }
+
 
 @media screen and (max-width:768px) {
   .intro {

@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,) { }
 
   ngOnInit() {
+    window.scrollTo(0,0);
   }
 
   goToHealthInformation() {
@@ -22,5 +23,9 @@ export class HomeComponent implements OnInit {
 
   goToGameInformation() {
     this.router.navigateByUrl('/gameInformation');    
+  }
+
+  goDown() {
+    window.scrollTo(0, 1000);
   }
 }

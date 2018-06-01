@@ -66,36 +66,11 @@
   .button:hover{
     color:#036A81; 
     border: solid #036A81 3px; 
+    background-color:#036A81; 
+    cursor: pointer;
   }
-  /*
-  .introText {
-    color:white; 
-    text-align:center; 
-    margin:5%;
-    font-style:italic;
-  }
-
-  #hero {
-    background-image: url(/assets/showcase/images/startpage/frontimage.png); 
-    background-size: cover;
-    background-position: center center;
-    position: relative;
-    top: 0; 
-    bottom: 0; 
-    height: 100vh;
-    z-index: -10;
-   }
   
-   #hero-overlay {
-    background-color: rgba(0,0,0,0.5);
-    position: absolute;
-    top: 0; 
-    bottom: 0; 
-    height: 100%;
-    width: 100%;
-    z-index: -5;
-  }
-*/
+
   .cardSectionBig{
     display:flex;
     width:100%;
