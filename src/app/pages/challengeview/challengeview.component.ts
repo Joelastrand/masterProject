@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../auth.service";
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AchievementCheckerService } from "../../achievement-checker.service";
 
 @Component({
   selector: 'app-challengeview',
   templateUrl: './challengeview.component.html',
   styleUrls: ['./challengeview.component.scss'],
-  providers: [AuthService, AngularFireDatabase]
+  providers: [AchievementCheckerService, AngularFireDatabase]
 })
 export class ChallengeviewComponent implements OnInit {
 
@@ -51,7 +51,7 @@ export class ChallengeviewComponent implements OnInit {
   userAmount: number;
   opponentAmount: number;
   challengeType: string;
-  constructor(private toastr: ToastrService, private db: AngularFireDatabase, public auth: AuthService, private router: Router) { }
+  constructor(private toastr: ToastrService, private db: AngularFireDatabase, private achievementChecker: AchievementCheckerService, private router: Router) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -284,11 +284,12 @@ export class ChallengeviewComponent implements OnInit {
   }
 
 
-  /********* General functions to streaks and points ***************/
+  /********* General functions to streaks, achivevements and points ***************/
 
   // If the player does not have the challenge it creates it and begin a victory collection.
   createChallenge(playerName, selectedChallenge) {
     this.db.object(`scores/${playerName}/challengeFriend/`).update({ [selectedChallenge]: { "name": selectedChallenge, "victories": 1 } });
+    this.checkVictoriesAchievements(selectedChallenge, playerName,1);
   }
 
   // Updates the function and which player who won the challenge
@@ -358,11 +359,24 @@ export class ChallengeviewComponent implements OnInit {
     this.userAmount = 0;
   }
 
+  checkVictoriesAchievements(selectedChallenge, playerName,victories) {
+    if(selectedChallenge == "Foosball") {
+      this.achievementChecker.checkFoosballStatus(playerName,victories); 
+    }
+  }
+
+  checkPointsAchievements(username, totPoints,currPoints) {
+      console.log("username:"+username+" totPoints:"+totPoints+" currPoints:"+currPoints);
+      this.achievementChecker.checkPointStatus(username,totPoints,currPoints); 
+  }
+
   // Updates the players current victory collection
   updatePlayerCurrentChallengeVictories(playerName, selectedChallenge, victories) {
-    this.playerCurrentVictories = victories
-    this.playerCurrentVictories = this.playerCurrentVictories + 1;
+    this.playerCurrentVictories = victories + 1; 
     this.db.object(`scores/${playerName}/challengeFriend/${selectedChallenge}`).update({ "victories": this.playerCurrentVictories });
+    
+    this.checkVictoriesAchievements(selectedChallenge, playerName,this.playerCurrentVictories);
+   
     this.userCurrentVictories = 0;
   }
 
@@ -451,7 +465,8 @@ export class ChallengeviewComponent implements OnInit {
       amountOfPoints = 200;
     }
     else {
-      amountOfPoints = 150;
+      //amountOfPoints = 150;
+      amountOfPoints = 200;
     }
 
     // The user
@@ -461,6 +476,8 @@ export class ChallengeviewComponent implements OnInit {
       this.userCurrentScore = this.userCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.userCurrentScore });
       this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
+      this.achievementChecker.checkPointStatus(playerName,newTot,this.userCurrentScore); 
+
     }
 
     //The opponent 
@@ -470,6 +487,7 @@ export class ChallengeviewComponent implements OnInit {
       this.opponentCurrentScore = this.opponentCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.opponentCurrentScore });
       this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
+      this.achievementChecker.checkPointStatus(playerName,newTot,this.userCurrentScore); 
     }
 
     if (winner == 1) {
@@ -477,7 +495,7 @@ export class ChallengeviewComponent implements OnInit {
       this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Defeat", "message": "You lost in " + this.selectedChallenge + " vs " + this.username });
     }
     else if (winner == 2) {
-      this.toastr.success('You have unfortunately lost but gain 150 points for playing', 'Challenge a friend');
+      this.toastr.success('You have unfortunately lost but gain 200 points for playing', 'Challenge a friend');
       this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Victory!", "message": "You won in " + this.selectedChallenge + " vs " + this.username });
     }
     else if (winner == 3) {
