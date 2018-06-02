@@ -492,15 +492,15 @@ export class ChallengeviewComponent implements OnInit {
 
     if (winner == 1) {
       this.toastr.success('Congratulations to the victory! You got 200 points and plus one victory in the challenge ' + this.selectedChallenge, 'Challenge a friend');
-      this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Defeat", "message": "You lost in " + this.selectedChallenge + " vs " + this.username });
+      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Defeat", "message": "You lost in " + this.selectedChallenge + " vs " + this.username });
     }
     else if (winner == 2) {
       this.toastr.success('You have unfortunately lost but gain 200 points for playing', 'Challenge a friend');
-      this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Victory!", "message": "You won in " + this.selectedChallenge + " vs " + this.username });
+      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Victory!", "message": "You won in " + this.selectedChallenge + " vs " + this.username });
     }
     else if (winner == 3) {
       this.toastr.success('How exciting! It was a draw, both get 200 points but no one wins. ', 'Challenge a friend');
-      this.db.object(`inbox/${this.challengerName}/newMessage`).update({ "info": "Tie", "message": "You tied in " + this.selectedChallenge + " vs " + this.username });
+      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Tie", "message": "You tied in " + this.selectedChallenge + " vs " + this.username });
     }
   }
 

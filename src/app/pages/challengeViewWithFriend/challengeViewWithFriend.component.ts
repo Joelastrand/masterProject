@@ -343,7 +343,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.username}/points`).update({ "totalScore": this.userTotalScore });
 
         this.toastr.success('Awesome work in completing the challenge! However, your friend failed to complete it. But no worries, you get 200 points for the challenge anyway.', 'Challenge With a Friend');
-
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Sadly you skipped the challenge " + this.selectedChallenge +". But your friend "+ this.username+ " completed it."});
         this.achievementChecker.checkPointStatus(this.username, this.userTotalScore, this.userCurrentScore);
       }
 
@@ -356,7 +356,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
         this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": this.opponentTotalScore });
 
-        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "You and "+ this.username+ " have both completed!"});
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and "+ this.username+ " have both completed the challenge "+this.selectedChallenge});
         this.achievementChecker.checkPointStatus(this.challengerName, this.opponentTotalScore, this.opponentCurrentScore);
       }
     }
@@ -546,6 +546,8 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     var bothSkippedTheChallenge = () => {
       this.toastr.success('Both you and your friend skipped the challenge. Maybe it was the not right challenge for you guys, try another challenge.', 'Challenge With a Friend');
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Both you and your friend " +this.username +" skipped the challenge "+ this.selectedChallenge+ ". Maybe it was the not right challenge for you guys, try another challenge."});
+
     }
 
     var resetVariables = () => {
