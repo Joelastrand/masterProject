@@ -216,8 +216,6 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       });
   }
 
-
-
   /**************************************************** */
 
   sendChallengeCompleted() {
@@ -234,30 +232,57 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     // If the user does not have this challenge we create the challenge and give the user one points.
     var createFriendStreak = () => {
       var d = new Date();
+
       var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
       this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1, "date": date } });
       this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1, "date": date } });
-    }
+   }
 
     var updateUserAndFriendCurrentStreak = (streak) => {
+
+
+      // Create yesterdays variable so we can compare it with the timestampe date. 
+      var yesterdaysDate = new Date();
+      yesterdaysDate.setDate(yesterdaysDate.getDate() - 1);
+      var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
+
       var d = new Date();
-      var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
-      var updateStreak = false;
-      this.db.database.ref("scores/" + this.username + "/challengeFriend/" + this.username + "/date").once("value")
-        .then(function (snapshot) {
-          if (new Date(snapshot.val()).getTime() != new Date(date).getTime()) {
-            return updateStreak = true;
-          } else {
-            return updateStreak = false;
-          }
-        });
-      if (updateStreak) {
-        this.userAndFriendCurrentStreak = streak
-        this.userAndFriendCurrentStreak = this.userAndFriendCurrentStreak + 1;
-        this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak });
-        this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak });
+      var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
+
+      var checkIfStreakIsValid = (dateLatestChallenge) => {
+  
+        // The streak is valid and it contiune to grow
+        if (dateLatestChallenge == yesterdayDate ) {
+            this.userAndFriendCurrentStreak = streak + 1;
+      
+            this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak,"date": todaysDate  });
+            this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak,"date": todaysDate  });  
+                   
+        }
+
+        // If the players challenge each other more then once per day 
+        else if(dateLatestChallenge == todaysDate) {
+           // Nothing happen to the streak, it remains but don't grows. 
+        } 
+
+        // The streak has terminated and a new streaks begin
+        else {
+          createFriendStreak();
+        }
       }
+
+      this.db.database.ref("scores/" + this.username + "/challengeWithFriend/" + this.challengerName).once("value")
+        .then(function (snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            if (key == "date") {
+              checkIfStreakIsValid(childData);
+            }
+
+          });
+        });
 
       this.userAndFriendCurrentStreak = 0;
     }
@@ -343,7 +368,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.username}/points`).update({ "totalScore": this.userTotalScore });
 
         this.toastr.success('Awesome work in completing the challenge! However, your friend failed to complete it. But no worries, you get 200 points for the challenge anyway.', 'Challenge With a Friend');
-        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Sadly you skipped the challenge " + this.selectedChallenge +". But your friend "+ this.username+ " completed it."});
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Sadly you skipped the challenge " + this.selectedChallenge + ". But your friend " + this.username + " completed it." });
         this.achievementChecker.checkPointStatus(this.username, this.userTotalScore, this.userCurrentScore);
       }
 
@@ -356,7 +381,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.opponentCurrentScore });
         this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": this.opponentTotalScore });
 
-        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and "+ this.username+ " have both completed the challenge "+this.selectedChallenge});
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and " + this.username + " have both completed the challenge " + this.selectedChallenge });
         this.achievementChecker.checkPointStatus(this.challengerName, this.opponentTotalScore, this.opponentCurrentScore);
       }
     }
@@ -509,7 +534,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": this.opponentTotalScore });
 
       this.toastr.success('Too bad that you passed the challenge. At least your friend gets 200 points for complete the challenge.', 'Challenge With a Friend');
-   
+
       this.achievementChecker.checkPointStatus(this.challengerName, this.opponentTotalScore, this.opponentCurrentScore);
     }
     // Function that get the the friend current total score and send 
@@ -546,7 +571,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     var bothSkippedTheChallenge = () => {
       this.toastr.success('Both you and your friend skipped the challenge. Maybe it was the not right challenge for you guys, try another challenge.', 'Challenge With a Friend');
-      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Both you and your friend " +this.username +" skipped the challenge "+ this.selectedChallenge+ ". Maybe it was the not right challenge for you guys, try another challenge."});
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Both you and your friend " + this.username + " skipped the challenge " + this.selectedChallenge + ". Maybe it was the not right challenge for you guys, try another challenge." });
 
     }
 
