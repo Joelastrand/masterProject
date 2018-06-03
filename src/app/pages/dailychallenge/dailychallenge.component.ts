@@ -20,7 +20,7 @@ import { forEach } from '@firebase/util';
   selector: 'app-dailychallenge',
   templateUrl: './dailychallenge.component.html',
   styleUrls: ['./dailychallenge.component.scss'],
-  providers: [AuthService,AchievementCheckerService, AngularFireDatabase],
+  providers: [AuthService, AchievementCheckerService, AngularFireDatabase],
   animations: [
     trigger('timer', [
       state('true', style({
@@ -104,7 +104,7 @@ export class DailychallengeComponent implements OnInit {
   usertotalScore = 0;
   userCurrentScore: number = 0;
 
-  constructor(private achievementChecker:AchievementCheckerService ,private toastr: ToastrService, private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
+  constructor(private achievementChecker: AchievementCheckerService, private toastr: ToastrService, private router: Router, private afAuth: AngularFireAuth, private st: SimpleTimer, private db: AngularFireDatabase) { }
 
 
 
@@ -124,13 +124,14 @@ export class DailychallengeComponent implements OnInit {
     this.showExerciseDialog == false ? this.showExerciseDialog = true : this.showExerciseDialog = false;
   }
 
-
-  showFinishChallengeDialog() {
-    var newStreak = this.dailyChallengeStreak + 1;
-    var newTotal = this.dailyChallengeTotal + 1;
-    this.toastr.success('Current streak: ' + newStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
-
-  }
+  /*
+   showFinishChallengeDialog() {
+ 
+     var newStreak = this.dailyChallengeStreak +1 ;
+     var newTotal = this.dailyChallengeTotal + 1;
+     this.toastr.success('Current streak: ' + newStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+     
+   } */
 
   showChallengeDoneDialog() {
 
@@ -217,12 +218,9 @@ export class DailychallengeComponent implements OnInit {
     this.challengeFinished = true;
     this.updateDailyChallenge();
     this.getUserCurrentScore();
-    this.showFinishChallengeDialog();
-    this.achievementChecker.checkDailyStatus(this.username, (this.dailyChallengeStreak+1));
+    //this.showFinishChallengeDialog();
     this.achievementChecker.checkPointStatus(this.username, this.usertotalScore, this.userCurrentScore);
     this.dealyedNagivation();
-
-
   }
 
 
@@ -294,6 +292,73 @@ export class DailychallengeComponent implements OnInit {
       });
   }
   updateDailyChallenge() {
+    // Need yesterday date and todays dates so we can compare if the streaks is valid
+    var yesterdaysDate = new Date();
+    yesterdaysDate.setDate(yesterdaysDate.getDate() - 1);
+    var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
+
+    var d = new Date();
+    var weekday = d.getDay();
+    var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
+
+    var checkIfStreakIsValid = (latestChallengeDate) => {
+
+      // The streak is valid and it contiune to grow
+      if (latestChallengeDate == yesterdayDate) {
+        this.dailyChallengeStreak = this.dailyChallengeStreak + 1;
+        var newTotal = this.dailyChallengeTotal + 1;
+        this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": this.dailyChallengeStreak, "total": newTotal, "date": todaysDate });
+        this.toastr.success('Current streak: ' + this.dailyChallengeStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+        this.achievementChecker.checkDailyStatus(this.username, (this.dailyChallengeStreak));
+
+      }
+
+      // If the players challenge each other more then once per day 
+      else if (latestChallengeDate == todaysDate) {
+        // Nothing happen to the streak, it remains but don't grows. 
+        var newTotal = this.dailyChallengeTotal + 1;
+        this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
+        this.toastr.success('Current streak: ' + this.dailyChallengeStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+
+      }
+
+      // The streak has terminated and a new streaks begin
+      else {
+        if (weekday == 0 || weekday == 6) {
+          //The streaks remains because the day is Sunday or Saturday. 
+          var newTotal = this.dailyChallengeTotal;
+          this.toastr.success('But because it is on the weekend you streak does not get any longer. Current streak: ' + this.dailyChallengeStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Great done!');
+        }
+        else {
+          var newTotal = this.dailyChallengeTotal + 1;
+          this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": 1, "date": todaysDate, "total": newTotal });
+          this.toastr.success('Current streak: 1 ' + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+
+        }
+      }
+    }
+
+    var createNewStreak = () => {
+      this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": 1, "date": todaysDate, "total": 1 });
+      this.toastr.success('Current streak: 1 ' + '<br>' + 'Total daily challenges done: 1', 'Nicely done!');
+    }
+
+    this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+          if (key == "date") {
+            checkIfStreakIsValid(childData);
+          }
+          else if (key == "streak") {
+            if (childData == 0) {
+              createNewStreak();
+            }
+          }
+        });
+      });
+    /*
     //Increments streak and total and updates "date" to current date
     var d = new Date();
     var date = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
@@ -302,8 +367,7 @@ export class DailychallengeComponent implements OnInit {
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": newStreak });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "total": newTotal });
     this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "date": date });
-
-
+    */
   }
 
   nextExerciseInSequence() {
@@ -374,7 +438,7 @@ export class DailychallengeComponent implements OnInit {
       prevElement.style.height = '32px';
       prevElement.style.width = '32px';
       prevElement.style['font-size'] = '22px';
-      
+
       this.exerciseIndex -= 1;
     }
 
