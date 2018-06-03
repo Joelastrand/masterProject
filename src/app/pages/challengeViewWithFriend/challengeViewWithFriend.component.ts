@@ -248,6 +248,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
 
       var d = new Date();
+      var weekday = d.getDay();  
       var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
       var checkIfStreakIsValid = (dateLatestChallenge) => {
@@ -268,7 +269,12 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
         // The streak has terminated and a new streaks begin
         else {
-          createFriendStreak();
+          if (weekday == 0 || weekday == 6 ) {
+            //The streaks remains because the day is Sunday or Saturday. 
+          }
+          else {
+            createFriendStreak();
+          }
         }
       }
 
