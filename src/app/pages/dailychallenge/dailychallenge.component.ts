@@ -297,6 +297,10 @@ export class DailychallengeComponent implements OnInit {
     yesterdaysDate.setDate(yesterdaysDate.getDate() - 1);
     var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
 
+    var fridayDate = new Date();
+    fridayDate.setDate(fridayDate.getDate() - 3);
+    var friday = "" + fridayDate.getFullYear() + "-" + (fridayDate.getMonth() + 1) + "-" + (fridayDate.getDate());
+
     var d = new Date();
     var weekday = d.getDay();
     var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
@@ -322,6 +326,14 @@ export class DailychallengeComponent implements OnInit {
 
       }
 
+      else if (weekday == 1 && latestChallengeDate == friday) {
+        this.dailyChallengeStreak = this.dailyChallengeStreak + 1;
+        var newTotal = this.dailyChallengeTotal + 1;
+        this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": this.dailyChallengeStreak, "total": newTotal, "date": todaysDate });
+        this.toastr.success('Current streak: ' + this.dailyChallengeStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Nicely done!');
+        this.achievementChecker.checkDailyStatus(this.username, (this.dailyChallengeStreak));
+      }
+
       // The streak has terminated and a new streaks begin
       else {
         if (weekday == 0 || weekday == 6) {
@@ -329,6 +341,7 @@ export class DailychallengeComponent implements OnInit {
           var newTotal = this.dailyChallengeTotal;
           this.toastr.success('But because it is on the weekend you streak does not get any longer. Current streak: ' + this.dailyChallengeStreak + '<br>' + 'Total daily challenges done: ' + newTotal, 'Great done!');
         }
+
         else {
           var newTotal = this.dailyChallengeTotal + 1;
           this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": 1, "date": todaysDate, "total": newTotal });

@@ -237,7 +237,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
       this.db.object(`scores/${this.username}/challengeWithFriend/`).update({ [this.challengerName]: { "name": this.challengerName, "streak": 1, "date": date } });
       this.db.object(`scores/${this.challengerName}/challengeWithFriend/`).update({ [this.username]: { "name": this.username, "streak": 1, "date": date } });
-   }
+    }
 
     var updateUserAndFriendCurrentStreak = (streak) => {
 
@@ -247,29 +247,41 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       yesterdaysDate.setDate(yesterdaysDate.getDate() - 1);
       var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
 
+      var fridayDate = new Date();
+      fridayDate.setDate(fridayDate.getDate() - 3);
+      var friday = "" + fridayDate.getFullYear() + "-" + (fridayDate.getMonth() + 1) + "-" + (fridayDate.getDate());
+
       var d = new Date();
-      var weekday = d.getDay();  
+      var weekday = d.getDay();
       var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
 
-      var checkIfStreakIsValid = (dateLatestChallenge) => {
-  
+      var checkIfStreakIsValid = (latestChallengeDate) => {
+
         // The streak is valid and it contiune to grow
-        if (dateLatestChallenge == yesterdayDate ) {
-            this.userAndFriendCurrentStreak = streak + 1;
-      
-            this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak,"date": todaysDate  });
-            this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak,"date": todaysDate  });  
-                   
+        if (latestChallengeDate == yesterdayDate) {
+          this.userAndFriendCurrentStreak = streak + 1;
+
+          this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak, "date": todaysDate });
+          this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak, "date": todaysDate });
+
         }
 
         // If the players challenge each other more then once per day 
-        else if(dateLatestChallenge == todaysDate) {
-           // Nothing happen to the streak, it remains but don't grows. 
-        } 
+        else if (latestChallengeDate == todaysDate) {
+          // Nothing happen to the streak, it remains but don't grows. 
+        }
+
+        else if (weekday == 1 && latestChallengeDate == friday) {
+          this.userAndFriendCurrentStreak = streak + 1;
+
+          this.db.object(`scores/${this.username}/challengeWithFriend/${this.challengerName}`).update({ "streak": this.userAndFriendCurrentStreak, "date": todaysDate });
+          this.db.object(`scores/${this.challengerName}/challengeWithFriend/${this.username}`).update({ "streak": this.userAndFriendCurrentStreak, "date": todaysDate });
+        }
+
 
         // The streak has terminated and a new streaks begin
         else {
-          if (weekday == 0 || weekday == 6 ) {
+          if (weekday == 0 || weekday == 6) {
             //The streaks remains because the day is Sunday or Saturday. 
           }
           else {
