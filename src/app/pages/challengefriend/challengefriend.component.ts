@@ -146,7 +146,7 @@ export class ChallengefriendComponent implements OnInit {
 
       if (whichList == "/current" || whichList == "/outgoing" || whichList == "/incoming" ) {
         this.playerIsFind = true;
-        this.toastr.warning('You can only play 1 challenge at a time to the same player. The previous challenge against this player is going to be overwritten when he/she accepted the new challenge.', 'Challenge with a friend');
+        this.toastr.warning('You can only play 1 challenge at a time to the same player. The previous challenge against this player is going to be overwritten when he/she accepted the new challenge.', 'Challenge a friend');
         this.router.navigateByUrl('/challengeview');
       }
 
@@ -295,7 +295,7 @@ export class ChallengefriendComponent implements OnInit {
       */
 
     } else {
-      this.toastr.error('ehmm, you can not challenge yourself..Try again against a friend!', 'Challenge with a friend');
+      this.toastr.error('ehmm, you can not challenge yourself..Try again against a friend!', 'Challenge a friend');
       //console.log("Unsupported action");
     }
   }
