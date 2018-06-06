@@ -500,7 +500,9 @@ img {
 
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-
+        .mainSection {
+            min-height: 500px;
+        }
         
         .insideBox{ 
             flex: 5;

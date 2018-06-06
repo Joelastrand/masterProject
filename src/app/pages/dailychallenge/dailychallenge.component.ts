@@ -218,8 +218,6 @@ export class DailychallengeComponent implements OnInit {
     this.challengeFinished = true;
     this.updateDailyChallenge();
     this.getUserCurrentScore();
-    //this.showFinishChallengeDialog();
-    this.achievementChecker.checkPointStatus(this.username, this.usertotalScore, this.userCurrentScore);
     this.dealyedNagivation();
   }
 
@@ -228,16 +226,15 @@ export class DailychallengeComponent implements OnInit {
   getUserCurrentScore = () => {
 
     var updateUsersPoints = (currentScore) => {
-      this.userCurrentScore = currentScore;
-      this.userCurrentScore = this.userCurrentScore + 250;
+      this.userCurrentScore = currentScore + 250;
+      this.achievementChecker.checkPointStatus(this.username, 0, this.userCurrentScore);
       this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
     }
 
     var updateUsersTotalPoints = (currentTotal) => {
-      //this.userCurrentScore = currentScore;
-      //this.userCurrentScore = this.userCurrentScore + 250;
       let newTotal = currentTotal + 250;
       this.usertotalScore = newTotal;
+      this.achievementChecker.checkPointStatus(this.username, newTotal, 0);
       this.db.object(`scores/${this.username}/points`).update({ "totalScore": newTotal });
     }
 

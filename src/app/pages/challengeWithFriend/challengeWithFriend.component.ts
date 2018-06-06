@@ -29,7 +29,7 @@ export class ChallengeWithFriendComponent implements OnInit {
   numberOfChild: number = 0;
   currentUsername: string = "";
 
-
+  challengeDescription: string ="";
   challengeLocation: string = "";
   challengeDate: string = "";
   challengeTime: string = "";
