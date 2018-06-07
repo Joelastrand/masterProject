@@ -19,6 +19,7 @@ export class SetusernameComponent implements OnInit {
 	usernameAvailable: boolean = false;
 	noSpacesInUsername: boolean = false;
 	result: any;
+	usernameOverLengthLimit: boolean = false;
 	inputField = document.getElementById("username_field");
 
 	ngOnInit() {
@@ -27,6 +28,10 @@ export class SetusernameComponent implements OnInit {
 
 	goToHome() {
 		this.router.navigateByUrl('/home');
+	}
+
+	checkUsernameOverLengthLimit(username) {
+		this.usernameOverLengthLimit = (username.length > 10);
 	}
 
 	checkNoSpacesInUsername(username) {
@@ -42,6 +47,7 @@ export class SetusernameComponent implements OnInit {
 
 	async checkUsername() {
 		this.checkNoSpacesInUsername(this.user.username);
+		this.checkUsernameOverLengthLimit(this.user.username);
 		this.user.username = this.user.username.toLowerCase();
 		const res = await this.auth.checkUsername(this.user.username).subscribe(username => {
 			this.usernameAvailable = !username.$value
