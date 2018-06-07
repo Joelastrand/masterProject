@@ -49,7 +49,7 @@
             </div>
             <div class="infoBoxes">
               <div style="margin-top: 2%; margin-bottom: 2%;">
-                  <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Victories</h6>
+                <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Victories</h6>
               </div>
               <div *ngFor="let challenge of challengeFriendObservable | async" style="width: 100%; margin-top: 2%">
                 <div *ngIf="!(challenge.name == start)" style="display: flex; width: 100%;">
@@ -75,19 +75,17 @@
               <h4 style="margin:0; padding: 0; color: #3C3C3D;">Challenge With a Friend</h4>
             </div>
             <div class="infoBoxes">
-                <div style="margin-top: 2%; margin-bottom: 2%;">
-                    <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Streaks</h6>
-                </div>
-              <div *ngFor="let friend of challengeWithFriendObservable | async" style="width: 100%; margin-top: 2%">
-                <div *ngIf="!(friend.name == start)" style="display: flex; width: 100%;">
+              <div style="margin-top: 2%; margin-bottom: 2%;">
+                <h6 style="font-size: 1.5em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0; text-decoration: underline;">Streaks</h6>
+              </div>
+              <div *ngFor="let friend of challengeWithAFriendList" style="width: 100%; margin-top: 2%">
+                <div style="display: flex; width: 100%;">
                   <h6 style="text-align:left; flex: 3; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; margin-bottom: 2%; margin-left: 2%; padding: 0">{{friend.name}} </h6>
                   <h6 style="flex: 1; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{friend.streak}}</h6>
                 </div>
-
-                <div *ngIf="(challengeWithFriendListEmpty)">
-                  <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%">No streaks yet</h6>
-                </div>
-
+              </div>
+              <div *ngIf="(challengeWithFriendListEmpty)">
+                <h6 style="font-size: 1.2em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%">No streaks yet</h6>
               </div>
             </div>
           </div>
@@ -180,10 +178,10 @@
       <div class="pDialogBox">
         <h1 class="pDialogHeader">Daily Challenge</h1>
       </div>
-      <p class="pDialogText">250 points if you complete the challenge. When you complete a daily challenge, a streak starts.
-          The streak corresponds to how many days you have made a the daily challenge. To maintain the streak you need to complete one daily challenge per day. 
-          If you fail to make a daily challenge, the streak is lost. But because Officise is a job application, the streak can not be lost on Saturdays
-           and Sundays.</p>
+      <p class="pDialogText">250 points if you complete the challenge. When you complete a daily challenge, a streak starts. The streak corresponds
+        to how many days you have made a the daily challenge. To maintain the streak you need to complete one daily challenge
+        per day. If you fail to make a daily challenge, the streak is lost. But because Officise is a job application, the
+        streak can not be lost on Saturdays and Sundays.</p>
       <div class="gotItButton">
         <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationDailyChallenge()" label="Got it!"></button>
       </div>
@@ -209,10 +207,10 @@
       </div>
       <p class="pDialogText">If both players complete the challenge each player will receive 400, 300 or 200 points. The amount of points depending
         on which level the challenge is at. If only one complete the challenge the person who completes the challenge receives
-        200 points. When both users complete a challenge together, a streak starts. The streak corresponds to how many days you have made a challenge together.
-        In order to keep the streak, both players must complete a new challenge together within a day.
-        If you fail to make a challenge together, the streak is lost. But because Officise is a job application, the streak can not be lost on Saturdays
-         and Sundays.
+        200 points. When both users complete a challenge together, a streak starts. The streak corresponds to how many days
+        you have made a challenge together. In order to keep the streak, both players must complete a new challenge together
+        within a day. If you fail to make a challenge together, the streak is lost. But because Officise is a job application,
+        the streak can not be lost on Saturdays and Sundays.
       </p>
       <div class="gotItButton">
         <button type="button insideGotItButton" pButton icon="" (click)="toggleExplanationChallengeWithAFriendDialog()" label="Got it!"></button>

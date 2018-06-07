@@ -18,7 +18,7 @@ export class StatisticsComponent implements OnInit {
   dailyChallengeTotal: number = 0;
   dailyChallengeStreak: number = 0;
   challengeFriendObservable: Observable<any[]>;
-  challengeWithFriendObservable: Observable<any[]>;
+  challengeWithAFriendList = [];
   showExplanationChallengeWithAFriendDialog: boolean = false;
   showExplanationDailyChallenge: boolean = false;
   showExplanationChallengeAFriendDialog: boolean = false;
@@ -39,11 +39,12 @@ export class StatisticsComponent implements OnInit {
     this.getUserScore();
     this.getUserDailyChallenge();
     this.checkIfChallengeAFriendIsEmpty();
-    this.checkIfChallengeWithAFriendIsEmpty();
+
+    this.getUserChallengeWithAFriend();
     this.getListOfAchievements();
     this.updateCompletedAchievements();
+
     this.challengeFriendObservable = this.getUserChallengeFriendList('/scores/' + this.username + '/challengeFriend');
-    this.challengeWithFriendObservable = this.getUserChallengeWithFriendList('/scores/' + this.username + '/challengeWithFriend');
   }
 
   getOverlayStyle() {
@@ -75,20 +76,66 @@ export class StatisticsComponent implements OnInit {
       });
   }
 
+  getUserChallengeWithAFriend() {
 
-  checkIfChallengeWithAFriendIsEmpty() {
-    var setChallengeWithFriendListEmpty = () => {
-      this.challengeWithFriendListEmpty = true;
+    this.challengeWithFriendListEmpty = true;
+
+    var setChallengeWithAFriendListNotEmpty = () => {
+      this.challengeWithFriendListEmpty = false;
     }
 
-    this.db.database.ref("scores/" + this.username + "/challengeWithFriend").once("value")
-      .then(function (snapshot) {
-        let numberOfChild = snapshot.numChildren();
-        if (numberOfChild == 1) {
-          setChallengeWithFriendListEmpty();
-        }
+    var addFriendToList = (friendObject) => {
+      this.challengeWithAFriendList.push(friendObject);
+      setChallengeWithAFriendListNotEmpty();
+    };
+
+    let query = "scores/" + this.username + "/challengeWithFriend";
+    let currentList = "";
+    this.db.database.ref(query).on("value", (snapshot) => {
+      snapshot.forEach((snap) => {
+
+        // Saves the friends name and theirs streaks if and push it if they have valid streak
+        var key = snap.key;
+        var childData = snap.val();
+        var friendObject = { name: key, streak: childData["streak"] };
+
+        snap.forEach((childSnap) => {
+          var key = childSnap.key;
+          var childData = childSnap.val();
+
+          if (key == "date") {
+
+            //Need to check the challenge timestamp to see if it valid or not
+            var latestChallengeDate = childData;
+            var yesterdaysDate = new Date();
+            yesterdaysDate.setDate(yesterdaysDate.getDate() - 1);
+            var yesterdayDate = "" + yesterdaysDate.getFullYear() + "-" + (yesterdaysDate.getMonth() + 1) + "-" + (yesterdaysDate.getDate());
+
+            var fridayDate = new Date();
+            fridayDate.setDate(fridayDate.getDate() - 3);
+            var friday = "" + fridayDate.getFullYear() + "-" + (fridayDate.getMonth() + 1) + "-" + (fridayDate.getDate());
+
+            var d = new Date();
+            var weekday = d.getDay();
+            var todaysDate = "" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate());
+
+            // The streak is valid 
+            if (latestChallengeDate == yesterdayDate || latestChallengeDate == todaysDate) {
+              addFriendToList(friendObject);
+            }
+
+            // Checks if the it is on the weekend, the streaks can not be lost under weekend.
+            else if (weekday == 1 && latestChallengeDate == friday || weekday == 0 || weekday == 6) {
+              addFriendToList(friendObject);
+            }
+          }
+          return false;
+        });
+        return false;
       });
+    });
   }
+
 
   updateCompletedAchievements() {
     let query = "scores/" + this.username + "/achievements";
