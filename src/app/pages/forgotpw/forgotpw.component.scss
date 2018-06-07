@@ -1,8 +1,13 @@
 
 /*---------------------------General --------------------------------*/
+.makeSpaceToHeader{
+  height:5%;
+}
+
+
 
 .mainContent {
-  background: #EFEFEF;
+  //background: #EFEFEF;
   padding: 0px;
   min-height: 100%;
   margin: 0px;
@@ -96,8 +101,46 @@ input, button {
  
  
  /*---------------------------Large Desktop --------------------------------*/
+ @media only screen and (min-width: 1301px) {
+  .mainContent {
+    font-size: 1.3em;
+  }
+  input, button { 
+    font-size: 1.0em;
+  }
+  .headingDiv h4{
+    font-size: 1.1em;
+  }
+  .headingDiv h3{
+    font-size: 1.4em;
+  }
+  .main-div h4{
+    font-size: 0.9em;
+  }
+  .main-div h3{
+    margin-top: 5%;
+    font-size: 1.4em;
+  }
+  .main-div h2 {
+    font-size: 1.0em;
+  }
+  .main-div {
+    width: 50%;
+  }
+  .headingDiv {
+    width: 50%;
+  }
+  .secondary-div {
+    width: 50%;
+  }
+  }
 
-@media only screen and (min-width: 1001px) {
+
+  @media only screen and (max-width: 1300px) and (min-width: 1001px) {
+
+  .makeSpaceToHeader{
+    height:2%;
+  }
 
   .mainContent {
     font-size: 1.3em;

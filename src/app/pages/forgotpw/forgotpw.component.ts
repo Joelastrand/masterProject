@@ -26,7 +26,7 @@ export class ForgotpwComponent implements OnInit {
         this.errorMessage = "Please enter your email-address in the format yourname@example.com";
       break;
       default:
-        this.errorMessage = "There is no user registered with that email-address";
+        this.errorMessage = "Invalid email-address";
     }
   }
 
