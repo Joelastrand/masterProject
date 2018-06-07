@@ -148,7 +148,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     this.choiceSkipped = false;
     this.choiceCompleted = false;
     this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).update({ "challengeStatus": "" });
-    this.toastr.warning('You have reset your previous choice of the challenge!', 'Challenge With a Friend');
+    this.toastr.warning('You have reset your previous choice of the challenge', 'Challenge With a Friend');
 
   }
 
@@ -226,7 +226,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     var updateChallengeStatus = () => {
       this.db.object(`userChallengesWithFriend/${this.username}/current/${this.challengerName}`).update({ "challengeStatus": "completed" });
-      this.toastr.success('You have chosen that you completed the challenge!', 'Challenge With a Friend');
+      this.toastr.success('You have chosen that you have complete the challenge', 'Challenge With a Friend');
     }
 
     // If the user does not have this challenge we create the challenge and give the user one points.
@@ -370,7 +370,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
         this.db.object(`scores/${this.username}/points`).update({ "score": this.userCurrentScore });
         this.db.object(`scores/${this.username}/points`).update({ "totalScore": this.userTotalScore });
 
-        this.toastr.success('Excellent work! You and ' + this.challengerName + ' completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
+        this.toastr.success('Excellent work! You and ' + this.challengerName + ' have completed the challenge. Both of you get ' + challengePoints + ' points.', 'Challenge With a Friend');
         this.achievementChecker.checkPointStatus(this.username, this.userTotalScore, this.userCurrentScore);
       }
 
@@ -496,11 +496,11 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     }
 
     var sendCompletedMessageToFriend = () => {
-      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and " + this.username + " have both completed the challenge " + this.selectedChallenge });
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and friend have both completed the " + this.selectedChallenge + " challenge."});
     }
 
     var sendSkippedMessageToFriend = () => {
-        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Sadly you skipped the challenge " + this.selectedChallenge + ". But your friend " + this.username + " completed it." });
+        this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Sadly, you skipped the " + this.selectedChallenge + " challenge. But your friend has completed it." });
       }
 
     // Checks which choice the friend has chosen 
@@ -558,7 +558,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
       this.db.object(`scores/${this.challengerName}/points`).update({ "score": this.userCurrentScore });
       this.db.object(`scores/${this.challengerName}/points`).update({ "totalScore": this.opponentTotalScore });
 
-      this.toastr.success('Too bad that you passed the challenge. At least your friend gets 200 points for complete the challenge.', 'Challenge With a Friend');
+      this.toastr.success('Too bad that you skipped the challenge. At least your friend gets 200 points for completing the challenge.', 'Challenge With a Friend');
 
       this.achievementChecker.checkPointStatus(this.challengerName, this.opponentTotalScore, this.opponentCurrentScore);
     }
@@ -596,7 +596,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
 
     var bothSkippedTheChallenge = () => {
       this.toastr.success('Both you and your friend skipped the challenge. Maybe it was the not right challenge for you guys, try another challenge.', 'Challenge With a Friend');
-      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Both you and your friend " + this.username + " skipped the challenge " + this.selectedChallenge + ". Maybe it was the not right challenge for you guys, try another challenge." });
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Both you and your friend skipped the " + this.selectedChallenge + " challenge. Maybe it was the not right challenge for you guys, try another challenge." });
 
     }
 
@@ -614,7 +614,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     }
 
     var sendMessageToFriend = () => {
-      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Nice work to completed the challenge " + this.selectedChallenge + ". Sadly " + + this.username + " skipped the challenge. " });
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Challenge with a friend", "message": "Nice work in completing the " + this.selectedChallenge + " challenge. Sadly, your friend skipped the challenge." });
     }
 
     // Checks which choice the friend has chosen 

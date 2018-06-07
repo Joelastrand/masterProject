@@ -166,7 +166,7 @@ export class ChallengeviewComponent implements OnInit {
           }
         });
       });
-    this.toastr.warning('You have reset your previous choice of the challenge!', 'Challenge a Friend');
+    this.toastr.warning('You have reset your previous choice of the challenge', 'Challenge a Friend');
   }
 
   getChallengeStatus() {
@@ -302,13 +302,13 @@ export class ChallengeviewComponent implements OnInit {
     // User is player 1. 
     if (winner == 1 && challengeType == "won/lost") {
       this.db.object(`userChallenges/${username}/current/${challengerName}`).update({ "victoryStatus": "won" });
-      this.toastr.success('You have chosen to have won!', 'Challenge a friend');
+      this.toastr.success('You have chosen to have won the challenge', 'Challenge a friend');
     }
 
     // opponent is player 2. 
     else if (winner == 2 && challengeType == "won/lost") {
       this.db.object(`userChallenges/${username}/current/${challengerName}`).update({ "victoryStatus": "lost" });
-      this.toastr.success('You have chosen to have lost', 'Challenge a friend');
+      this.toastr.success('You have chosen to have lost the challenge', 'Challenge a friend');
     }
     else if (challengeType == "amount") {
       this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "amount": this.userAmount });
@@ -352,7 +352,7 @@ export class ChallengeviewComponent implements OnInit {
     this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
     this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
     this.toastr.error('Oh no!Both players have chosen the same option. Discuss who is the real winner and redo your selection. ', 'Challenge a friend');
-    this.db.object(`inbox/${this.challengerName}/resetChallenge${this.username}`).update({ "info": "Who is the winner?", "message": "Oh no!Both you and " + this.username +" have chosen the same option. Discuss who is the real winner in the challenge "+ this.selectedChallenge +" and redo your selection."});
+    this.db.object(`inbox/${this.challengerName}/resetChallenge${this.username}`).update({ "info": "Who is the winner?", "message": "Oh no!Both you and friend have chosen the same option. Discuss who is the real winner in the " + this.selectedChallenge + " challenge and redo your selection."});
   }
 
   // Reset variables, it is required to the html to get a undo button.
@@ -496,11 +496,11 @@ export class ChallengeviewComponent implements OnInit {
 
     if (winner == 1) {
       this.toastr.success('Congratulations to the victory! You got 200 points and plus one victory in the challenge ' + this.selectedChallenge, 'Challenge a friend');
-      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Defeat", "message": "You lost in " + this.selectedChallenge + " vs " + this.username });
+      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Defeat", "message": "You have lost in " + this.selectedChallenge});
     }
     else if (winner == 2) {
       this.toastr.success('You have unfortunately lost but gain 200 points for playing', 'Challenge a friend');
-      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Victory!", "message": "You won in " + this.selectedChallenge + " vs " + this.username });
+      this.db.object(`inbox/${this.challengerName}/challenge${this.username}`).update({ "info": "Victory!", "message": "You have won in " + this.selectedChallenge});
     }
     else if (winner == 3) {
       this.toastr.success('How exciting! It was a draw, both get 200 points but no one wins. ', 'Challenge a friend');
