@@ -289,7 +289,7 @@ export class ChallengeviewComponent implements OnInit {
   // If the player does not have the challenge it creates it and begin a victory collection.
   createChallenge(playerName, selectedChallenge) {
     this.db.object(`scores/${playerName}/challengeFriend/`).update({ [selectedChallenge]: { "name": selectedChallenge, "victories": 1 } });
-    this.checkVictoriesAchievements(selectedChallenge, playerName,1);
+    this.checkVictoriesAchievements(selectedChallenge, playerName, 1);
   }
 
   // Updates the function and which player who won the challenge
@@ -359,24 +359,24 @@ export class ChallengeviewComponent implements OnInit {
     this.userAmount = 0;
   }
 
-  checkVictoriesAchievements(selectedChallenge, playerName,victories) {
-    if(selectedChallenge == "Foosball") {
-      this.achievementChecker.checkFoosballStatus(playerName,victories); 
+  checkVictoriesAchievements(selectedChallenge, playerName, victories) {
+    if (selectedChallenge == "Foosball") {
+      this.achievementChecker.checkFoosballStatus(playerName, victories);
     }
   }
 
-  checkPointsAchievements(username, totPoints,currPoints) {
-      console.log("username:"+username+" totPoints:"+totPoints+" currPoints:"+currPoints);
-      this.achievementChecker.checkPointStatus(username,totPoints,currPoints); 
+  checkPointsAchievements(username, totPoints, currPoints) {
+    console.log("username:" + username + " totPoints:" + totPoints + " currPoints:" + currPoints);
+    this.achievementChecker.checkPointStatus(username, totPoints, currPoints);
   }
 
   // Updates the players current victory collection
   updatePlayerCurrentChallengeVictories(playerName, selectedChallenge, victories) {
-    this.playerCurrentVictories = victories + 1; 
+    this.playerCurrentVictories = victories + 1;
     this.db.object(`scores/${playerName}/challengeFriend/${selectedChallenge}`).update({ "victories": this.playerCurrentVictories });
-    
-    this.checkVictoriesAchievements(selectedChallenge, playerName,this.playerCurrentVictories);
-   
+
+    this.checkVictoriesAchievements(selectedChallenge, playerName, this.playerCurrentVictories);
+
     this.userCurrentVictories = 0;
   }
 
@@ -476,7 +476,7 @@ export class ChallengeviewComponent implements OnInit {
       this.userCurrentScore = this.userCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.userCurrentScore });
       this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
-      this.achievementChecker.checkPointStatus(playerName,newTot,this.userCurrentScore); 
+      this.achievementChecker.checkPointStatus(playerName, newTot, this.userCurrentScore);
 
     }
 
@@ -487,7 +487,7 @@ export class ChallengeviewComponent implements OnInit {
       this.opponentCurrentScore = this.opponentCurrentScore + amountOfPoints;
       this.db.object(`scores/${playerName}/points`).update({ "score": this.opponentCurrentScore });
       this.db.object(`scores/${playerName}/points`).update({ "totalScore": newTot });
-      this.achievementChecker.checkPointStatus(playerName,newTot,this.userCurrentScore); 
+      this.achievementChecker.checkPointStatus(playerName, newTot, this.userCurrentScore);
     }
 
     if (winner == 1) {
@@ -685,6 +685,8 @@ export class ChallengeviewComponent implements OnInit {
     var userLost = () => {
       //Need a variable to determine who player that gets extra points.
       var lost = 2;
+      this.achievementChecker.checkChallengeAFriend(this.username);
+      this.achievementChecker.checkChallengeAFriend(this.challengerName);
       this.getBothPlayersScore(this.username, this.challengerName, lost);
       this.getPlayersCurrentChallengeVictories(this.challengerName, this.selectedChallenge);
       this.resetVariables();
@@ -709,7 +711,7 @@ export class ChallengeviewComponent implements OnInit {
     var getWhichTypeChallengeIs = (challengeTypeFromFirebase) => {
       this.challengeType = challengeTypeFromFirebase;
     }
-
+ 
     this.db.database.ref("challenges/challengeFriend/" + this.selectedChallenge).once("value")
       .then(function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
@@ -733,6 +735,7 @@ export class ChallengeviewComponent implements OnInit {
             // If the user has choice that he/she won and the opponent has choice he/she lost we can
             // give points to the winner. 
             if (childData == "won") {
+
               userLost();
             }
 
@@ -759,6 +762,8 @@ export class ChallengeviewComponent implements OnInit {
     var userWon = () => {
       //Need variable to determine which player that gets extra points.
       var won = 1;
+      this.achievementChecker.checkChallengeAFriend(this.username);
+      this.achievementChecker.checkChallengeAFriend(this.challengerName);
       this.getBothPlayersScore(this.username, this.challengerName, won);
       this.getPlayersCurrentChallengeVictories(this.username, this.selectedChallenge);
       this.resetVariables();
