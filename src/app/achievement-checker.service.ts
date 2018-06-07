@@ -38,7 +38,7 @@ export class AchievementCheckerService {
 
 
   checkPointStatus(username, totPoints, currPoints) {
-    console.log(username + " " + totPoints + " " + currPoints);
+
     if (totPoints >= this.healthMasterCondition) {
       if (!this.checkAchievementCompletionStatus(username, "points")) {
         this.db.object(`scores/${username}/achievements`).update({ "points": true });

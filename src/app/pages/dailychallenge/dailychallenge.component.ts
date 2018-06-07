@@ -351,6 +351,7 @@ export class DailychallengeComponent implements OnInit {
     var createNewStreak = () => {
       this.db.object(`/scores/${this.username}/dailyChallenge`).update({ "streak": 1, "date": todaysDate, "total": 1 });
       this.toastr.success('Current streak: 1 ' + '<br>' + 'Total daily challenges done: 1', 'Nicely done!');
+      this.achievementChecker.checkDailyStatus(this.username, 1);
     }
 
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/").once("value")

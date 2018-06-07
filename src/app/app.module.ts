@@ -142,8 +142,10 @@ export const FIREBASE_CONFIG = {
     }),
     ToastrModule.forRoot({
       closeButton: true,
-      timeOut: 100000,
+      timeOut: 4000,
+      extendedTimeOut: 3000,
       positionClass: 'toast-center-center',
+      tapToDismiss: true,
       preventDuplicates: true,
       enableHtml: true,
     }),

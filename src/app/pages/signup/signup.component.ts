@@ -2,21 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from "../../models/user";
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 import { DialogModule } from 'primeng/dialog';
+import { AuthService } from "../../auth.service";
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  providers: [AuthService, AngularFireDatabase]
 })
 export class SignupComponent implements OnInit {
   retypedPassword = "";
   user = {} as User;
   errorMessage = "";
   display: boolean = false;
+  counter = 0;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, ) { }
+  constructor( public auth: AuthService, private toastr: ToastrService, private db: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router, ) { }
 
   ngOnInit() {
     // Make so the page starts on top. 
@@ -27,8 +31,13 @@ export class SignupComponent implements OnInit {
     this.display = true;
   }
 
-  goToSetusername() {
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async goToSetusername() {
     this.display = false;
+    //await this.sleep(400);
     this.router.navigateByUrl('/setusername');
   }
 
@@ -48,6 +57,23 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  async setUsername(email) {
+      var i = email.indexOf("@");
+      let uname = "";
+
+      if(i > 0) {
+        uname = email.slice(0,i);
+      } else {
+        uname = email;
+      }
+
+      const res = await this.auth.checkUsername(uname).subscribe(username => {
+        if(!username.$value) {
+          this.auth.updateUsername(uname);
+        } 
+      });
+  }
+
 
   async register(user: User) {
     // Format for testing that the password is not contain of any spaces.
@@ -61,7 +87,11 @@ export class SignupComponent implements OnInit {
       user.uid = result.uid;
       document.getElementById("errorMsg").style.color = "green";
       this.errorMessage = "Successfully created account with email " + result.email;
-      this.showDialog();
+      this.toastr.success('Successfully created account with email' + result.email, 'Account Created');
+      
+      //this.setUsername(result.email);
+      this.goToSetusername();
+     
     } catch (e) {
       if (e.message.indexOf(':') > -1) {
         document.getElementById("errorMsg").style.color = "red";
