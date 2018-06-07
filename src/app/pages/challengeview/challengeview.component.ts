@@ -231,13 +231,17 @@ export class ChallengeviewComponent implements OnInit {
     }
 
     var checkIfChallengeIsDone = (challengeType) => {
+
       this.db.database.ref("userChallenges/" + this.username + "/current/" + this.challengerName).once("value")
         .then(function (snapshot) {
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
+            console.log(challengeType);
+            console.log(key);
 
             if (key == challengeType) {
+              console.log("checkIfChallengeIsDone");
               setFinishChallenge(childData);
             }
           });
@@ -249,6 +253,7 @@ export class ChallengeviewComponent implements OnInit {
     }
 
     var setType = (challengeType) => {
+
       if (challengeType == "won/lost") {
         this.typeWonLost = true;
         this.typeAmount = false;
@@ -264,6 +269,8 @@ export class ChallengeviewComponent implements OnInit {
         this.typeTime = true;
         this.typeWonLost = false;
         this.typeAmount = false;
+        checkIfChallengeIsDone("amount");
+
       }
 
     };
@@ -507,7 +514,6 @@ export class ChallengeviewComponent implements OnInit {
   // Get both players score. Need to have variable winner so 
   // that players gets extra points. 
   getBothPlayersScore(username, challengerName, winner) {
-    console.log("getBothPlayersScore: "+ winner); 
     // User is marked as number 1
     var getUserScore = (tot, curr) => {
       var score = curr;
@@ -674,7 +680,6 @@ export class ChallengeviewComponent implements OnInit {
               // If both players hacve choose the same choice, we reset both options. 
               else {
                 // Sets the user amount 
-                console.log("setUserAmountAndSendBothPlayersAmount:"+childData);
                 setUserAmountAndSendBothPlayersAmount(childData);
               }
             }
