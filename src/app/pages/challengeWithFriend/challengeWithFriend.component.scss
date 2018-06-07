@@ -7,6 +7,11 @@
     display: flex;
     flex-direction: column;
 }
+.pDialogHeader{
+    margin: 0; 
+    color: #F6F6F6;
+    text-align: center;
+}
 
 #location:invalid {
     color: red;
@@ -38,6 +43,18 @@
     color:white; 
     width: 33%;
 }
+
+.scheduleButton{
+    border-radius: 5px;
+    padding: 4%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color:white; 
+    width: 35%;
+    height:15%;
+    padding: 0px;
+}
+
 
 .icons {
     width:28px;
@@ -129,7 +146,8 @@
     color: #fff;
     border: 1px solid #3e8e41;
     border-radius: 5px;
-    padding: 4%;
+    //padding: 4%;
+    height: 10%;
     margin-top: 2%;
     margin-bottom: 2%;
   }
@@ -243,9 +261,25 @@
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-        .mainSection {
-            min-height: 500px;
+
+        .sendChallengeButton {
+            height: 8%;
+          }
+
+        .scheduleButton{
+            width: 85px;
+            height:30px;
         }
+
+        .pDialogHeader{
+            font-size: 110%;
+        }
+
+
+        .changeChallengeInformationText {
+            font-size: 15px;
+        }
+
         .challengeInfoSection {
             flex: 2;
         }        
@@ -261,7 +295,8 @@
 
         .mainSection {
             font-size: 1.0em;
-            height: 100%;
+            min-height: 640px;
+            margin-bottom: 0%;
 
           }
           input, button { 

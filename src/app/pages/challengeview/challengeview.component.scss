@@ -344,7 +344,7 @@ img {
 }
 
     /*---------------------------Large Desktop --------------------------------*/
-    @media only screen and (min-width: 1001px) {
+    @media only screen and (min-width: 1401px) {
 
         .sectionChallengeInformation {
             margin-bottom:0%;  
@@ -409,13 +409,58 @@ img {
     @media only screen and (max-width: 1400px) and (min-width:1001px) {
         .rescheduleButton{
             width: 20%;
-            height:80%;
+            height:300%;
             font-size:60%;
             //margin:5%;
         }
 
         .sectionChallengeInformation {
             margin-bottom:5%;  
+        }
+        .RulesAndDescriptionText { 
+            flex:8;
+        }
+
+        img {
+            border-radius: 8px;
+            height: auto; 
+            width: auto; 
+            max-width: 100%; 
+            max-height: 100%;
+        }
+
+        .resultButtons{
+            font-size: 1.0em;
+            width:40%; 
+            height: 40%
+        }
+
+        .overViewArea {
+            max-height: 92%;
+            min-height: 92%;
+            width: 40%;
+        }
+
+        .flexArea {
+            margin-top: 2%;
+            margin-bottom: 3%;
+            width: 40%;
+        }
+        .mainSection {
+            font-size: 1.3em;
+            height: 100%;
+          }
+        .challengeBox h3{
+            font-size: 0.9em;
+        }
+        .challengeBoxHoverable h3{
+            font-size: 0.9em;
+        }
+          input, button { 
+            font-size: 1.0em;
+        }
+        .smallTitleDiv h4 {
+            font-size: 0.8em;
         }
     }
 
@@ -481,12 +526,15 @@ img {
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-        .pDialogHeader{
-            font-size: 140%;
+
+        .rescheduleButton{
+            width: 85px;
+            height:30px;
+            font-size:60%;
         }
 
-        .mainSection {
-            min-height: 500px;
+        .pDialogHeader{
+            font-size: 140%;
         }
 
         .changeChallengeInformationText {
@@ -499,13 +547,6 @@ img {
         .sectionChallengeInformation { 
             margin-bottom:0;  
         }
-
-        .rescheduleButton{
-            width: 20%;
-            height:100%;
-            font-size:60%;
-        }
-        
 
         .titleBox {
             height: 80px;
@@ -545,8 +586,9 @@ img {
         }
 
         .mainSection {
+            min-height: 500px;
             font-size: 1.0em;
-            margin-bottom: 10%;
+            margin-bottom: 0%;
           }
         .challengeViewBox {
             font-size: 1.0em;

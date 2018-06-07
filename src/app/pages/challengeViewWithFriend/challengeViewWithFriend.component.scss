@@ -360,7 +360,11 @@ img {
   }
 
     /*---------------------------Large Desktop --------------------------------*/
-    @media only screen and (min-width: 1001px) {
+    @media only screen and (min-width: 1401px) {
+
+         .sectionChallengeInformation {
+            margin-bottom:0%;  
+        }
 
         .rescheduleButton{
             width: 20%;
@@ -368,11 +372,6 @@ img {
             font-size:60%;
             //margin-top: 3%;
         }
-
-        .sectionChallengeInformation {
-            margin-bottom:0%;  
-        }
-
         .RulesAndDescriptionText { 
             flex:8;
         }
@@ -396,9 +395,10 @@ img {
             min-height: 92%;
             width: 40%;
         }
+
         .flexArea {
             margin-top: 2%;
-            margin-bottom: 5%;
+            margin-bottom: 3%;
             width: 40%;
         }
         .mainSection {
@@ -422,22 +422,62 @@ img {
     /*---------------------------Medium/Large Desktop --------------------------------*/
   
     @media only screen and (max-width: 1400px) and (min-width:1001px) {
+        .sectionChallengeInformation {
+            margin-bottom:0%;  
+        }
+
         .rescheduleButton{
             width: 20%;
-            height:100%;
+            height:40%;
             font-size:60%;
-            //margin:5%;
+            //margin-top: 3%;
+        }
+        .RulesAndDescriptionText { 
+            flex:8;
         }
 
-        .insideBox{ 
-            flex: 8;
+        img {
+            border-radius: 8px;
+            height: auto; 
+            width: auto; 
+            max-width: 100%; 
+            max-height: 100%;
         }
 
-        .sectionChallengeInformation {
-            margin-bottom:2%;  
+        .resultButtons{
+            font-size: 1.0em;
+            width:40%; 
+            height: 40%
+        }
+
+        .overViewArea {
+            max-height: 92%;
+            min-height: 92%;
+            width: 40%;
+        }
+
+        .flexArea {
+            margin-top: 2%;
+            margin-bottom: 3%;
+            width: 40%;
+        }
+        .mainSection {
+            font-size: 1.3em;
+            height: 100%;
+          }
+        .challengeBox h3{
+            font-size: 0.9em;
+        }
+        .challengeBoxHoverable h3{
+            font-size: 0.9em;
+        }
+          input, button { 
+            font-size: 1.0em;
+        }
+        .smallTitleDiv h4 {
+            font-size: 0.8em;
         }
     }
-  
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
 
@@ -500,9 +540,6 @@ img {
 
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-        .mainSection {
-            min-height: 500px;
-        }
         
         .insideBox{ 
             flex: 5;
@@ -524,10 +561,11 @@ img {
         }
 
         .rescheduleButton{
-            width: 20%;
-            height:100%;
+            width: 85px;
+            height:30px;
             font-size:60%;
         }
+
         
         .titleBox {
             height: 70px;
@@ -571,8 +609,9 @@ img {
 
         .mainSection {
             font-size: 1.0em;
-            height:100%;
-            margin-bottom: 10%;
+            //height:100%;
+            min-height: 640px;
+            margin-bottom: 0%;
           }
         .challengeViewBox {
             font-size: 1.0em;
