@@ -367,7 +367,6 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   checkPointsAchievements(username, totPoints, currPoints) {
-    console.log("username:" + username + " totPoints:" + totPoints + " currPoints:" + currPoints);
     this.achievementChecker.checkPointStatus(username, totPoints, currPoints);
   }
 
@@ -508,7 +507,7 @@ export class ChallengeviewComponent implements OnInit {
   // Get both players score. Need to have variable winner so 
   // that players gets extra points. 
   getBothPlayersScore(username, challengerName, winner) {
-
+    console.log("getBothPlayersScore: "+ winner); 
     // User is marked as number 1
     var getUserScore = (tot, curr) => {
       var score = curr;
@@ -576,6 +575,8 @@ export class ChallengeviewComponent implements OnInit {
   }
 
   comparisonPlayersAmounts(usersAmount, opponentAmount) {
+    usersAmount = Number(usersAmount);  
+    opponentAmount = Number(opponentAmount);  
 
     // User won 
     if (usersAmount > opponentAmount) {
@@ -594,6 +595,7 @@ export class ChallengeviewComponent implements OnInit {
       var lost = 2;
       this.getBothPlayersScore(this.username, this.challengerName, lost);
       this.getPlayersCurrentChallengeVictories(this.challengerName, this.selectedChallenge);
+
       this.resetVariables();
       //this.setFinishChallenge("amountChallenge");
       this.deleteCurrentChallenge(this.username, this.challengerName);
@@ -615,7 +617,7 @@ export class ChallengeviewComponent implements OnInit {
 
   sendAmount() {
     //this.finishChallenge = true;
-
+    //this.resetVariables();
     //Check so the user only uses numeric and not letters. 
     if (isNaN(this.userAmount)) {
       this.toastr.error('Wrong input, please enter only numbers! ', 'Submit');
@@ -672,6 +674,7 @@ export class ChallengeviewComponent implements OnInit {
               // If both players hacve choose the same choice, we reset both options. 
               else {
                 // Sets the user amount 
+                console.log("setUserAmountAndSendBothPlayersAmount:"+childData);
                 setUserAmountAndSendBothPlayersAmount(childData);
               }
             }
