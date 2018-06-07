@@ -154,7 +154,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/*randomNumber == count */ String(key) == "Exercise Sequence") {
+          if (randomNumber == count /* String(key) == "Exercise Sequence"*/) {
             setName(key);
             setChallengeParams(childData);
           }

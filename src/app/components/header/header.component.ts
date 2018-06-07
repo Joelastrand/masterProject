@@ -95,12 +95,18 @@ export class HeaderComponent implements OnInit {
 
    //Updates the user's challenge overview in realtime, could perhaps be more elegant...
    getUserChallengeAFriend() {
-    var addIncomingToList = (challenge) => { this.ListOfIncomingChallengeAFriend.push(challenge) };
+    var addIncomingToList = (challenge) => {
+      this.ListOfIncomingChallengeAFriend.push(challenge); 
+    };
+    var resetChallengeCounter = () => {
+      this.challengeCounterChallengeAFriend = 0;
+      this.ListOfIncomingChallengeAFriend = [];
+    };
 
     let query = "userChallenges/" + this.username;
     let currentList = "";
     this.db.database.ref(query).on("value", (snapshot) => {
-      this.ListOfIncomingChallengeAFriend = [];
+      resetChallengeCounter();
       snapshot.forEach((snap) => {
         snap.forEach((childSnap) => {
           var key = childSnap.key;
@@ -154,14 +160,23 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserChallengeWithAFriend() {
-    var addIncomingToList = (challenge) => { this.ListOfIncomingChallengeWithAFriend.push(challenge) };
+    var addIncomingToList = (challenge) => { 
+      this.ListOfIncomingChallengeWithAFriend.push(challenge) 
+    };
+
+    var resetChallengeCounter = () => {
+      this.challengeCounterChallengeWithAFriend = 0;
+      this.ListOfIncomingChallengeWithAFriend = [];
+    };
 
     let query = "userChallengesWithFriend/" + this.username;
-    let currentList = "";
+    let currentList = "";   
+
     this.db.database.ref(query).on("value", (snapshot) => {
-      this.ListOfIncomingChallengeWithAFriend = [];
+      resetChallengeCounter();
       snapshot.forEach((snap) => {
         snap.forEach((childSnap) => {
+          
           var key = childSnap.key;
           var childData = childSnap.val();
           var challengeObject = { challenger: key, challenge: childData["challenge"] };
@@ -173,6 +188,8 @@ export class HeaderComponent implements OnInit {
         });
         return false;
       });
+    }, function(error){
+      console.log(error);
     });
   }
 }
