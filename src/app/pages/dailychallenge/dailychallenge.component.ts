@@ -154,7 +154,7 @@ export class DailychallengeComponent implements OnInit {
         snapshot.forEach(function (childSnapshot) {
           var key = childSnapshot.key;
           var childData = childSnapshot.val();
-          if (/*randomNumber == count*/ String(key) == "Exercise Sequence") {
+          if (randomNumber == count /*String(key) == "Exercise Sequence") */) {
             setName(key);
             setChallengeParams(childData);
           }
@@ -181,7 +181,7 @@ export class DailychallengeComponent implements OnInit {
     //Checks if daily challenge has been made today
     this.db.database.ref("scores/" + this.username + "/dailyChallenge/date").once("value")
       .then(function (snapshot) {
-        if (new Date(snapshot.val()).getTime() != new Date(date).getTime() + 1) { //ADD PLUS ONE WHEN TESTING
+        if (new Date(snapshot.val()).getTime() != new Date(date).getTime()) { //ADD PLUS ONE WHEN TESTING
           challengeNotDoneToday();
         } else {
           challengeDoneToday();
