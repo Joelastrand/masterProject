@@ -496,7 +496,7 @@ export class ChallengeViewWithFriendComponent implements OnInit {
     }
 
     var sendCompletedMessageToFriend = () => {
-      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and friend have both completed the " + this.selectedChallenge + " challenge."});
+      this.db.object(`inbox/${this.challengerName}/challengeWith${this.username}`).update({ "info": "Succes", "message": "Nice work! You and your friend have both completed the " + this.selectedChallenge + " challenge."});
     }
 
     var sendSkippedMessageToFriend = () => {
