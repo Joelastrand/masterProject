@@ -1,3 +1,12 @@
+.exerciseImages{
+    transform: rotate(90deg); 
+    height: 150px
+}
+
+.makeSpace{
+    margin:0%
+}
+
 .mainSection {
     flex-flow: column;
     align-items: center;
@@ -317,10 +326,39 @@
     }
 
 
- 
 
     /*---------------------------Large Desktop --------------------------------*/
-    @media only screen and (min-width: 1001px) {
+    @media only screen and (min-width: 1401px) {
+
+        .makeSpace{
+            margin:5%
+        }
+
+        .exerciseImages{
+            height: 200px
+        }
+
+        .flexArea {
+            margin-top: 2%;
+            margin-bottom: 2%;
+            width: 40%;
+        }
+
+        .mainSection {
+            font-size: 1.3em;
+          }
+          input, button { 
+            font-size: 1.0em;
+          }
+    }
+
+    /*---------------------------Large-medium Desktop --------------------------------*/
+    @media only screen and (max-width: 1400px) and (min-width:1001px) {
+
+        .exerciseImages{
+            height: 120px
+        }
+
         .flexArea {
             margin-top: 2%;
             margin-bottom: 2%;
@@ -334,7 +372,7 @@
             font-size: 1.0em;
           }
     }
-  
+
     /*---------------------------Medium Desktop --------------------------------*/
   @media only screen and (max-width: 1000px) and (min-width:501px) {
         .flexArea {

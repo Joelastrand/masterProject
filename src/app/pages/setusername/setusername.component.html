@@ -6,7 +6,7 @@
   </div>
   <div id="setusername_div" class="main-div">
     <h2>Username...</h2>
-    <input style="margin-bottom: 1.4%; text-transform: lowercase" type="text" placeholder="Username..." id="username_field" [(ngModel)]="user.username"
+    <input style="margin-bottom: 1.4%; text-transform: lowercase" type="text" maxlength="10" placeholder="Username..." id="username_field" [(ngModel)]="user.username"
       (keyup)="checkUsername()" />
     <p class="username_available" *ngIf="usernameAvailable && user.username && !noSpacesInUsername && !usernameOverLengthLimit">
       {{user.username}} is available

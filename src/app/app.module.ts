@@ -138,7 +138,6 @@ export const FIREBASE_CONFIG = {
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
-      title: "hej"
     }),
     ToastrModule.forRoot({
       closeButton: true,
