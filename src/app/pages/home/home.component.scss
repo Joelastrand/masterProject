@@ -193,18 +193,22 @@
     
     /*---------------------------Mobile Desktop --------------------------------*/
     @media only screen and (max-width: 500px) {
-        .cardSectionSmall{
-          width:100%;
-        }
+      .card{
+        min-height: 150px;
+      }
+      .cardSectionSmall{
+        width:100%;
+      }
 
-        .cardh1{
-            font-size:0.7em;
-            color: #F6F6F6;
-          }
-          .cardp{
-            font-size:0.5em;
-            color:  #F6F6F6;
-          }       
+      .cardh1{
+        font-size:0.7em;
+        color: #F6F6F6;
+      }
+
+      .cardp{
+        font-size:0.5em;
+        color:  #F6F6F6;
+      }       
 
           /*
           .introText {

@@ -347,7 +347,8 @@ export class ChallengeviewComponent implements OnInit {
   resetChallengeStatus(username, challengerName) {
     this.db.object(`userChallenges/${this.challengerName}/current/${this.username}`).update({ "victoryStatus": "" });
     this.db.object(`userChallenges/${this.username}/current/${this.challengerName}`).update({ "victoryStatus": "" });
-    this.toastr.error('Oh no!Both players have chosen that you have won. Discuss the real winner and redo your selection. ', 'Challenge a friend');
+    this.toastr.error('Oh no!Both players have chosen the same option. Discuss who is the real winner and redo your selection. ', 'Challenge a friend');
+    this.db.object(`inbox/${this.challengerName}/resetChallenge${this.username}`).update({ "info": "Who is the winner?", "message": "Oh no!Both you and " + this.username +" have chosen the same option. Discuss who is the real winner in the challenge "+ this.selectedChallenge +" and redo your selection."});
   }
 
   // Reset variables, it is required to the html to get a undo button.
