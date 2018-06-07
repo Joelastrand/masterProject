@@ -237,11 +237,8 @@ export class ChallengeviewComponent implements OnInit {
           snapshot.forEach(function (childSnapshot) {
             var key = childSnapshot.key;
             var childData = childSnapshot.val();
-            console.log(challengeType);
-            console.log(key);
 
             if (key == challengeType) {
-              console.log("checkIfChallengeIsDone");
               setFinishChallenge(childData);
             }
           });
