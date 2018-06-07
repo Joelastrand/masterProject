@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class HealthInformationComponent implements OnInit {
 
+  printUsername=null;
+
+  
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -21,6 +24,16 @@ export class HealthInformationComponent implements OnInit {
 
   goToLogIn() {
     this.router.navigateByUrl('/login');
+  }
+
+  
+  isLoggedOut() {
+    this.printUsername = localStorage.getItem("localuserName");
+    if (this.printUsername == null) {
+      return true;
+    }
+    else
+    return false;
   }
 
 }
