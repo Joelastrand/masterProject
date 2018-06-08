@@ -56,11 +56,9 @@
                   <h6 style="text-align:left; flex: 3; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; margin-bottom: 2%; margin-left: 2%; padding: 0">{{challenge.name}}</h6>
                   <h6 style="flex: 1; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{challenge.victories}}</h6>
                 </div>
-
                 <div *ngIf="(challengeFriendListEmpty)">
-                  <h6 style="font-size: 1.6em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%">No victories yet</h6>
+                  <h6 style="font-size: 1.2em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%">No victories yet</h6>
                 </div>
-
               </div>
             </div>
           </div>
@@ -84,8 +82,8 @@
                   <h6 style="flex: 1; font-size: 1.3em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 0">{{friend.streak}}</h6>
                 </div>
               </div>
-              <div *ngIf="(challengeWithFriendListEmpty)">
-                <h6 style="font-size: 1.2em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%">No streaks yet</h6>
+              <div *ngIf="(challengeWithFriendListEmpty)"style="width:100%;margin-top: 2%">
+                <h6 style="font-size: 1.2em; color: #57A6BA; font-weight: 100; line-height: 1; margin: 0; padding: 4%;">No streaks yet</h6>
               </div>
             </div>
           </div>

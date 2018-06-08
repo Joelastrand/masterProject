@@ -209,8 +209,8 @@ export class DailychallengeComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async dealyedNagivation() {
-    await this.sleep(500);
+  dealyedNagivation() {
+    //await this.sleep(500);
     this.router.navigateByUrl('');
   }
 
